@@ -1,3 +1,8 @@
+.Filters {
+    display: flex;
+    justify-content: space-around;
+}
+
 .SearchBar {
     display: flex;
     flex-direction: column;
@@ -34,46 +39,4 @@
     margin: 5px;
     height: 30px;
     width: 80vw;
-}
-
-.filters {
-    display: flex;
-    justify-content: space-around;
-    width: 80vw;
-    margin: 5px;
-}
-
-.filters p {
-    margin: 5px;
-    font-size: 20px;
-}
-
-.whiteCircle {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: white;
-    box-shadow: rgb(0, 0, 0, 0.5) 0px 0px 4px 2px;
-}
-
-.someAll {
-    width: 160px;
-    padding: 3px 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: white;
-    background-color: rgba(226, 122, 112);
-    border-radius: 30px;
-    box-shadow: rgb(0, 0, 0, 0.5) inset 0px 0px 10px 1px;
-}
-
-.optionAvancees {
-    background-color: white;
-    color: rgba(226, 122, 112);
-    border: 3px solid rgba(226, 122, 112);
-    border-radius: 30px;
-    padding: 8px 15px;
-    box-shadow: rgb(0, 0, 0, 0.3) 0px 3px 3px 1px;
-    font-size: inherit;
 }
