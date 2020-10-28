@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import DataBase from './DataBase';
+import axios from 'axios';
 
 const arbre = [
   {
@@ -105,8 +106,18 @@ const Title=styled.h3`
 class Library extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { all: false, filter: false };
+    this.state = { all: false, filter: false , vegetals: [] };
+    this.getData = this.getData.bind(this);
   }
+
+  componentDidMount(){
+    this.getData()
+  }
+
+  getData(){
+  axios.get('https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_collection-vegetale-nantes&q=&facet=famille&facet=genre&facet=nom_du_site&facet=espece&facet=photo1&exclude.espece=+&exclude.famille=+&exclude.nom_du_site=+&exclude.genre=+&exclude.photo1=+')
+    .then((res) => this.setState({vegetals : res.data}))
+  };
 
   render() {
     return (
