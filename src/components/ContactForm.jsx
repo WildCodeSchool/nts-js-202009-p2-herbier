@@ -1,18 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
+import mainContact from './logos/main-contact.svg';
 
 const Title = styled.div`
-  font-size: 36px;
   background-color: #69c5b2;
   color: white;
   text-align: center;
-  padding: 20px 70px;
+  padding-top: 10px;
   width: 380px;
   border-radius: 5px;
   margin: auto;
+  display: flex;
+
+  h1 {
+    margin-left: 20px;
+  }
 `;
 
-const Logo = styled.img `
+const Logo = styled.img`
+  padding: 0 25px;
+  padding-bottom: 10px;
 `;
 
 const Form = styled.form`
@@ -54,40 +61,39 @@ const Field = styled.div`
 `;
 
 const Button = styled.button`
-    align-self: center;
-    transform: translate(114px);
-    padding: 10px 30px;
-    background-color: #69c5b2;
-    color: white;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    border: none;
-    border-radius: 5px;
-    font-size: 24px;
-    margin-top: 25px;
+  align-self: center;
+  transform: translate(114px);
+  padding: 10px 30px;
+  background-color: #69c5b2;
+  color: white;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border: none;
+  border-radius: 5px;
+  font-size: 24px;
+  margin-top: 25px;
 
-    :active {
-      background-color: white;
-      color:#69c5b2;
-      border: solid 2px;
-    }
+  :active {
+    background-color: white;
+    color: #69c5b2;
+    border: solid 2px;
   }
 `;
 
 function ContactForm() {
   const sendMessage = (event) => {
-    alert('Votre message a été envoyé');
+    alert('Votre message a été envoyé'); // eslint-disable-line
     event.preventDefault();
   };
   return (
     <div>
       <Title>
-        Nous contacter
-        <Logo src="logos/main-contact.svg" alt="logo"/>
+        <h1>Nous contacter</h1>
+        <Logo src={mainContact} alt="nous contacter" />
       </Title>
       <Form>
         <Field>
           <label>
-            <input type="text" placeholder="Votre nom / prenom" />
+            <input type="text" placeholder="Nom / prenom" />
           </label>
           <label>
             <input type="text" placeholder="JaneDoe@gmail.com" />
@@ -104,9 +110,7 @@ function ContactForm() {
           </label>
         </Field>
         <Button onClick={sendMessage} type="button">
-          {' '}
           Envoyer
-          {' '}
         </Button>
       </Form>
     </div>
