@@ -14,7 +14,7 @@ class DataBase extends React.Component {
   render() {
     return(
       <div className='DataBase'>
-        <Thumbnail className={this.state.scanned? "have":"notHave"} src={this.props.image} alt={this.props.name}/>
+        <Thumbnail className={ this.state.scanned ? "have" : "notHave" } src={this.props.image} alt={this.props.name}/>
       </div>
    );
  }
