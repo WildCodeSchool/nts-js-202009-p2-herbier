@@ -30,6 +30,7 @@ const MenuIcon = styled.button`
   height: 1.5rem;
   background: transparent;
   border: none;
+  outline: none;
 
   div {
     width: 1.5rem;
