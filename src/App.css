@@ -1,5 +1,5 @@
-.app{
-    display:flex;
-    flex-direction:column;
-    justify-items:center;
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
 }

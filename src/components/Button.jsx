@@ -17,6 +17,7 @@ const ButtonDel = styled.button`
     color: #69c5b2;
   }
   font-size: 1rem;
+  font-weight: bold;
   margin: 0 2rem;
   min-width: 50px;
   box-shadow: 2px 2px 2px grey;
@@ -44,6 +45,7 @@ const ButtonAdd = styled.button`
     color: #69c5b2;
   }
   font-size: 1rem;
+  font-weight: bold;
   min-width: 50px;
   box-shadow: 2px 2px 2px grey;
   &:active {
@@ -57,7 +59,7 @@ const ButtonAdd = styled.button`
 const Buttons = styled.div`
   margin-bottom: 2rem;
   height: 100px;
-  width: 300px;
+  width: 330px;
   display: flex;
 `;
 

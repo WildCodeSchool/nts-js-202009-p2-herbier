@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <HeaderMobile />
-      <HomePage />
+      <ScanPage />
     </div>
   );
 }
