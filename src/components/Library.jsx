@@ -63,7 +63,9 @@ const ButtonAllSome = styled.div`
   justify-content: space-between;
   align-items: center;
   color: white;
-  background-color: rgba(${({all}) => all? '156, 214, 155': '226, 122, 112'});
+  background-color: rgba(
+    ${({ all }) => (all ? '156, 214, 155' : '226, 122, 112')}
+  );
   border-radius: 30px;
   box-shadow: rgb(0, 0, 0, 0.5) inset 0px 0px 10px 1px;
 `;
@@ -72,18 +74,17 @@ const WhiteCircle = styled.div`
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color:white;
-  transform: translate(${({all}) => all ? '-130px' : '0px' });
+  background-color: white;
+  transform: translate(${({ all }) => (all ? '-130px' : '0px')});
   box-shadow: rgb(0, 0, 0, 0.5) 0px 0px 4px 2px;
   transition: all 0.3s ease-in-out;
-
 `;
 
 const TextInButton = styled.p`
-  padding-left: ${({all})=> all?"40px":"10px"};
+  padding-left: ${({ all }) => (all ? '40px' : '10px')};
 `;
 
-const FilterAdvenced =styled.button`
+const FilterAdvenced = styled.button`
   background-color: white;
   color: rgba(226, 122, 112);
   border: 3px solid rgba(226, 122, 112);
@@ -93,42 +94,48 @@ const FilterAdvenced =styled.button`
   font-size: inherit;
 `;
 
-const ContainerFiltre =styled.div`
+const ContainerFiltre = styled.div`
   margin-top: 15px;
   display: flex;
   justify-content: space-around;
 `;
 
-const Title=styled.h3`
+const Title = styled.h3`
   margin-left: 1.3em;
 `;
 
 class Library extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { all: false, filter: false , vegetals: [] };
+    this.state = { all: false, filter: false, vegetals: [] };
     this.getData = this.getData.bind(this);
   }
 
-  componentDidMount(){
-    this.getData()
+  componentDidMount() {
+    this.getData();
   }
 
-  getData(){
-  axios.get('https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_collection-vegetale-nantes&q=&facet=famille&facet=genre&facet=nom_du_site&facet=espece&facet=photo1&exclude.espece=+&exclude.famille=+&exclude.nom_du_site=+&exclude.genre=+&exclude.photo1=+')
-    .then((res) => this.setState({vegetals : res.data}))
-  };
+  getData() {
+    axios
+      .get(
+        'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_collection-vegetale-nantes&q=&facet=famille&facet=genre&facet=nom_du_site&facet=espece&facet=photo1&exclude.espece=+&exclude.famille=+&exclude.nom_du_site=+&exclude.genre=+&exclude.photo1=+'
+      )
+      .then((res) => this.setState({ vegetals: res.data }));
+  }
 
   render() {
     return (
       <div className="Library">
         <ContainerFiltre>
-          <ButtonAllSome all={this.state.all}
-            onClick={()=>{
-              this.setState({all: !this.state.all });
+          <ButtonAllSome
+            all={this.state.all}
+            onClick={() => {
+              this.setState({ all: !this.state.all });
             }}
           >
-            <TextInButton all={this.state.all} >{this.state.all ? 'Toutes' : 'Ma collection'}</TextInButton>
+            <TextInButton all={this.state.all}>
+              {this.state.all ? 'Toutes' : 'Ma collection'}
+            </TextInButton>
             <WhiteCircle all={this.state.all} />
           </ButtonAllSome>
           <FilterAdvenced
@@ -148,8 +155,8 @@ class Library extends React.Component {
           ))}
         </Collection>
       </div>
-    )
+    );
   }
-};
+}
 
 export default Library;

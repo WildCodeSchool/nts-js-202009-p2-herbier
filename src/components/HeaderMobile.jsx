@@ -58,6 +58,7 @@ const Wrapper = styled.header`
   background: #8fae44;
   width: 100vw;
   height: 3rem;
+  position: fixed;
 `;
 
 const Scan = styled.div`
