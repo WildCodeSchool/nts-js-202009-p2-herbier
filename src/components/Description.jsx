@@ -11,7 +11,7 @@ const Illustration = styled.img`
   height: 150px;
   width: 95%;
   border-radius: 5px;
-  margin-top:2rem;
+  margin-top: 2rem;
 `;
 
 const PlantCard = styled.div`
