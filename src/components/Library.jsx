@@ -1,4 +1,5 @@
 import React from 'react';
+import SearchBar from './SearchBar';
 import styled from 'styled-components';
 import axios from 'axios';
 import DataBase from './DataBase';
@@ -108,6 +109,7 @@ class Library extends React.Component {
   render() {
     return (
       <div className="Library">
+        <SearchBar />
         <ContainerFiltre>
           <ButtonAllSome all={this.state.all}
             onClick={()=>{
