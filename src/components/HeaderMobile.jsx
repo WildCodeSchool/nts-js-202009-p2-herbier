@@ -101,6 +101,7 @@ const MenuLinks = styled.nav`
   li {
     margin-bottom: 1rem;
     margin-right: 0.5rem;
+    font-family: 'Roboto';
   }
 
   a {
@@ -118,7 +119,7 @@ const MenuLinks = styled.nav`
 
 const Box = styled.div`
   margin-bottom: 4rem;
-`
+`;
 
 const HeaderMobile = () => {
   const [nav, showNav] = useState(false);
