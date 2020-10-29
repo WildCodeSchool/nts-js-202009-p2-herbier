@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Vignette = styled.img`
+const Thumbnail = styled.img`
   width: 100px;
   height: 100px;
 `;
