@@ -1,12 +1,11 @@
 import React from 'react';
-import SearchBar from './components/SearchBar';
-import Library from './components/Library';
+import './App.css';
+import HeaderMobile from './components/HeaderMobile';
 
 function App() {
   return (
     <div className="App">
-      <SearchBar />
-      <Library />
+      <HeaderMobile />
     </div>
   );
 }
