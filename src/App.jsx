@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
+import HomePage from './components/HomePage';
 import styled from 'styled-components'
-import ScanPage from './components/ScanPage.jsx'
 import HeaderMobile from './components/HeaderMobile';
 
 function App() {
   return (
     <div className="App">
       <HeaderMobile />
-      <ScanPage />
+      <HomePage />
     </div>
   );
 }
