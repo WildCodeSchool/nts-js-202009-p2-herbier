@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import DataBase from './DataBase';
 import axios from 'axios';
 
-const arbre = [
+const tree = [
   {
     name: 'aesculus',
     image:
@@ -143,7 +143,7 @@ class Library extends React.Component {
         </ContainerFiltre>
         <Title>Votre collection : 0 / 15</Title>
         <Collection className="collection">
-          {arbre.map((item) => (
+          {tree.map((item) => (
             <DataBase name={item.name} image={item.image} have={item.have} />
           ))}
         </Collection>
