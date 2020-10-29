@@ -3,7 +3,7 @@ import MainButton from './MainButton';
 import './logos/qrcode.svg';
 import './logos/main-herbier.svg';
 import './logos/main-decouverte.svg';
-dazdazdzad
+
 function HomePage() {
   return (
     <div className="HomePage">
