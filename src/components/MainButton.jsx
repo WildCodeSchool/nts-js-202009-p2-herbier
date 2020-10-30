@@ -6,13 +6,6 @@ import mainHerbier from './logos/main-herbier.svg';
 import mainDecouverte from './logos/main-decouverte.svg';
 import mainBackground from './pictures/main.png';
 
-/*
-@font-face {
-    font-family: "Roboto";
-    src: url("fonts/Roboto-Bold.ttf")
-}
-*/
-
 const Main = styled.section`
   display: flex;
   background-color: ${({ color }) => color};
@@ -26,10 +19,9 @@ const Main = styled.section`
   background-image: url(${({ background }) => background});
   background-position: center;
   background-size: cover;
-
   :active {
     transform: translate(0px, 2px);
-    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 0px 0px;
   }
 `;
 
