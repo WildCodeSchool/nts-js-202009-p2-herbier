@@ -103,7 +103,10 @@ class Library extends React.Component {
 
   getData(){
   axios.get('https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_collection-vegetale-nantes&q=&rows=3923&facet=famille&facet=genre&facet=nom_du_site&facet=espece')
-    .then((res) => this.setState({vegetals : res.data.records}))
+    .then((res) => {
+      console.log(res.data)
+      return this.setState({vegetals : res.data.records})
+  })
   };
 
   render() {
