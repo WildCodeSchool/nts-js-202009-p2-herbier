@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import DataBase from './DataBase';
+import SearchBar from './SearchBar'
 
 const tree = [
   {
@@ -126,6 +127,7 @@ class Library extends React.Component {
   render() {
     return (
       <div className="Library">
+        <SearchBar />
         <ContainerFiltre>
           <ButtonAllSome
             all={this.state.all}

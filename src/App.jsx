@@ -5,11 +5,12 @@ import styled from 'styled-components';
 import HeaderMobile from './components/HeaderMobile';
 import ScanPage from './components/ScanPage';
 import Library from './components/Library'
+import ContactForm from './components/ContactForm'
 function App() {
   return (
     <div className="App">
       <HeaderMobile />
-      <Library />
+      <ContactForm />
     </div>
   );
 }
