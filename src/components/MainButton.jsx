@@ -26,13 +26,14 @@ const Main = styled.section`
 `;
 
 const Logo = styled.img`
-  height: 81px;
+  height: 70px;
+  width: 70px;
 `;
 
 const Title = styled.h1`
   color: white;
-  font-size: 36px;
-  font-family: 'Roboto';
+  font-size: 32px;
+  font-family: 'Roboto', sans-serif;
   text-shadow: ${({ textShadow }) => textShadow};
 `;
 

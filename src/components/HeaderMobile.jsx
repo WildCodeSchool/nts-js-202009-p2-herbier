@@ -26,23 +26,23 @@ const MenuIcon = styled.button`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 2rem;
+  height: 2rem;
   background: transparent;
   border: none;
   outline: none;
 
   div {
-    width: 1.5rem;
+    width: 2rem;
     height: 0.2rem;
     background: white;
-    border-radius: 10px;
-    transform-origin: 1px;
+    border-radius:10px;
+    transform-origin: 1.4px;
     position: relative;
     transition: opacity 150ms, transform 200ms;
 
     :first-child {
-      transform: ${({ nav }) => (nav ? 'rotate(44deg)' : 'rotate(0)')};
+      transform: ${({ nav }) => (nav ? 'rotate(45deg)' : 'rotate(0)')};
     }
 
     :nth-child(2) {
@@ -50,7 +50,7 @@ const MenuIcon = styled.button`
     }
 
     :nth-child(3) {
-      transform: ${({ nav }) => (nav ? 'rotate(-44deg)' : 'rotate(0)')};
+      transform: ${({ nav }) => (nav ? 'rotate(-45deg)' : 'rotate(0)')};
     }
   }
 `;

@@ -7,7 +7,8 @@ const Title = styled.div`
   color: white;
   text-align: center;
   padding-top: 10px;
-  width: 380px;
+  width: 90vw;
+  max-width: 380px;
   border-radius: 5px;
   margin: auto;
   display: flex;
@@ -42,7 +43,8 @@ const Field = styled.div`
     border-radius: 5px;
     height: 40px;
     margin-top: 10px;
-    width: 380px;
+    width: 90vw;
+    max-width: 380px;
     box-sizing: border-box;
     font-size: 24px;
   }
@@ -62,7 +64,6 @@ const Field = styled.div`
 
 const Button = styled.button`
   align-self: center;
-  transform: translate(114px);
   padding: 10px 30px;
   background-color: #69c5b2;
   color: white;
