@@ -1,7 +1,7 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es6": true
     },
     "extends": [
         "airbnb",
@@ -11,11 +11,13 @@
         "ecmaFeatures": {
             "jsx": true
         },
-        "ecmaVersion": 12,
+        "ecmaVersion": 2018,
         "sourceType": "module"
     },
     "plugins": [
         "react"
     ],
-    "rules": {}
+    "rules": {
+        "linebreak-style": 0
+    }
 }
