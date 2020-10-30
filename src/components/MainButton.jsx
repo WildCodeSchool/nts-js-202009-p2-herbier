@@ -17,7 +17,7 @@ const Main = styled.section`
   box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
   margin: 14px 14px 20px 14px;
   background-image: url(${({ background }) => background});
-  background-position: center;
+  background-position: bottom;
   background-size: cover;
   :active {
     transform: translate(0px, 2px);
