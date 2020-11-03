@@ -133,11 +133,11 @@ class ContactForm extends React.Component {
           </Button>
           <Snackbar
               anchorOrigin={{
-                vertical:'bottom',
-                horizontal: 'left'
+                vertical:'top',
+                horizontal: 'right'
               }}
               open={this.state.open}
-              autoHideDuration={6000}
+              autoHideDuration={2000}
               onClose={this.handleClose}
               message="Message Envoyé"/>
         </Form>
