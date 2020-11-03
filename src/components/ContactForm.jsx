@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import mainContact from './logos/main-contact.svg';
+import Snackbar from '@material-ui/core/Snackbar';
 
 const Title = styled.div`
   background-color: #69c5b2;
@@ -80,42 +81,69 @@ const Button = styled.button`
   }
 `;
 
-function ContactForm() {
-  const sendMessage = (event) => {
-    alert('Votre message a été envoyé'); // eslint-disable-line
-    event.preventDefault();
+class ContactForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false
+    }
+    this.handleClick = this.handleClick.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  handleClick(){
+    this.setState({
+      open : true})
   };
-  return (
-    <div>
-      <Title>
-        <h1>Nous contacter</h1>
-        <Logo src={mainContact} alt="nous contacter" />
-      </Title>
-      <Form>
-        <Field>
-          <label>
-            <input type="text" placeholder="Nom / prenom" />
-          </label>
-          <label>
-            <input type="text" placeholder="JaneDoe@gmail.com" />
-          </label>
-          <label>
-            <select placeholder="Objet">
-              <option>Suggestions d'améliorations</option>
-              <option>Signaler un bug</option>
-              <option>Nous Encourager</option>
-            </select>
-          </label>
-          <label>
-            <textarea placeholder="commentaire" />
-          </label>
-        </Field>
-        <Button onClick={sendMessage} type="button">
-          Envoyer
-        </Button>
-      </Form>
-    </div>
-  );
+
+
+  handleClose(){
+    this.setState({
+      open : false})
+  };
+
+  render () {
+    return (
+      <div>
+        <Title>
+          <h1>Nous contacter</h1>
+          <Logo src={mainContact} alt="nous contacter" />
+        </Title>
+        <Form>
+          <Field>
+            <label>
+              <input type="text" placeholder="Nom / prenom" />
+            </label>
+            <label>
+              <input type="text" placeholder="JaneDoe@gmail.com" />
+            </label>
+            <label>
+              <select placeholder="Objet">
+                <option>Suggestions d'améliorations</option>
+                <option>Signaler un bug</option>
+                <option>Nous Encourager</option>
+              </select>
+            </label>
+            <label>
+              <textarea placeholder="commentaire" />
+            </label>
+          </Field>
+          <Button onClick={this.handleClick} type="button">
+            Envoyer
+          </Button>
+          <Snackbar
+              anchorOrigin={{
+                vertical:'bottom',
+                horizontal: 'left'
+              }}
+              open={this.state.open}
+              autoHideDuration={6000}
+              onClose={this.handleClose}
+              message="Message Envoyé"/>
+        </Form>
+      </div>
+    );
+  }
 }
 
 export default ContactForm;
