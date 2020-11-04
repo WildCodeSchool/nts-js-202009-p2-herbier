@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import mainContact from './logos/main-contact.svg';
 import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const Title = styled.div`
   background-color: #69c5b2;
