@@ -11,13 +11,12 @@
 }
 
 .title {
-    margin: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: rgba(226, 122, 112);
     height: 80px;
-    width: 80%;
+    width: 90%;
     border-radius: 5px;
     text-align: center;
 }
@@ -36,7 +35,7 @@
     background-color: rgba(226, 122, 112, 0.3);
     padding-inline-start: 20px;
     color: rgb(0, 0, 0, 0.5);
-    margin: 5px;
+    margin-top: 15px;
     height: 30px;
     width: 80vw;
 }

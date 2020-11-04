@@ -128,6 +128,7 @@ const WindowFilter = styled.div`
 class Library extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       all: false,
       filter: true,
