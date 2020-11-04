@@ -70,15 +70,6 @@ const StyledSelect = styled.div`
     background-position: right 10px bottom 8px;
     position: relative;
   }
-
-  select:active{
-    background: 
-  }
-
-
-  select option {
-    background-color: red;
-  }
 `;
 
 const Button = styled.button`
