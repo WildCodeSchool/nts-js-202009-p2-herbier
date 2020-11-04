@@ -141,7 +141,7 @@ class ContactForm extends React.Component {
           <Snackbar
             anchorOrigin={{
               vertical: 'bottom',
-              horizontal: 'right',
+              horizontal: 'center',
             }}
             open={this.state.open}
             autoHideDuration={2500}
