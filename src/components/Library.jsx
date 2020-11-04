@@ -41,6 +41,7 @@ const TextInButton = styled.p`
 `;
 
 const FilterAdvenced = styled.button`
+  cursor: pointer;
   background-color: white;
   color: rgba(226, 122, 112);
   border: 3px solid rgba(226, 122, 112);
@@ -52,7 +53,7 @@ const FilterAdvenced = styled.button`
 
 const ContainerFiltre = styled.div`
   margin-top: 15px;
-  width:90%;
+  width: 90%;
   display: flex;
   justify-content: space-around;
 `;
@@ -62,7 +63,7 @@ const Title = styled.h3`
 `;
 
 const UlListe = styled.div`
-  padding-top:${({ filterChoice }) => (filterChoice ? '1.5rem' : '0')};
+  padding-top: ${({ filterChoice }) => (filterChoice ? '1.5rem' : '0')};
   width: 90%;
   display: ${({ filterChoice, filter }) =>
     filter &&
@@ -75,13 +76,14 @@ const UlListe = styled.div`
 `;
 
 const ButtonParamete = styled.div`
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
   width: 60px;
-  color: ${({filterchoice})=>!filterchoice? 'white':'black'};
-  background-color: rgba(${({filterchoice,valueButton})=> filterchoice === valueButton? '79, 127, 99' :'156, 214, 155' });
+  color: ${({ valueColor }) => valueColor ? 'white' : 'black'};
+  background-color: rgba(${({valueColor }) => valueColor ? '79, 127, 99' : '156, 214, 155'});
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 `;
@@ -89,16 +91,16 @@ const ButtonParamete = styled.div`
 const ParameterFiltre = styled.div`
   display: ${({ filter }) => (filter ? 'none' : 'flex')};
   justify-content: space-between;
-  width:90%;
-  margin:0 1.5rem 0 0;
+  width: 90%;
+  margin: 0 1.5rem 0 0;
   align-items: center;
-  height: 5vh;
+  height: 7vh;
   margin-top: 20px;
 `;
 
 const ListeFiltre = styled.div`
- color: ${({filterchoice})=>!filterchoice? 'white':'black'};
-  background-color: rgba(${({filterchoice})=>!filterchoice? '79, 127, 99' :'156, 214, 155' });
+  color: white;
+  background-color: rgba(79, 127, 99);
   height: fit-content;
   display: ${({ filter }) => (filter ? 'none' : 'flex')};
   flex-direction: column;
@@ -107,16 +109,15 @@ const ListeFiltre = styled.div`
 
 const Li = styled.li`
   list-style: none;
-  padding: 4px 2px 4px 2rem;
+  padding: 8px 2px 8px 2rem;
   width: 90%;
-  margin:0 1.5rem 0 0;
-
+  margin: 0 1.5rem 0 0;
 `;
 
 const WindowFilter = styled.div`
   display: ${({ filter }) => (filter ? 'none' : 'flex')};
-  width:90%;
-  margin:1.5rem;
+  width: 90%;
+  margin: 1.5rem;
   justify-content: center;
   align-content: center;
   flex-direction: column;
@@ -153,6 +154,16 @@ class Library extends React.Component {
       });
   }
 
+  componentDidUpdate(pervP, prevS){
+if(prevS.choice !==  this.state.choice){
+    this.setState({
+      list: 
+        this.state.tri
+        .filter((element) => 
+          element.name === this.state.choice),
+    })
+    }
+}
   render() {
     return (
       <div className="Library">
@@ -180,72 +191,67 @@ class Library extends React.Component {
           </FilterAdvenced>
         </ContainerFiltre>
         <WindowFilter filter={this.state.filter}>
-        <ParameterFiltre filter={this.state.filter}>
-          <ButtonParamete
-            valueButton='nom_du_site'
-            onClick={(event) =>
-              this.setState({
-                choice: 'nom_du_site',
-                list: this.state.tri.filter(
-                  (element) => element.name === this.state.choice
-                ),
-              })
-            }
-          >
-            Parc
-          </ButtonParamete>
-          <ButtonParamete
-          valueButton='famille'
-            onClick={(event) =>
-              this.setState({
-                choice: 'famille',
-                list: this.state.tri.filter(
-                  (element) => element.name === this.state.choice
-                ),
-              })
-            }
-          >
-            Famille
-          </ButtonParamete>
-          <ButtonParamete
-            valueButton='genre'
-            onClick={(event) =>
-              this.setState({
-                choice: 'genre',
-                list: this.state.tri.filter(
-                  (element) => element.name === this.state.choice
-                ),
-              })
-            }
-          >
-            Genre
-          </ButtonParamete>
-          <ButtonParamete
-            valueButton='espece'
-            onClick={(event) =>
-              this.setState({
-                choice: 'espece',
-                list: this.state.tri.filter(
-                  (element) => element.name === this.state.choice
-                ),
-              })
-            }
-          >
-            Espece
-          </ButtonParamete>
-        </ParameterFiltre>
-        <ListeFiltre filter={this.state.filter}>
-          <UlListe filter={this.state.filter} filterChoice={this.state.choice}>
-            {this.state.list[0] &&
-              this.state.list[0].facets.map((item) => {
-                return (
-                  <Li>
-                    {item.name}({item.count})
-                  </Li>
-                );
-              })}
-          </UlListe>
-        </ListeFiltre>
+          <ParameterFiltre filter={this.state.filter}>
+            <ButtonParamete
+            filterChoice={this.state.choice}
+            valueColor={this.state.choice === 'nom_du_site'?true:false}
+              onClick={(event) =>
+                this.setState({
+                  choice: 'nom_du_site',
+                })
+              }
+            >
+              Parc
+            </ButtonParamete>
+            <ButtonParamete
+            filterChoice={this.state.choice}
+            valueColor={this.state.choice === 'famille'?true:false}
+              onClick={(event) =>
+                this.setState({
+                  choice: 'famille',
+                })
+              }
+            >
+              Famille
+            </ButtonParamete>
+            <ButtonParamete
+            filterChoice={this.state.choice}
+            valueColor={this.state.choice === 'genre'?true:false}
+              onClick={(event) =>
+                this.setState({
+                  choice: 'genre',
+                })
+              }
+            >
+              Genre
+            </ButtonParamete>
+            <ButtonParamete
+            filterChoice={this.state.choice}
+            valueColor={this.state.choice === 'espece'?true:false}
+              onClick={(event) =>
+                this.setState({
+                  choice: 'espece',
+                })
+              }
+            >
+              Espece
+            </ButtonParamete>
+          </ParameterFiltre>
+          <ListeFiltre filter={this.state.filter}>
+            <UlListe
+              filter={this.state.filter}
+              filterChoice={this.state.choice}
+            >
+              {this.state.list[0] &&
+                this.state.list[0].facets.map((item) => {
+                  return (
+                    <Li>
+                      {item.name}({item.count})
+                    </Li>
+                  );
+                })}
+            </UlListe>
+          </ListeFiltre>
         </WindowFilter>
         <Title>Votre collection : 0 / 15</Title>
         <Collection className="collection">
