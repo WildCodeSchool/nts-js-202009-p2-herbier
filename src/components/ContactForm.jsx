@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import mainContact from './logos/main-contact.svg';
+import formArrow from './logos/form-arrow.svg';
 
 const Title = styled.div`
   background-color: #69c5b2;
@@ -59,10 +60,21 @@ const Field = styled.div`
 `;
 
 const StyledSelect = styled.div`
-  
+
   select {
     -webkit-appearance: none;
     color: grey;
+    background: url(${formArrow}) no-repeat;
+    background-position: right 10px  bottom 8px ;
+    position: relative;
+  }
+
+  select:active{
+    background: url(${formArrow}) no-repeat right;
+  }
+
+  option{
+
   }
 `;
 
