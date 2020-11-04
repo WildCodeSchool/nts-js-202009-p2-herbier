@@ -82,8 +82,10 @@ const ButtonParamete = styled.div`
   align-items: center;
   height: 100%;
   width: 60px;
-  color: ${({ valueColor }) => valueColor ? 'white' : 'black'};
-  background-color: rgba(${({valueColor }) => valueColor ? '79, 127, 99' : '156, 214, 155'});
+  color: ${({ valueColor }) => (valueColor ? 'white' : 'black')};
+  background-color: rgba(
+    ${({ valueColor }) => (valueColor ? '79, 127, 99' : '156, 214, 155')}
+  );
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 `;
@@ -141,6 +143,16 @@ class Library extends React.Component {
     this.getData();
   }
 
+  componentDidUpdate(pervP, prevS) {
+    if (prevS.choice !== this.state.choice) {
+      this.setState({
+        list: this.state.tri.filter(
+          (element) => element.name === this.state.choice
+        ),
+      });
+    }
+  }
+
   getData() {
     axios
       .get(
@@ -154,16 +166,6 @@ class Library extends React.Component {
       });
   }
 
-  componentDidUpdate(pervP, prevS){
-if(prevS.choice !==  this.state.choice){
-    this.setState({
-      list: 
-        this.state.tri
-        .filter((element) => 
-          element.name === this.state.choice),
-    })
-    }
-}
   render() {
     return (
       <div className="Library">
@@ -193,8 +195,8 @@ if(prevS.choice !==  this.state.choice){
         <WindowFilter filter={this.state.filter}>
           <ParameterFiltre filter={this.state.filter}>
             <ButtonParamete
-            filterChoice={this.state.choice}
-            valueColor={this.state.choice === 'nom_du_site'?true:false}
+              filterChoice={this.state.choice}
+              valueColor={this.state.choice === 'nom_du_site' ? true : false}
               onClick={(event) =>
                 this.setState({
                   choice: 'nom_du_site',
@@ -204,8 +206,8 @@ if(prevS.choice !==  this.state.choice){
               Parc
             </ButtonParamete>
             <ButtonParamete
-            filterChoice={this.state.choice}
-            valueColor={this.state.choice === 'famille'?true:false}
+              filterChoice={this.state.choice}
+              valueColor={this.state.choice === 'famille' ? true : false}
               onClick={(event) =>
                 this.setState({
                   choice: 'famille',
@@ -215,8 +217,8 @@ if(prevS.choice !==  this.state.choice){
               Famille
             </ButtonParamete>
             <ButtonParamete
-            filterChoice={this.state.choice}
-            valueColor={this.state.choice === 'genre'?true:false}
+              filterChoice={this.state.choice}
+              valueColor={this.state.choice === 'genre' ? true : false}
               onClick={(event) =>
                 this.setState({
                   choice: 'genre',
@@ -226,8 +228,8 @@ if(prevS.choice !==  this.state.choice){
               Genre
             </ButtonParamete>
             <ButtonParamete
-            filterChoice={this.state.choice}
-            valueColor={this.state.choice === 'espece'?true:false}
+              filterChoice={this.state.choice}
+              valueColor={this.state.choice === 'espece' ? true : false}
               onClick={(event) =>
                 this.setState({
                   choice: 'espece',
