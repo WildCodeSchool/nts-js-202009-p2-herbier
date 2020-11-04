@@ -56,9 +56,13 @@ const Field = styled.div`
   textarea {
     height: 200px;
   }
+`;
 
+const StyledSelect = styled.div`
+  
   select {
-    background-color: white;
+    -webkit-appearance: none;
+    color: grey;
   }
 `;
 
@@ -99,13 +103,13 @@ function ContactForm() {
           <label>
             <input type="text" placeholder="JaneDoe@gmail.com" />
           </label>
-          <label>
-            <select placeholder="Objet">
+          <StyledSelect>
+            <select>
               <option>Suggestions d'améliorations</option>
               <option>Signaler un bug</option>
               <option>Nous Encourager</option>
             </select>
-          </label>
+          </StyledSelect>
           <label>
             <textarea placeholder="commentaire" />
           </label>
