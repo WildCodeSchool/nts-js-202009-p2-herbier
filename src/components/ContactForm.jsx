@@ -65,16 +65,17 @@ const StyledSelect = styled.div`
     -webkit-appearance: none;
     color: grey;
     background: url(${formArrow}) no-repeat;
-    background-position: right 10px  bottom 8px ;
+    background-position: right 10px bottom 8px;
     position: relative;
   }
 
   select:active{
-    background: url(${formArrow}) no-repeat right;
+    background: 
   }
 
-  option{
 
+  select option {
+    background-color: red;
   }
 `;
 
