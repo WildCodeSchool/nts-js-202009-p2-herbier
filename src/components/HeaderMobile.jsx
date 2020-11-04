@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled, { createGlobalStyle } from 'styled-components';
 import menuProfil from './logos/menu-profil.svg';
 import menuHerbier from './logos/menu-herbier.svg';
@@ -26,23 +27,23 @@ const MenuIcon = styled.button`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 2rem;
+  height: 2rem;
   background: transparent;
   border: none;
   outline: none;
 
   div {
-    width: 1.5rem;
+    width: 2rem;
     height: 0.2rem;
     background: white;
     border-radius: 10px;
-    transform-origin: 1px;
+    transform-origin: 1.4px;
     position: relative;
     transition: opacity 150ms, transform 200ms;
 
     :first-child {
-      transform: ${({ nav }) => (nav ? 'rotate(44deg)' : 'rotate(0)')};
+      transform: ${({ nav }) => (nav ? 'rotate(45deg)' : 'rotate(0)')};
     }
 
     :nth-child(2) {
@@ -50,7 +51,7 @@ const MenuIcon = styled.button`
     }
 
     :nth-child(3) {
-      transform: ${({ nav }) => (nav ? 'rotate(-44deg)' : 'rotate(0)')};
+      transform: ${({ nav }) => (nav ? 'rotate(-45deg)' : 'rotate(0)')};
     }
   }
 `;
@@ -58,6 +59,8 @@ const Wrapper = styled.header`
   background: #8fae44;
   width: 100vw;
   height: 3rem;
+  position: fixed;
+  top: 0;
 `;
 
 const Scan = styled.div`
@@ -99,14 +102,7 @@ const MenuLinks = styled.nav`
   li {
     margin-bottom: 1rem;
     margin-right: 0.5rem;
-  }
-
-  a {
-    text-decoration: none;
-    color: white;
-    margin-left: 0.7rem;
-    display: flex;
-    align-items: center;
+    font-family: 'Roboto';
   }
 
   img {
@@ -114,11 +110,30 @@ const MenuLinks = styled.nav`
   }
 `;
 
+const Box = styled.div`
+  margin-bottom: 4rem;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: white;
+  margin-left: 0.7rem;
+  display: flex;
+  align-items: center;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
+`;
+
 const HeaderMobile = () => {
   const [nav, showNav] = useState(false);
 
   return (
-    <div>
+    <Box>
       <Global />
       <Wrapper>
         <MenuIcon nav={nav} onClick={() => showNav(!nav)}>
@@ -129,53 +144,53 @@ const HeaderMobile = () => {
         <MenuLinks nav={nav}>
           <ul>
             <li>
-              <a href="a">
+              <StyledLink to="/">
                 <img src={menuHome} alt="Accueil" />
                 Accueil
-              </a>
+              </StyledLink>
             </li>
             <li>
-              <a href="a">
+              <StyledLink to="/profil">
                 <img src={menuProfil} alt="Profil" />
                 Profil
-              </a>
+              </StyledLink>
             </li>
             <li>
-              <a href="a">
+              <StyledLink to="/around-me">
                 <img src={menuPicker} alt="Autour de moi" />
                 Autour de moi
-              </a>
+              </StyledLink>
             </li>
             <li>
-              <a href="a">
+              <StyledLink to="/scan">
                 <img src={menuQrcode} alt="Scanner une plante" />
                 Scanner une plante
-              </a>
+              </StyledLink>
             </li>
             <li>
-              <a href="a">
+              <StyledLink to="/herbier">
                 <img src={menuHerbier} alt="Mon herbier" />
                 Mon herbier
-              </a>
+              </StyledLink>
             </li>
             <li>
-              <a href="a">
+              <StyledLink to="/decouverte">
                 <img src={menuDecouverte} alt="Découverte" />
                 Découverte ?
-              </a>
+              </StyledLink>
             </li>
           </ul>
         </MenuLinks>
         <Scan>
-          <a href="a">
+          <StyledLink to="/scan">
             <img src={menuQrcode} alt="Scan logo" />
-          </a>
+          </StyledLink>
         </Scan>
         <Logo>
           <img src={menuLogo} alt="Logo" />
         </Logo>
       </Wrapper>
-    </div>
+    </Box>
   );
 };
 

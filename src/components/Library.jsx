@@ -75,7 +75,7 @@ const UlListe = styled.div`
       : 'block'};
 `;
 
-const ButtonParamete = styled.div`
+const ButtonParameter = styled.div`
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -194,7 +194,7 @@ class Library extends React.Component {
         </ContainerFiltre>
         <WindowFilter filter={this.state.filter}>
           <ParameterFiltre filter={this.state.filter}>
-            <ButtonParamete
+            <ButtonParameter
               filterChoice={this.state.choice}
               valueColor={this.state.choice === 'nom_du_site' ? true : false}
               onClick={(event) =>
@@ -204,8 +204,8 @@ class Library extends React.Component {
               }
             >
               Parc
-            </ButtonParamete>
-            <ButtonParamete
+            </ButtonParameter>
+            <ButtonParameter
               filterChoice={this.state.choice}
               valueColor={this.state.choice === 'famille' ? true : false}
               onClick={(event) =>
@@ -215,8 +215,8 @@ class Library extends React.Component {
               }
             >
               Famille
-            </ButtonParamete>
-            <ButtonParamete
+            </ButtonParameter>
+            <ButtonParameter
               filterChoice={this.state.choice}
               valueColor={this.state.choice === 'genre' ? true : false}
               onClick={(event) =>
@@ -226,8 +226,8 @@ class Library extends React.Component {
               }
             >
               Genre
-            </ButtonParamete>
-            <ButtonParamete
+            </ButtonParameter>
+            <ButtonParameter
               filterChoice={this.state.choice}
               valueColor={this.state.choice === 'espece' ? true : false}
               onClick={(event) =>
@@ -237,7 +237,7 @@ class Library extends React.Component {
               }
             >
               Espece
-            </ButtonParamete>
+            </ButtonParameter>
           </ParameterFiltre>
           <ListeFiltre filter={this.state.filter}>
             <UlListe
