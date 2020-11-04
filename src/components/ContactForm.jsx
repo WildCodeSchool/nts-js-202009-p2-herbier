@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import mainContact from './logos/main-contact.svg';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import mainContact from './logos/main-contact.svg';
 
 const Title = styled.div`
   background-color: #69c5b2;
@@ -82,28 +82,34 @@ const Button = styled.button`
   }
 `;
 
+function Alert(props) {
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 class ContactForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
-    }
+      open: false,
+    };
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
 
-  handleClick(){
+  handleClick() {
     this.setState({
-      open : true})
-  };
+      open: true,
+    });
+  }
 
-
-  handleClose(){
+  handleClose() {
     this.setState({
-      open : false})
-  };
+      open: false,
+    });
+  }
 
-  render () {
+  render() {
     return (
       <div>
         <Title>
@@ -133,14 +139,18 @@ class ContactForm extends React.Component {
             Envoyer
           </Button>
           <Snackbar
-              anchorOrigin={{
-                vertical:'top',
-                horizontal: 'right'
-              }}
-              open={this.state.open}
-              autoHideDuration={2000}
-              onClose={this.handleClose}
-              message="Message Envoyé"/>
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            open={this.state.open}
+            autoHideDuration={2500}
+            onClose={this.handleClose}
+          >
+            <Alert onClose={this.handleClose} severity="success">
+              Message Envoyé!
+            </Alert>
+          </Snackbar>
         </Form>
       </div>
     );
