@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import mainContact from './logos/main-contact.svg';
 import formArrow from './logos/form-arrow.svg';
 
@@ -97,42 +99,78 @@ const Button = styled.button`
   }
 `;
 
-function ContactForm() {
-  const sendMessage = (event) => {
-    alert('Votre message a été envoyé'); // eslint-disable-line
-    event.preventDefault();
-  };
-  return (
-    <div>
-      <Title>
-        <h1>Nous contacter</h1>
-        <Logo src={mainContact} alt="nous contacter" />
-      </Title>
-      <Form>
-        <Field>
-          <label>
-            <input type="text" placeholder="Nom / prenom" />
-          </label>
-          <label>
-            <input type="text" placeholder="JaneDoe@gmail.com" />
-          </label>
-          <StyledSelect>
-            <select>
-              <option>Suggestions d'améliorations</option>
-              <option>Signaler un bug</option>
-              <option>Nous Encourager</option>
-            </select>
-          </StyledSelect>
-          <label>
-            <textarea placeholder="commentaire" />
-          </label>
-        </Field>
-        <Button onClick={sendMessage} type="button">
-          Envoyer
-        </Button>
-      </Form>
-    </div>
-  );
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+class ContactForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+    };
+    this.handleClick = this.handleClick.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  handleClick() {
+    this.setState({
+      open: true,
+    });
+  }
+
+  handleClose() {
+    this.setState({
+      open: false,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <Title>
+          <h1>Nous contacter</h1>
+          <Logo src={mainContact} alt="nous contacter" />
+        </Title>
+        <Form>
+          <Field>
+            <label>
+              <input type="text" placeholder="Nom / prenom" />
+            </label>
+            <label>
+              <input type="text" placeholder="JaneDoe@gmail.com" />
+            </label>
+            <StyledSelect>
+              <select placeholder="Objet">
+                <option>Suggestions d'améliorations</option>
+                <option>Signaler un bug</option>
+                <option>Nous Encourager</option>
+              </select>
+            </StyledSelect>
+            <label>
+              <textarea placeholder="commentaire" />
+            </label>
+          </Field>
+          <Button onClick={this.handleClick} type="button">
+            Envoyer
+          </Button>
+          <Snackbar
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            open={this.state.open}
+            autoHideDuration={2500}
+            onClose={this.handleClose}
+          >
+            <Alert onClose={this.handleClose} severity="success">
+              Message Envoyé!
+            </Alert>
+          </Snackbar>
+        </Form>
+      </div>
+    );
+  }
 }
 
 export default ContactForm;
