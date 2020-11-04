@@ -10,7 +10,6 @@ function App() {
   return (
     <div className="App">
       <HeaderMobile />
-      <ContactForm />
     </div>
   );
 }
