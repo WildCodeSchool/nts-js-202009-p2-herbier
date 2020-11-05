@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import mainPicker from './logos/main-picker.svg';
 import qrCode from './logos/main-qrcode.svg';
@@ -26,14 +27,30 @@ const Main = styled.section`
 `;
 
 const Logo = styled.img`
-  height: 81px;
+  height: 70px;
+  width: 70px;
 `;
 
 const Title = styled.h1`
   color: white;
-  font-size: 36px;
-  font-family: 'Roboto';
+  width: 60vw;
+  font-size: 32px;
+  font-family: 'Roboto', sans-serif;
   text-shadow: ${({ textShadow }) => textShadow};
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
 `;
 
 const mainButtons = [
@@ -43,21 +60,25 @@ const mainButtons = [
     height: ' ',
     background: mainBackground,
     textShadow: '1px 1px 1px #b1b1b1',
+    url: '/around-me',
   },
   {
     title: 'Scanner une plante',
     picture: qrCode,
     color: ' #69C5B2',
+    url: '/scan',
   },
   {
     title: 'Mon herbier',
     picture: mainHerbier,
     color: ' #E27A70',
+    url: '/herbier',
   },
   {
     title: 'Découverte ?',
     picture: mainDecouverte,
     color: ' #9CD69B',
+    url: '/decouverte',
   },
 ];
 
@@ -77,8 +98,10 @@ const MainButton = () => {
           background={button.background}
           onClick={clickNav}
         >
-          <Title textShadow={button.textShadow}>{button.title}</Title>
-          <Logo src={button.picture} alt={button.title} />
+          <StyledLink to={button.url}>
+            <Title textShadow={button.textShadow}>{button.title}</Title>
+            <Logo src={button.picture} alt={button.title} />
+          </StyledLink>
         </Main>
       ))}
     </div>
