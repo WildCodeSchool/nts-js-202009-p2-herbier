@@ -133,8 +133,17 @@ class Library extends React.Component {
       filter: true,
       vegetals: [],
       choice: null,
+      choicePlus:null,
       tri: [],
       list: [],
+      scannedLybrary: [
+        '33ed6720a4fec83e401390ec5fb67d4ec7bdd9c4',
+        '770a3422810693f5ecf454fec5a8e17e68dd7cb0',
+        'eccf60b59b4396966fe81106c933cdaf269a91a3',
+        '9266fa81e583eb74558a0dd1e017f4a2e7627fd2',
+        '22030281a17bde724545be084f2b57f93a6bc1f9',
+        '0b5a76b82b6a71f9b94640d4d37a20492e6000b1',
+      ],
     };
     this.getData = this.getData.bind(this);
   }
@@ -247,7 +256,9 @@ class Library extends React.Component {
               {this.state.list[0] &&
                 this.state.list[0].facets.map((item) => {
                   return (
-                    <Li>
+                    <Li onClick={(event)=> 
+                      this.setState({choicePlus:item.name})
+                    }>
                       {item.name}({item.count})
                     </Li>
                   );
@@ -261,10 +272,16 @@ class Library extends React.Component {
             .filter((element) => element.fields.photo1)
             .map((item) => (
               <DataBase
+                filter={this.state.filter}
+                choicePlus={this.state.choicePlus}
+                all={this.state.all}
+                scanned={this.state.scannedLybrary.includes(item.recordid)}
                 key={item.recordid}
+                id={item.recordid}
                 famille={item.fields.famille}
                 espece={item.fields.espece}
                 genre={item.fields.genre}
+                parc={item.fields.nom_du_site}
                 image={item.fields.photo1 && item.fields.photo1.id}
               />
             ))}
