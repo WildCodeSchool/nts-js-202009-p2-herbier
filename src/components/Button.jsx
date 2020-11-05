@@ -60,14 +60,14 @@ const Buttons = styled.div`
   margin-bottom: 2rem;
   height: 100px;
   width: 330px;
-  display: flex;
+  display: ${({ scan }) => (scan ? 'none' : 'flex')};
 `;
 
 class Button extends React.Component {
   render() {
     return (
-      <Buttons>
-        <ButtonDel type="button" onClick={this.props.deleteInfos}>
+      <Buttons handleShowScan={this.handleShowScan} scan={this.props.scan}>
+        <ButtonDel type="button" onClick={this.props.deleteQrInfos}>
           X
         </ButtonDel>
         <ButtonAdd type="button">Ajouter à mon herbier</ButtonAdd>

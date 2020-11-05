@@ -18,14 +18,16 @@ class ScanPage extends React.Component {
     this.state = {
       result: 'no result',
       scan: true,
+      
     };
     this.handleScan = this.handleScan.bind(this);
     this.handleError = this.handleError.bind(this);
-    this.deleteInfos = this.deleteInfos.bind(this);
+    this.deleteQrInfos = this.deleteQrInfos.bind(this);
     this.handleShowScan = this.handleShowScan.bind(this);
+    
   }
 
-  deleteInfos() {
+  deleteQrInfos() {
     this.setState({
       result: 'no result',
       scan: true,
@@ -41,7 +43,10 @@ class ScanPage extends React.Component {
   }
 
   handleShowScan() {
-    console.log('coucou');
+    const toggle=this.state.scan
+    this.setState({
+      scan: !toggle,
+    });
   }
 
   handleError(err) {
@@ -54,13 +59,14 @@ class ScanPage extends React.Component {
         <Scan />
         <Reader
           scan={this.state.scan}
-          handleShowScan={this.state.handleShowScan}
+          handleShowScan={this.handleShowScan}
           result={this.state.result}
           handleScan={this.handleScan}
           handleError={this.handleError}
+          
         />
-        <Card />
-        <Button deleteInfos={this.deleteInfos} />
+        <Card scan={this.state.scan} handleShowScan={this.handleShowScan}/>
+        <Button scan={this.state.scan} handleShowScan={this.handleShowScan} deleteQrInfos={this.deleteQrInfos} />
       </PageStyle>
     );
   }

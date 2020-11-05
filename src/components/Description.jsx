@@ -30,7 +30,7 @@ const PlantCard = styled.div`
 `;
 
 const CardCss = styled.div`
-  display: flex;
+  display: ${({ scan }) => (scan ? 'none' : 'flex')};
   flex-direction: column;
   align-items: center;
 `;
@@ -66,12 +66,16 @@ class Description extends React.Component {
   }
 }
 
-const Card = () => (
-  <CardCss>
-    {plants.map((plant) => (
-      <Description {...plant} key={plant.Species} />
-    ))}
-  </CardCss>
-);
+class Card extends React.Component {
+  render() {
+    return (
+      <CardCss scan={this.props.scan} handleShowScan={this.handleShowScan}>
+        {plants.map((plant) => (
+          <Description {...plant} key={plant.Species} />
+        ))}
+      </CardCss>
+    );
+  }
+}
 
 export default Card;

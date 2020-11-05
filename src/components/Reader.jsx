@@ -28,16 +28,9 @@ const QrStyle = styled.div`
 `;
 
 class Reader extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
-
-      
       <ScanContener scan={this.props.scan} onClick={this.props.handleShowScan}>
-        <button type="button" onClick={this.props.handleShowScan}>bouton</button>
         <QrStyle reverseScan={!this.props.scan}>
           <QrReader
             delay={300}
