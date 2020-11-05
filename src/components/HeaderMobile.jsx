@@ -113,7 +113,6 @@ const MenuLinks = styled.nav`
 
 const Box = styled.div`
   margin-bottom: 4rem;
-  
 `;
 
 const StyledLink = styled(Link)`
