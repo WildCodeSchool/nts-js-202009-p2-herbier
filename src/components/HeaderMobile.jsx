@@ -56,6 +56,7 @@ const MenuIcon = styled.button`
   }
 `;
 const Wrapper = styled.header`
+  z-index: 100;
   background: #8fae44;
   width: 100vw;
   height: 3rem;
