@@ -49,6 +49,7 @@ const Field = styled.div`
     max-width: 380px;
     box-sizing: border-box;
     font-size: 24px;
+    outline: none;
   }
 
   label {
@@ -74,6 +75,7 @@ const Button = styled.button`
   border-radius: 5px;
   font-size: 24px;
   margin-top: 25px;
+  outline: none;
 
   :active {
     background-color: white;
