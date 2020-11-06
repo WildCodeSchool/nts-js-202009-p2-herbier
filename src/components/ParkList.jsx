@@ -1,25 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
 
+
 const List = styled.div`
   width: 382px;
   height: 214px;
-  background-color: red;
+  background-color: white;
 `;
 
 const Parks = [
-    {name: "Jardin des plantes",
-    distance: "0,3 km",
-    speciesNumber: "300",
-    },
-    {name: "Parc des plantes",
-    distance: "0,8 km",
-    speciesNumber: "(300)",
-    }
-]
+  { name: 'Jardin des plantes', distance: '0,3 km', speciesNumber: '(150)' },
+  { name: 'Parc des plantes', distance: '2 km', speciesNumber: '(8)' },
+  { name: 'Parc de Procé', distance: '5 km', speciesNumber: '(300)' },
+  { name: 'Parc Municipal', distance: '8 km', speciesNumber: '(56)' },
+];
 
-function ParkList() {
-  return <List></List>;
+function ParkList({ park }) {
+  return (
+    <List>
+      {Parks.map((park) => (
+        <p>
+          {park.distance} {park.name} {park.speciesNumber}
+        </p>
+      ))}
+    </List>
+  );
 }
 
 export default ParkList;
