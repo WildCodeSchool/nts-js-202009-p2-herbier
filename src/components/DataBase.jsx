@@ -49,6 +49,16 @@ class DataBase extends React.Component {
           id={this.props.id}
           src={`https://data.nantesmetropole.fr/explore/dataset/244400404_collection-vegetale-nantes/files/${this.props.image}/300/`}
         />
+<<<<<<< HEAD
+=======
+
+}
+
+  render() {
+    return (
+      <DataBas>
+        <Thumbnail src={`https://data.nantesmetropole.fr/explore/dataset/244400404_collection-vegetale-nantes/files/${this.props.image}/300/`} />
+>>>>>>> 332ca11ed36cd069d9fcbd8de16d92a3795ef506
       </DataBas>
     );
   }
