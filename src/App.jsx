@@ -6,10 +6,12 @@ import HeaderMobile from './components/HeaderMobile';
 import ScanPage from './components/ScanPage';
 import Library from './components/Library'
 import ContactForm from './components/ContactForm'
+import AroundMePage from './components/AroundMePage'
 function App() {
   return (
     <div className="App">
       <HeaderMobile />
+      <AroundMePage />
     </div>
   );
 }
