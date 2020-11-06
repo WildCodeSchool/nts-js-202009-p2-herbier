@@ -7,6 +7,7 @@ import HeaderMobile from './components/HeaderMobile';
 import ScanPage from './components/ScanPage';
 import Library from './components/Library';
 import ContactForm from './components/ContactForm';
+import Profil from './components/Profil';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route exact path="/scan" component={ScanPage} />
           <Route exact path="/herbier" component={Library} />
           <Route exact path="/decouverte" component={ContactForm} />
+          <Route exact path="/profil" component={Profil} />
         </Switch>
       </BrowserRouter>
     </div>
