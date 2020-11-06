@@ -19,9 +19,8 @@ function App() {
           <Route exact path="/around-me" component={AroundMePage} />
           <Route exact path="/scan" component={ScanPage} />
           <Route exact path="/herbier" component={Library} />
-          <Route exact path="/profil" component={Profil} />       
-          <Route exact path="/decouverte" component={ContactForm} />
           <Route exact path="/profil" component={Profil} />
+          <Route exact path="/decouverte" component={ContactForm} />
         </Switch>
       </BrowserRouter>
     </div>
