@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import mainContact from './logos/main-contact.svg';
+import formArrow from './logos/form-arrow.svg';
 
 const Title = styled.div`
   background-color: #69c5b2;
@@ -49,6 +50,7 @@ const Field = styled.div`
     max-width: 380px;
     box-sizing: border-box;
     font-size: 24px;
+    outline: none;
   }
 
   label {
@@ -58,9 +60,16 @@ const Field = styled.div`
   textarea {
     height: 200px;
   }
+`;
+
+const StyledSelect = styled.div`
 
   select {
-    background-color: white;
+    -webkit-appearance: none;
+    color: grey;
+    background: url(${formArrow}) no-repeat;
+    background-position: right 10px bottom 8px;
+    position: relative;
   }
 `;
 
@@ -74,6 +83,7 @@ const Button = styled.button`
   border-radius: 5px;
   font-size: 24px;
   margin-top: 25px;
+  outline: none;
 
   :active {
     background-color: white;
@@ -123,13 +133,13 @@ class ContactForm extends React.Component {
             <label>
               <input type="text" placeholder="JaneDoe@gmail.com" />
             </label>
-            <label>
+            <StyledSelect>
               <select placeholder="Objet">
                 <option>Suggestions d'améliorations</option>
                 <option>Signaler un bug</option>
                 <option>Nous Encourager</option>
               </select>
-            </label>
+            </StyledSelect>
             <label>
               <textarea placeholder="commentaire" />
             </label>

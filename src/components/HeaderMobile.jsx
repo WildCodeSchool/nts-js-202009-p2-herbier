@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled, { createGlobalStyle } from 'styled-components';
 import menuProfil from './logos/menu-profil.svg';
 import menuHerbier from './logos/menu-herbier.svg';
@@ -36,7 +37,7 @@ const MenuIcon = styled.button`
     width: 2rem;
     height: 0.2rem;
     background: white;
-    border-radius:10px;
+    border-radius: 10px;
     transform-origin: 1.4px;
     position: relative;
     transition: opacity 150ms, transform 200ms;
@@ -55,6 +56,7 @@ const MenuIcon = styled.button`
   }
 `;
 const Wrapper = styled.header`
+  z-index: 100;
   background: #8fae44;
   width: 100vw;
   height: 3rem;
@@ -104,14 +106,6 @@ const MenuLinks = styled.nav`
     font-family: 'Roboto';
   }
 
-  a {
-    text-decoration: none;
-    color: white;
-    margin-left: 0.7rem;
-    display: flex;
-    align-items: center;
-  }
-
   img {
     margin-right: 0.5rem;
   }
@@ -119,6 +113,21 @@ const MenuLinks = styled.nav`
 
 const Box = styled.div`
   margin-bottom: 4rem;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: white;
+  margin-left: 0.7rem;
+  display: flex;
+  align-items: center;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
 `;
 
 const HeaderMobile = () => {
@@ -136,47 +145,47 @@ const HeaderMobile = () => {
         <MenuLinks nav={nav}>
           <ul>
             <li>
-              <a href="a">
+              <StyledLink to="/">
                 <img src={menuHome} alt="Accueil" />
                 Accueil
-              </a>
+              </StyledLink>
             </li>
             <li>
-              <a href="a">
+              <StyledLink to="/profil">
                 <img src={menuProfil} alt="Profil" />
                 Profil
-              </a>
+              </StyledLink>
             </li>
             <li>
-              <a href="a">
+              <StyledLink to="/around-me">
                 <img src={menuPicker} alt="Autour de moi" />
                 Autour de moi
-              </a>
+              </StyledLink>
             </li>
             <li>
-              <a href="a">
+              <StyledLink to="/scan">
                 <img src={menuQrcode} alt="Scanner une plante" />
                 Scanner une plante
-              </a>
+              </StyledLink>
             </li>
             <li>
-              <a href="a">
+              <StyledLink to="/herbier">
                 <img src={menuHerbier} alt="Mon herbier" />
                 Mon herbier
-              </a>
+              </StyledLink>
             </li>
             <li>
-              <a href="a">
+              <StyledLink to="/decouverte">
                 <img src={menuDecouverte} alt="Découverte" />
                 Découverte ?
-              </a>
+              </StyledLink>
             </li>
           </ul>
         </MenuLinks>
         <Scan>
-          <a href="a">
+          <StyledLink to="/scan">
             <img src={menuQrcode} alt="Scan logo" />
-          </a>
+          </StyledLink>
         </Scan>
         <Logo>
           <img src={menuLogo} alt="Logo" />
