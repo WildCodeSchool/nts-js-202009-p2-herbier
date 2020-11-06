@@ -41,6 +41,7 @@ const TextInButton = styled.p`
 `;
 
 const FilterAdvenced = styled.button`
+  outline:none;
   cursor: pointer;
   background-color: white;
   color: rgba(226, 122, 112);
