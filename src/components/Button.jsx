@@ -20,7 +20,7 @@ const ButtonDel = styled.button`
   font-weight: bold;
   margin: 0 2rem;
   min-width: 50px;
-  box-shadow: 2px 2px 2px grey;
+  box-shadow: 2px 2px 2px #ccd1d1;
   &:active {
     box-shadow: 0 0 0;
   }
@@ -47,7 +47,7 @@ const ButtonAdd = styled.button`
   font-size: 1rem;
   font-weight: bold;
   min-width: 50px;
-  box-shadow: 2px 2px 2px grey;
+  box-shadow: 2px 2px 2px #ccd1d1;
   &:active {
     box-shadow: 0 0 0;
   }
@@ -60,39 +60,17 @@ const Buttons = styled.div`
   margin-bottom: 2rem;
   height: 100px;
   width: 330px;
-  display: flex;
+  display: ${({ scan }) => (scan ? 'none' : 'flex')};
 `;
 
 class Button extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      Sent: props.sent,
-      Delete: props.delete,
-    };
-  }
-
   render() {
     return (
-      <Buttons>
-        <ButtonDel
-          type="button"
-          onClick={(event) => {
-            const isDelete = !this.state.Delete;
-            this.setState({ Delete: isDelete });
-          }}
-        >
+      <Buttons handleShowScan={this.handleShowScan} scan={this.props.scan}>
+        <ButtonDel type="button" onClick={this.props.deleteQrInfos}>
           X
         </ButtonDel>
-        <ButtonAdd
-          type="button"
-          onClick={(event) => {
-            const isSent = !this.state.Sent;
-            this.setState({ Sent: isSent });
-          }}
-        >
-          Ajouter à mon herbier
-        </ButtonAdd>
+        <ButtonAdd type="button">Ajouter à mon herbier</ButtonAdd>
       </Buttons>
     );
   }
