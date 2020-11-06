@@ -9,11 +9,9 @@ const Thumbnail = styled.img`
 
 const DataBas = styled.div`
   display: ${({ scanned, genre, espece, parc, famille, choicePlus, all }) =>
-  
-
   (!all && scanned && (genre === choicePlus || parc === choicePlus || espece === choicePlus || famille === choicePlus))
     ? "block"
-    :(!all && genre === choicePlus || parc === choicePlus || espece === choicePlus || famille === choicePlus))
+    :(!all && (genre === choicePlus || parc === choicePlus || espece === choicePlus || famille === choicePlus))
     ?"block"
     :(all && (genre !== choicePlus && parc !== choicePlus && espece !== choicePlus && famille !== choicePlus))
     ?"block"
@@ -49,16 +47,6 @@ class DataBase extends React.Component {
           id={this.props.id}
           src={`https://data.nantesmetropole.fr/explore/dataset/244400404_collection-vegetale-nantes/files/${this.props.image}/300/`}
         />
-<<<<<<< HEAD
-=======
-
-}
-
-  render() {
-    return (
-      <DataBas>
-        <Thumbnail src={`https://data.nantesmetropole.fr/explore/dataset/244400404_collection-vegetale-nantes/files/${this.props.image}/300/`} />
->>>>>>> 332ca11ed36cd069d9fcbd8de16d92a3795ef506
       </DataBas>
     );
   }
