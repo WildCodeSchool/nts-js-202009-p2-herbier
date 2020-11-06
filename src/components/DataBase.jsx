@@ -22,7 +22,6 @@ const DataBas = styled.div`
 class DataBase extends React.Component {
   constructor(props) {
     super(props);
-<<<<<<< HEAD
     this.state = {};
   }
 
