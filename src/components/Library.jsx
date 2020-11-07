@@ -8,6 +8,7 @@ const Collection = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 1.2em;
+  
 `;
 
 const ButtonAllSome = styled.div`
