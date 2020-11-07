@@ -8,17 +8,30 @@ const Thumbnail = styled.img`
 `;
 
 const DataBas = styled.div`
-  display: ${({ scanned, genre, espece, parc, famille, choicePlus, all }) =>
-  (!all && scanned && (genre === choicePlus || parc === choicePlus || espece === choicePlus || famille === choicePlus))
-    ? "block"
-    :(!all && (genre === choicePlus || parc === choicePlus || espece === choicePlus || famille === choicePlus))
-    ?"block"
-    :(all && (genre !== choicePlus && parc !== choicePlus && espece !== choicePlus && famille !== choicePlus))
-    ?"block"
-    :(scanned && (genre !== choicePlus && parc !== choicePlus && espece !== choicePlus && famille !== choicePlus))
-    ?"block"
-    :"none"
-};
+  display: ${({ scanned, genre, espece, parc, famille, choicePlus, all, filter }) => {
+    if (all) {
+      if (choicePlus === genre || choicePlus === famille || choicePlus === parc || choicePlus === espece) {
+        return "block"
+      } else {
+        return "none"
+      }
+    } else if (!all) {
+      if (choicePlus === genre || choicePlus === famille || choicePlus === parc || choicePlus === espece) {
+        if (scanned) {
+          return "block"
+        } else {
+          return "none"
+        }
+      }
+      else if (scanned && (choicePlus !== genre && choicePlus !== famille && choicePlus !== parc && choicePlus !== espece)) {
+        return "none"
+      }
+      else {
+        return "none"
+      }
+    }
+  }
+  };
   margin: 1px;
   width: 100px;
   height: 100px;
