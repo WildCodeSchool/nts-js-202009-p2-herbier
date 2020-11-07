@@ -9,7 +9,12 @@ const Thumbnail = styled.img`
 
 const DataBas = styled.div`
   display: ${({ scanned, genre, espece, parc, famille, choicePlus, all, filter }) => {
-    if (all) {
+    if (filter && !all && scanned){
+      return "block"
+    }else if(filter && all){
+      return "block"
+    }
+    else if (all) {
       if (choicePlus === genre || choicePlus === famille || choicePlus === parc || choicePlus === espece) {
         return "block"
       } else {
