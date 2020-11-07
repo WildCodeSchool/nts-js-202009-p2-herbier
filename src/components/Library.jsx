@@ -92,7 +92,7 @@ const ButtonParameter = styled.div`
 `;
 
 const ParameterFiltre = styled.div`
-  display: ${({ filter }) => (filter ? 'none' : 'flex')};
+  display: ${({ filter }) => (filter ? 'flex' : 'none')};
   justify-content: space-between;
   width: 90%;
   margin: 0 1.5rem 0 0;
@@ -105,7 +105,7 @@ const ListeFiltre = styled.div`
   color: white;
   background-color: rgba(79, 127, 99);
   height: fit-content;
-  display: ${({ filter }) => (filter ? 'none' : 'flex')};
+  display: ${({ filter }) => (filter ? 'flex' : 'none' )};
   flex-direction: column;
   width: 90%;
 `;
@@ -118,7 +118,7 @@ const Li = styled.li`
 `;
 
 const WindowFilter = styled.div`
-  display: ${({ filter }) => (filter ? 'none' : 'flex')};
+  display: ${({ filter }) => (filter ? 'flex' : 'none')};
   width: 90%;
   margin: 1.5rem;
   justify-content: center;
@@ -131,7 +131,7 @@ class Library extends React.Component {
     super(props);
     this.state = {
       all: false,
-      filter: true,
+      filter: false,
       vegetals: [],
       choice: null,
       choicePlus:null,
