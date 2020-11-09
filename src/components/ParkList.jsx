@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import MapPicker from './logos/map-picker.svg';
 
 const List = styled.div`
   width: 382px;
@@ -20,7 +20,8 @@ function ParkList({ park }) {
     <List>
       {Parks.map((park) => (
         <p>
-          {park.distance} {park.name} {park.speciesNumber}
+          <img src={MapPicker}></img> {park.distance} {park.name}{' '}
+          {park.speciesNumber}
         </p>
       ))}
     </List>
