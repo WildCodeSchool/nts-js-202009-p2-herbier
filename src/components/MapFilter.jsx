@@ -19,6 +19,24 @@ const DailyPLant = styled.div`
   }
 `;
 
+const DailyPLants = [
+  {
+    src: 'https://via.placeholder.com/75/0000FF/808080',
+    name: 'Margueritte',
+    id: 100,
+  },
+  {
+    src: 'https://via.placeholder.com/75/FF0000/FFFFFF',
+    name: 'Rose',
+    id: 101,
+  },
+  {
+    src: 'https://via.placeholder.com/75/FFFF00/000000',
+    name: 'Tulipe',
+    id: 102,
+  },
+];
+
 class MapFilter extends React.Component {
   constructor(props) {
     super(props);
@@ -26,6 +44,7 @@ class MapFilter extends React.Component {
       value: 0,
       boxchecked: false,
       click: false,
+      plant: {},
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -42,8 +61,11 @@ class MapFilter extends React.Component {
   }
 
   handleButtonChange(event) {
+    this.state.plant = DailyPLants.find((dailyPlant) => {
+        return dailyPlant.id === parseInt(event?.target?.id);
+    });
+
     this.setState({ click: !this.state.click });
-    console.log(this.state.click);
   }
 
   render() {
@@ -71,13 +93,19 @@ class MapFilter extends React.Component {
         </Checkbox>
         <DailyPLant>
           <h3>Plantes du moment</h3>
-          <button type="button" onClick={this.handleButtonChange}>Plante 1</button>
-          <button type="button" onClick={this.handleButtonChange}>Plante 2</button>
-          <button type="button" onClick={this.handleButtonChange}>Plante 3</button>
+          <button id="100" type="button" onClick={this.handleButtonChange}>
+            Plante 1
+          </button>
+          <button id="101" type="button" onClick={this.handleButtonChange}>
+            Plante 2
+          </button>
+          <button id="102" type="button" onClick={this.handleButtonChange}>
+            Plante 3
+          </button>
           <img
             className={this.state.click ? 'show' : 'hidden'}
-            src="https://via.placeholder.com/75/0000FF/808080"
-            alt="plant1"
+            src={this.state.plant?.src || ""}
+            alt={this.state.plant?.name || ""}
           />
         </DailyPLant>
       </Filter>
