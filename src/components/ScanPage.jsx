@@ -15,7 +15,7 @@ const PageStyle = styled.div`
 class ScanPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.props = {
       result: 'no result',
       scan: true,
     };
@@ -41,7 +41,7 @@ class ScanPage extends React.Component {
   }
 
   handleShowScan() {
-    const toggle = this.state.scan;
+    const toggle = this.props.scan;
     this.setState({
       scan: !toggle,
     });
@@ -56,15 +56,15 @@ class ScanPage extends React.Component {
       <PageStyle>
         <Scan />
         <Reader
-          scan={this.state.scan}
+          scan={this.props.scan}
           handleShowScan={this.handleShowScan}
-          result={this.state.result}
+          result={this.props.result}
           handleScan={this.handleScan}
           handleError={this.handleError}
         />
-        <Card scan={this.state.scan} handleShowScan={this.handleShowScan}/>
+        <Card scan={this.props.scan} handleShowScan={this.handleShowScan}/>
         <Button
-          scan={this.state.scan}
+          scan={this.props.scan}
           handleShowScan={this.handleShowScan}
           deleteQrInfos={this.deleteQrInfos}
         />

@@ -8,35 +8,56 @@ const Thumbnail = styled.img`
 `;
 
 const DataBas = styled.div`
-  display: ${({ scanned, genre, espece, parc, famille, choicePlus, all, filter }) => {
-    if (!filter && !all && scanned){
-      return "block"
-    }else if(!filter && all){
-      return "block"
-    }
-    else if (all) {
-      if (choicePlus === genre || choicePlus === famille || choicePlus === parc || choicePlus === espece) {
-        return "block"
+  display: ${({
+    scanned,
+    genre,
+    espece,
+    parc,
+    famille,
+    choicePlus,
+    all,
+    filter,
+  }) => {
+    if (!filter && !all && scanned) {
+      return 'block';
+    } else if (!filter && all) {
+      return 'block';
+    } else if (all) {
+      if (
+        choicePlus === genre ||
+        choicePlus === famille ||
+        choicePlus === parc ||
+        choicePlus === espece
+      ) {
+        return 'block';
       } else {
-        return "none"
+        return 'none';
       }
     } else if (!all) {
-      if (choicePlus === genre || choicePlus === famille || choicePlus === parc || choicePlus === espece) {
+      if (
+        choicePlus === genre ||
+        choicePlus === famille ||
+        choicePlus === parc ||
+        choicePlus === espece
+      ) {
         if (scanned) {
-          return "block"
+          return 'block';
         } else {
-          return "none"
+          return 'none';
         }
-      }
-      else if (scanned && (choicePlus !== genre && choicePlus !== famille && choicePlus !== parc && choicePlus !== espece)) {
-        return "none"
-      }
-      else {
-        return "none"
+      } else if (
+        scanned &&
+        choicePlus !== genre &&
+        choicePlus !== famille &&
+        choicePlus !== parc &&
+        choicePlus !== espece
+      ) {
+        return 'none';
+      } else {
+        return 'none';
       }
     }
-  }
-  };
+  }};
   margin: 1px;
   width: 100px;
   height: 100px;
@@ -45,7 +66,7 @@ const DataBas = styled.div`
 class DataBase extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.props = {};
   }
 
   render() {
@@ -64,6 +85,7 @@ class DataBase extends React.Component {
           scanned={this.props.scanned}
           id={this.props.id}
           src={`https://data.nantesmetropole.fr/explore/dataset/244400404_collection-vegetale-nantes/files/${this.props.image}/300/`}
+          alt="load"
         />
       </DataBas>
     );
