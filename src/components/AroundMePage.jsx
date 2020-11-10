@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Map from './Map';
 import MapFilter from './MapFilter';
 import ParkList from './ParkList';
-import Geo from './Geolocated'
+import Geo from './Geolocated';
 
 
 class AroundMePage extends React.Component {
