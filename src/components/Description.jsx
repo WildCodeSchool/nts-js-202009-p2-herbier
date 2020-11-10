@@ -1,5 +1,7 @@
+/* eslint-disable max-classes-per-file */
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const DescriptName = styled.p`
   color: #69c5b2;
@@ -35,32 +37,25 @@ const CardCss = styled.div`
   align-items: center;
 `;
 
-const plants = [
-  {
-    Family: 'arbre',
-    Gender: 'persistant',
-    Species: 'bouleau',
-    Img:
-      'https://www.scenolia.com/media/catalog/product/cache/c687aa7517cf01e65c009f6943c2b1e9/3/7/3701237739066.main.jpg',
-  },
-];
-
 // eslint-disable-next-line react/prefer-stateless-function
 class Description extends React.Component {
   render() {
-    const { Img, Gender, Family, Species } = this.props;
+    const { famille, genre, espece, photo1Id, handleScan } = this.props;
     return (
-      <PlantCard>
+      <PlantCard onScan={handleScan}>
         <DescriptName>
-          Famille: <span>{Family}</span>
+          Famille: <span>{famille}</span>
         </DescriptName>
         <DescriptName>
-          Genre: <span>{Gender}</span>
+          Genre: <span>{genre}</span>
         </DescriptName>
         <DescriptName>
-          Espèces: <span>{Species}</span>
+          Espèces: <span>{espece}</span>
         </DescriptName>
-        <Illustration src={Img} alt={Species} />
+        <Illustration
+          src={`https://data.nantesmetropole.fr/explore/dataset/244400404_collection-vegetale-nantes/files/${photo1Id}/300/`}
+          alt={espece}
+        />
       </PlantCard>
     );
   }
@@ -68,14 +63,36 @@ class Description extends React.Component {
 
 class Card extends React.Component {
   render() {
+    const { scan, famille, espece, genre, photo1Id, handleScan } = this.props;
     return (
-      <CardCss scan={this.props.scan} handleShowScan={this.handleShowScan}>
-        {plants.map((plant) => (
-          <Description {...plant} key={plant.Species} />
-        ))}
+      <CardCss scan={scan} handleShowScan={this.handleShowScan}>
+        <Description
+          espece={espece}
+          famille={famille}
+          genre={genre}
+          photo1Id={photo1Id}
+          onScan={handleScan}
+        />
       </CardCss>
     );
   }
 }
+
+Description.propTypes = {
+  famille: PropTypes.string.isRequired,
+  espece: PropTypes.string.isRequired,
+  genre: PropTypes.string.isRequired,
+  handleScan: PropTypes.func.isRequired,
+  photo1Id: PropTypes.number.isRequired,
+};
+
+Card.propTypes = {
+  famille: PropTypes.string.isRequired,
+  espece: PropTypes.string.isRequired,
+  genre: PropTypes.string.isRequired,
+  handleScan: PropTypes.func.isRequired,
+  photo1Id: PropTypes.number.isRequired,
+  scan: PropTypes.bool.isRequired,
+};
 
 export default Card;

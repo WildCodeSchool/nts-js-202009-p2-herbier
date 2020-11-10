@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const ButtonDel = styled.button`
@@ -65,15 +66,23 @@ const Buttons = styled.div`
 
 class Button extends React.Component {
   render() {
+    const { scan, deleteQrInfos } = this.props;
     return (
-      <Buttons handleShowScan={this.handleShowScan} scan={this.props.scan}>
-        <ButtonDel type="button" onClick={this.props.deleteQrInfos}>
+      <Buttons handleShowScan={this.handleShowScan} scan={scan}>
+        <ButtonDel type="button" onClick={deleteQrInfos}>
           X
         </ButtonDel>
-        <ButtonAdd type="button">Ajouter à mon herbier</ButtonAdd>
+        <ButtonAdd type="button" onClick={deleteQrInfos}>
+          Ajouter à mon herbier
+        </ButtonAdd>
       </Buttons>
     );
   }
 }
+
+Button.propTypes = {
+  scan: PropTypes.bool.isRequired,
+  deleteQrInfos: PropTypes.func.isRequired,
+};
 
 export default Button;
