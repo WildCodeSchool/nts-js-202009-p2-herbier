@@ -16,18 +16,23 @@ const Illustration = styled.img`
   border: 1px;
   height: 230px;
   width: 100%;
+  min-width: 290px;
   max-width: 450px;
   border-radius: 5px;
   margin-top: 2rem;
   object-fit: cover;
+  display: ${({ espece }) => (espece === '' ? 'none' : 'block')};
 `;
 
 const PlantCard = styled.div`
   border-radius: 10px;
   width: 80%;
+  min-width: 290px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   padding: 2rem 0;
 `;
 
@@ -53,6 +58,7 @@ class Description extends React.Component {
           Espèces: <span>{espece}</span>
         </DescriptName>
         <Illustration
+          espece={espece}
           src={`https://data.nantesmetropole.fr/explore/dataset/244400404_collection-vegetale-nantes/files/${photo1Id}/300/`}
           alt={espece}
         />

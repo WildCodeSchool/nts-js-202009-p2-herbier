@@ -16,26 +16,19 @@ class ScanPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      espece: 'no result',
-      famille: 'no result',
-      genre: 'no result',
-      photo1Id: 'no result',
+      espece: '',
+      famille: '',
+      genre: '',
+      photo1Id: '',
       scan: true,
+      open: false,
     };
+    this.handleClick = this.handleClick.bind(this);
+    this.handleClose = this.handleClose.bind(this);
     this.handleScan = this.handleScan.bind(this);
     this.handleError = this.handleError.bind(this);
     this.deleteQrInfos = this.deleteQrInfos.bind(this);
     this.handleShowScan = this.handleShowScan.bind(this);
-  }
-
-  deleteQrInfos() {
-    this.setState({
-      espece: 'no result',
-      famille: 'no result',
-      genre: 'no result',
-      photo1Id: 'no result',
-      scan: true,
-    });
   }
 
   handleScan(data) {
@@ -53,6 +46,34 @@ class ScanPage extends React.Component {
     }
   }
 
+  handleClick(data) {
+    if (data && this.state.espece !== '') {
+      this.setState({
+        open: true,
+        espece: '',
+        famille: '',
+        genre: '',
+        photo1Id: '',
+      });
+    }
+  }
+
+  handleClose() {
+    this.setState({
+      open: false,
+    });
+  }
+
+  deleteQrInfos() {
+    this.setState({
+      espece: '',
+      famille: '',
+      genre: '',
+      photo1Id: '',
+      scan: true,
+    });
+  }
+
   handleShowScan() {
     const { scan } = this.state;
     const toggle = scan;
@@ -66,7 +87,7 @@ class ScanPage extends React.Component {
   }
 
   render() {
-    const { scan, espece, famille, genre, photo1Id } = this.state;
+    const { scan, espece, famille, genre, photo1Id, open } = this.state;
     return (
       <PageStyle>
         <Scan />
@@ -87,6 +108,13 @@ class ScanPage extends React.Component {
         />
         <Button
           scan={scan}
+          espece={espece}
+          famille={famille}
+          genre={genre}
+          photo1Id={photo1Id}
+          open={open}
+          handleClick={this.handleClick}
+          handleClose={this.handleClose}
           handleShowScan={this.handleShowScan}
           deleteQrInfos={this.deleteQrInfos}
         />
