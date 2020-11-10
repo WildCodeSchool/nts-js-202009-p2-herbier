@@ -8,6 +8,7 @@ import AroundMePage from './components/AroundMePage'
 import Library from './components/Library';
 import ContactForm from './components/ContactForm';
 import Profil from './components/Profil';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route exact path="/profil" component={Profil} />
           <Route exact path="/decouverte" component={ContactForm} />
         </Switch>
+        <Footer />
       </BrowserRouter>
     </div>
   );
