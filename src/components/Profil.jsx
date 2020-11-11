@@ -86,7 +86,7 @@ function Alert(props) {
 class Profil extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.props = {
       pseudo: 'Pseudo',
       pseudoTemp: '',
       adresse: '',
@@ -123,7 +123,7 @@ class Profil extends Component {
     event.preventDefault();
     this.setState({
       open: true,
-      pseudo: this.state.pseudoTemp,
+      pseudo: this.props.pseudoTemp,
       formEnabled: false,
     });
   }
@@ -135,11 +135,11 @@ class Profil extends Component {
   }
 
   render() {
-    console.log(this.state.pseudo);
+    console.log(this.props.pseudo);
     return (
       <div className="Profil">
         <View className="ViewProfile">
-          <h1>{this.state.pseudo}</h1>
+          <h1>{this.props.pseudo}</h1>
           <div>
             <Avatar src={avatar} alt="avatar" />
             <Couronne src={couronne} alt="couronne" />
@@ -151,8 +151,8 @@ class Profil extends Component {
           <form onSubmit={this.handleClick}>
             <label htmlFor="pseudo">Pseudo</label>
             <input
-              disabled={!this.state.formEnabled}
-              value={this.state.pseudoTemp}
+              disabled={!this.props.formEnabled}
+              value={this.props.pseudoTemp}
               type="text"
               onChange={this.handleChangePseudo}
               id="pseudo"
@@ -160,8 +160,8 @@ class Profil extends Component {
             />
             <label htmlFor="adresse">Adresse</label>
             <input
-              disabled={!this.state.formEnabled}
-              value={this.state.adresse}
+              disabled={!this.props.formEnabled}
+              value={this.props.adresse}
               type="text"
               onChange={this.handleChangeAdresse}
               id="adresse"
@@ -169,8 +169,8 @@ class Profil extends Component {
             />
             <label htmlFor="email">Email</label>
             <input
-              disabled={!this.state.formEnabled}
-              value={this.state.email}
+              disabled={!this.props.formEnabled}
+              value={this.props.email}
               type="text"
               onChange={this.handleChangeEmail}
               id="email"
@@ -183,7 +183,7 @@ class Profil extends Component {
               type="button"
               onClick={() => {
                 this.setState({
-                  formEnabled: !this.state.formEnabled,
+                  formEnabled: !this.props.formEnabled,
                 });
               }}
             >
@@ -196,7 +196,7 @@ class Profil extends Component {
             vertical: 'bottom',
             horizontal: 'center',
           }}
-          open={this.state.open}
+          open={this.props.open}
           autoHideDuration={2500}
           onClose={this.handleClose}
         >
