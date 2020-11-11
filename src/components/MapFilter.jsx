@@ -14,7 +14,7 @@ const Checkbox = styled.div``;
 class MapFilter extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.props = {
       value: 0,
       boxchecked: false,
     };
@@ -28,7 +28,7 @@ class MapFilter extends React.Component {
   }
 
   handleInputChange(event) {
-    this.setState({boxchecked: !this.state.boxchecked});
+    this.setState({boxchecked: !this.props.boxchecked});
   }
 
   render() {
@@ -40,15 +40,15 @@ class MapFilter extends React.Component {
             type="range"
             min="1"
             max="10"
-            value={this.state.value}
+            value={this.props.value}
             onChange={this.handleChange}
             step="1"
           />
-          {this.state.value}
+          {this.props.value}
         </Range>
         <Checkbox>
           <h3>Plantes manquantes</h3>
-          <input type="checkbox" onChange={this.handleInputChange} value={this.state.boxchecked}/>
+          <input type="checkbox" onChange={this.handleInputChange} value={this.props.boxchecked}/>
         </Checkbox>
       </Filter>
     );

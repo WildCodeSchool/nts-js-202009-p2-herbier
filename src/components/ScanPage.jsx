@@ -15,11 +15,13 @@ const PageStyle = styled.div`
 class ScanPage extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       espece: '',
       famille: '',
       genre: '',
       photo1Id: '',
+
       scan: true,
       open: false,
     };
@@ -75,8 +77,10 @@ class ScanPage extends React.Component {
   }
 
   handleShowScan() {
+
     const { scan } = this.state;
     const toggle = scan;
+
     this.setState({
       scan: !toggle,
     });
@@ -92,6 +96,7 @@ class ScanPage extends React.Component {
       <PageStyle>
         <Scan />
         <Reader
+
           scan={scan}
           handleShowScan={this.handleShowScan}
           handleScan={this.handleScan}
@@ -115,6 +120,7 @@ class ScanPage extends React.Component {
           open={open}
           handleClick={this.handleClick}
           handleClose={this.handleClose}
+
           handleShowScan={this.handleShowScan}
           deleteQrInfos={this.deleteQrInfos}
         />
