@@ -9,6 +9,8 @@ import AroundMePage from './components/AroundMePage';
 import Library from './components/Library';
 import ContactForm from './components/ContactForm';
 import Profil from './components/Profil';
+import Footer from './components/Footer';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -73,6 +75,7 @@ class App extends React.Component {
       </div>
     );
   }
+
 }
 
 export default App;
