@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-import styled, { ThemeConsumer } from 'styled-components';
+import styled from 'styled-components';
 import Button from './Button';
 import Scan from './Scan';
 import Reader from './Reader';
@@ -77,7 +77,6 @@ class ScanPage extends React.Component {
   }
 
   handleShowScan() {
-
     const { scan } = this.state;
     const toggle = scan;
 
@@ -96,7 +95,6 @@ class ScanPage extends React.Component {
       <PageStyle>
         <Scan />
         <Reader
-
           scan={scan}
           handleShowScan={this.handleShowScan}
           handleScan={this.handleScan}
@@ -120,7 +118,6 @@ class ScanPage extends React.Component {
           open={open}
           handleClick={this.handleClick}
           handleClose={this.handleClose}
-
           handleShowScan={this.handleShowScan}
           deleteQrInfos={this.deleteQrInfos}
         />
