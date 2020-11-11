@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Map from './Map';
 import MapFilter from './MapFilter';
 import ParkList from './ParkList';
-import Geo from './Geolocated';
 
 
 class AroundMePage extends React.Component {
@@ -14,7 +13,6 @@ class AroundMePage extends React.Component {
   render() {
     return (
       <div>
-        <Geo />
         <MapFilter />
         <Map />
         <ParkList />

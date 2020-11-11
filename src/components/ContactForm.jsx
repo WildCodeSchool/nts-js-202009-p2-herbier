@@ -63,7 +63,6 @@ const Field = styled.div`
 `;
 
 const StyledSelect = styled.div`
-
   select {
     -webkit-appearance: none;
     color: grey;
