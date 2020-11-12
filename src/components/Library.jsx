@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import SearchBar from './SearchBar';
 import DataBase from './DataBase';
+import DescriptionPanel from './DescriptionPanel';
 
 const Collection = styled.div`
   display: flex;
@@ -135,7 +136,11 @@ class Library extends React.Component {
       choice: null,
       choicePlus: null,
       list: [],
+      description: ['', '', '', ''],
+      showPanel: false,
     };
+    this.handleVegetalClick = this.handleVegetalClick.bind(this);
+    this.hidePanel = this.hidePanel.bind(this);
   }
 
   componentDidUpdate(pervP, prevS) {
@@ -148,9 +153,28 @@ class Library extends React.Component {
     }
   }
 
+  handleVegetalClick(id, espece, genre, famille, image) {
+    this.setState({
+      description: [image, famille, genre, espece],
+      showPanel: true,
+    });
+  }
+
+  hidePanel() {
+    this.setState({
+      showPanel: false,
+    });
+  }
+
   render() {
     return (
       <div className="Library">
+        <DescriptionPanel
+          handleVegetalClick={this.handleVegetalClick}
+          hidePanel={this.hidePanel}
+          description={this.state.description}
+          showPanel={this.state.showPanel}
+        />
         <SearchBar />
         <ContainerFiltre>
           <ButtonAllSome
@@ -245,6 +269,7 @@ class Library extends React.Component {
             .filter((element) => element.fields.photo1)
             .map((item) => (
               <DataBase
+                handleVegetalClick={this.handleVegetalClick}
                 filter={this.state.filter}
                 choicePlus={this.state.choicePlus}
                 all={this.state.all}
