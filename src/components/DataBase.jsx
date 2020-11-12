@@ -17,11 +17,36 @@ const DataBas = styled.div`
     choicePlus,
     all,
     filter,
+    search,
   }) => {
     if (!filter && !all && scanned) {
-      return 'block';
+      if (search) {
+        if (
+          (genre && genre.toLowerCase().includes(search.toLowerCase())) ||
+          (famille && famille.toLowerCase().includes(search.toLowerCase())) ||
+          (espece && espece.toLowerCase().includes(search.toLowerCase()))
+        ) {
+          return 'block';
+        } else {
+          return 'none';
+        }
+      } else {
+        return 'block';
+      }
     } else if (!filter && all) {
-      return 'block';
+      if (search) {
+        if (
+          (genre && genre.toLowerCase().includes(search.toLowerCase())) ||
+          (famille && famille.toLowerCase().includes(search.toLowerCase())) ||
+          (espece && espece.toLowerCase().includes(search.toLowerCase()))
+        ) {
+          return 'block';
+        } else {
+          return 'none';
+        }
+      } else {
+        return 'block';
+      }
     } else if (all) {
       if (
         choicePlus === genre ||
@@ -29,7 +54,19 @@ const DataBas = styled.div`
         choicePlus === parc ||
         choicePlus === espece
       ) {
-        return 'block';
+        if (search) {
+          if (
+            (genre && genre.toLowerCase().includes(search.toLowerCase())) ||
+            (famille && famille.toLowerCase().includes(search.toLowerCase())) ||
+            (espece && espece.toLowerCase().includes(search.toLowerCase()))
+          ) {
+            return 'block';
+          } else {
+            return 'none';
+          }
+        } else {
+          return 'block';
+        }
       } else {
         return 'none';
       }
@@ -41,7 +78,20 @@ const DataBas = styled.div`
         choicePlus === espece
       ) {
         if (scanned) {
-          return 'block';
+          if (search) {
+            if (
+              (genre && genre.toLowerCase().includes(search.toLowerCase())) ||
+              (famille &&
+                famille.toLowerCase().includes(search.toLowerCase())) ||
+              (espece && espece.toLowerCase().includes(search.toLowerCase()))
+            ) {
+              return 'block';
+            } else {
+              return 'none';
+            }
+          } else {
+            return 'block';
+          }
         } else {
           return 'none';
         }
@@ -66,12 +116,12 @@ const DataBas = styled.div`
 class DataBase extends React.Component {
   constructor(props) {
     super(props);
-    this.props = {};
   }
 
   render() {
     return (
       <DataBas
+        search={this.props.search}
         famille={this.props.famille}
         espece={this.props.espece}
         genre={this.props.genre}

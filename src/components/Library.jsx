@@ -135,7 +135,9 @@ class Library extends React.Component {
       choice: null,
       choicePlus: null,
       list: [],
+      search: '',
     };
+    this.handleChangeSearch = this.handleChangeSearch.bind(this);
   }
 
   componentDidUpdate(pervP, prevS) {
@@ -148,10 +150,17 @@ class Library extends React.Component {
     }
   }
 
+  handleChangeSearch(e) {
+    this.setState({ search: e.target.value });
+  }
+
   render() {
     return (
       <div className="Library">
-        <SearchBar />
+        <SearchBar
+          search={this.state.search}
+          handleChangeSearch={this.handleChangeSearch}
+        />
         <ContainerFiltre>
           <ButtonAllSome
             all={this.state.all}
@@ -245,6 +254,7 @@ class Library extends React.Component {
             .filter((element) => element.fields.photo1)
             .map((item) => (
               <DataBase
+                search={this.state.search}
                 filter={this.state.filter}
                 choicePlus={this.state.choicePlus}
                 all={this.state.all}
