@@ -98,7 +98,7 @@ function Alert(props) {
 class ContactForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.props = {
       open: false,
     };
     this.handleClick = this.handleClick.bind(this);
@@ -151,7 +151,7 @@ class ContactForm extends React.Component {
               vertical: 'bottom',
               horizontal: 'center',
             }}
-            open={this.state.open}
+            open={this.props.open}
             autoHideDuration={2500}
             onClose={this.handleClose}
           >

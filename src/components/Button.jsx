@@ -1,4 +1,7 @@
 import React from 'react';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const ButtonDel = styled.button`
@@ -63,17 +66,46 @@ const Buttons = styled.div`
   display: ${({ scan }) => (scan ? 'none' : 'flex')};
 `;
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 class Button extends React.Component {
   render() {
+    const { scan, deleteQrInfos, handleClick, open, handleClose } = this.props;
+
     return (
-      <Buttons handleShowScan={this.handleShowScan} scan={this.props.scan}>
-        <ButtonDel type="button" onClick={this.props.deleteQrInfos}>
+      <Buttons handleShowScan={this.handleShowScan} scan={scan}>
+        <ButtonDel type="button" onClick={deleteQrInfos}>
           X
         </ButtonDel>
-        <ButtonAdd type="button">Ajouter à mon herbier</ButtonAdd>
+        <ButtonAdd type="button" onClick={handleClick}>
+          Ajouter à mon herbier
+        </ButtonAdd>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={open}
+          autoHideDuration={2500}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="success">
+            Plante ajoutée à votre Vegedex !
+          </Alert>
+        </Snackbar>
       </Buttons>
     );
   }
 }
+
+Button.propTypes = {
+  scan: PropTypes.bool.isRequired,
+  open: PropTypes.bool.isRequired,
+  deleteQrInfos: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
+};
 
 export default Button;
