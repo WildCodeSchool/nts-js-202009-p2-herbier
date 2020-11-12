@@ -1,6 +1,8 @@
 import React from 'react';
 import Axios from 'axios';
 import styled from 'styled-components';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import PropTypes from 'prop-types';
 import Button from './Button';
 import Scan from './Scan';
@@ -13,6 +15,10 @@ const PageStyle = styled.div`
   align-items: center;
 `;
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 class ScanPage extends React.Component {
   constructor(props) {
     super(props);
@@ -22,7 +28,7 @@ class ScanPage extends React.Component {
       genre: '',
       photo1Id: '',
       scan: true,
-      open: false,
+      
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -49,18 +55,21 @@ class ScanPage extends React.Component {
   }
 
   handleClick(data) {
-    if (data && this.state.espece !== '' && !this.props.scannedLybrary.includes(this.state.recordid)) {
+    const { espece, recordid } = this.state;
+    const { scannedLybrary, addToLybrary } = this.props;
+    if (data && espece !== '' && !scannedLybrary.includes(recordid)) {
+      
       this.setState({
-        open: true,
+        
         espece: '',
         famille: '',
         genre: '',
         photo1Id: '',
-        scannedLybrary: this.props.scannedLybrary.push(this.state.recordid),
       });
-    } else {
+      addToLybrary(recordid);
+    } else if (data && espece !== '' && scannedLybrary.includes(recordid)) {
       this.setState({
-        open: false,
+        open: true,
         espece: '',
         famille: '',
         genre: '',
@@ -99,8 +108,16 @@ class ScanPage extends React.Component {
   }
 
   render() {
-    const { scan, espece, famille, genre, photo1Id, open } = this.state;
-    const { scannedLybrary, vegetals } = this.props;
+    const {
+      scan,
+      espece,
+      famille,
+      genre,
+      photo1Id,
+      open,
+      recordid,
+    } = this.state;
+    const { scannedLybrary } = this.props;
     return (
       <PageStyle>
         <Scan />
@@ -121,26 +138,37 @@ class ScanPage extends React.Component {
         />
         <Button
           scan={scan}
-          espece={espece}
-          famille={famille}
-          genre={genre}
-          photo1Id={photo1Id}
-          open={open}
-          vegetals={vegetals}
           handleClick={this.handleClick}
-          handleClose={this.handleClose}
           handleShowScan={this.handleShowScan}
           deleteQrInfos={this.deleteQrInfos}
-          scannedLybrary={scannedLybrary}
         />
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={open}
+          autoHideDuration={2500}
+          onClose={this.handleClose}
+        >
+          <Alert
+            handleClick={this.handleClick}
+            onClose={this.handleClose}
+            severity={scannedLybrary.includes(recordid) ? 'error' : 'success'}
+          >
+            {scannedLybrary.includes(recordid)
+              ? 'Plante déjà capturée !'
+              : 'Plante ajoutée à votre Vegedex !'}
+          </Alert>
+        </Snackbar>
       </PageStyle>
     );
   }
 }
 
 ScanPage.propTypes = {
-  scannedLybrary: PropTypes.arrayOf.isRequired,
-  vegetals: PropTypes.arrayOf.isRequired,
+  scannedLybrary: PropTypes.arrayOf(PropTypes.string).isRequired,
+  addToLybrary: PropTypes.func.isRequired,
 };
 
 export default ScanPage;
