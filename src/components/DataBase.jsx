@@ -27,7 +27,14 @@ const DataBas = styled.div`
 class DataBase extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      descriptionId: '',
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.props.handleVegetalClick(this.props.id, this.props.espece, this.props.genre, this.props.famille, this.props.image);
   }
 
   render() {
@@ -43,6 +50,10 @@ class DataBase extends React.Component {
         all={this.props.all}
       >
         <Thumbnail
+          onClick={this.handleClick}
+          famille={this.props.famille}
+          espece={this.props.espece}
+          genre={this.props.genre}
           scanned={this.props.scanned}
           id={this.props.id}
           src={`https://data.nantesmetropole.fr/explore/dataset/244400404_collection-vegetale-nantes/files/${this.props.image}/300/`}

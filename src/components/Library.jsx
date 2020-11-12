@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import SearchBar from './SearchBar';
 import DataBase from './DataBase';
+import DescriptionPanel from './DescriptionPanel';
 
 const Collection = styled.div`
   display: flex;
@@ -41,7 +42,7 @@ const TextInButton = styled.p`
 `;
 
 const FilterAdvenced = styled.button`
-  outline:none;
+  outline: none;
   cursor: pointer;
   background-color: white;
   color: rgba(226, 122, 112);
@@ -134,7 +135,7 @@ class Library extends React.Component {
       filter: true,
       vegetals: [],
       choice: null,
-      choicePlus:null,
+      choicePlus: null,
       tri: [],
       list: [],
       scannedLybrary: [
@@ -145,8 +146,12 @@ class Library extends React.Component {
         '22030281a17bde724545be084f2b57f93a6bc1f9',
         '0b5a76b82b6a71f9b94640d4d37a20492e6000b1',
       ],
+      description: ['', '', '', ''],
+      showPanel: false,
     };
     this.getData = this.getData.bind(this);
+    this.handleVegetalClick = this.handleVegetalClick.bind(this);
+    this.hidePanel = this.hidePanel.bind(this);
   }
 
   componentDidMount() {
@@ -176,9 +181,28 @@ class Library extends React.Component {
       });
   }
 
+  handleVegetalClick(id, espece, genre, famille, image) {
+    this.setState({
+      description: [image, famille, genre, espece],
+      showPanel: true,
+    });
+  }
+
+  hidePanel() {
+    this.setState({
+      showPanel: false,
+    });
+  }
+
   render() {
     return (
       <div className="Library">
+        <DescriptionPanel
+          handleVegetalClick={this.handleVegetalClick}
+          hidePanel={this.hidePanel}
+          description={this.state.description}
+          showPanel={this.state.showPanel}
+        />
         <SearchBar />
         <ContainerFiltre>
           <ButtonAllSome
@@ -257,9 +281,11 @@ class Library extends React.Component {
               {this.state.list[0] &&
                 this.state.list[0].facets.map((item) => {
                   return (
-                    <Li onClick={(event)=> 
-                      this.setState({choicePlus:item.name})
-                    }>
+                    <Li
+                      onClick={(event) =>
+                        this.setState({ choicePlus: item.name })
+                      }
+                    >
                       {item.name}({item.count})
                     </Li>
                   );
@@ -273,6 +299,7 @@ class Library extends React.Component {
             .filter((element) => element.fields.photo1)
             .map((item) => (
               <DataBase
+                handleVegetalClick={this.handleVegetalClick}
                 filter={this.state.filter}
                 choicePlus={this.state.choicePlus}
                 all={this.state.all}
