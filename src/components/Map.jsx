@@ -29,33 +29,6 @@ const myIcon = L.icon({
   iconSize: [30, 30],
 });
 
-const Parks = [
-  {
-    name: 'Jardin des plantes',
-    distance: '0,3 km',
-    speciesNumber: '(150)',
-    coords: [47.286413177, -1.524379919],
-  },
-  {
-    name: 'Parc des plantes',
-    distance: '2 km',
-    speciesNumber: '(8)',
-    coords: [47.205091544, -1.54996601],
-  },
-  {
-    name: 'Parc de Procé',
-    distance: '5 km',
-    speciesNumber: '(300)',
-    coords: [47.26691362, -1.521506652],
-  },
-  {
-    name: 'Parc Municipal',
-    distance: '8 km',
-    speciesNumber: '(56)',
-    coords: [47.207524454, -1.559628221],
-  },
-];
-
 function LocationMarker() {
   const [position, setPosition] = React.useState(null);
   const map = useMapEvents({
@@ -112,11 +85,6 @@ class Map extends React.Component {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <LocationMarker />
-          {Parks.map((park) => (
-            <Marker position={park.coords} icon={Icon}>
-              <Popup>{park.name}</Popup>
-            </Marker>
-          ))}
           {this.state.parks.map((item) => (
             <Marker position={item.fields.location} icon={Icon}>
               <Popup>{item.fields.nom_complet}</Popup>
