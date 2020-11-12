@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import scanner from './logos/qrcode.svg';
 import QrReader from 'react-qr-reader';
+import scanner from './logos/qrcode.svg';
 
 const ScanContener = styled.div`
   background-color: #abb2b9;
@@ -29,25 +30,28 @@ const QrStyle = styled.div`
 
 class Reader extends Component {
   render() {
+    const { scan, handleShowScan, handleError, handleScan } = this.props;
     return (
-      <ScanContener scan={this.props.scan} onClick={this.props.handleShowScan}>
-        <QrStyle reverseScan={!this.props.scan}>
+      <ScanContener scan={scan} onClick={handleShowScan}>
+        <QrStyle reverseScan={!scan}>
           <QrReader
             delay={300}
-            onError={this.props.handleError}
-            onScan={this.props.handleScan}
+            onError={handleError}
+            onScan={handleScan}
             style={{ width: '200px' }}
           />
-          <p>{this.props.result}</p>
         </QrStyle>
-        <ScanImgStyle
-          scan={this.props.scan}
-          src={scanner}
-          alt="QR code scanner"
-        />
+        <ScanImgStyle scan={scan} src={scanner} alt="QR code scanner" />
       </ScanContener>
     );
   }
 }
+
+Reader.propTypes = {
+  scan: PropTypes.bool.isRequired,
+  handleShowScan: PropTypes.func.isRequired,
+  handleError: PropTypes.func.isRequired,
+  handleScan: PropTypes.func.isRequired,
+};
 
 export default Reader;
