@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import SearchBar from './SearchBar';
 import DataBase from './DataBase';
 import DescriptionPanel from './DescriptionPanel';
@@ -72,9 +71,9 @@ const UlListe = styled.div`
     (filterChoice === 'famille' ||
       filterChoice === 'espece' ||
       filterChoice === 'genre' ||
-      filterChoice === 'nom_de_site')
-      ? 'none'
-      : 'block'};
+      filterChoice === 'nom_du_site')
+      ? 'block'
+      : 'none'};
 `;
 
 const ButtonParameter = styled.div`
@@ -93,7 +92,7 @@ const ButtonParameter = styled.div`
 `;
 
 const ParameterFiltre = styled.div`
-  display: ${({ filter }) => (filter ? 'none' : 'flex')};
+  display: ${({ filter }) => (filter ? 'flex' : 'none')};
   justify-content: space-between;
   width: 90%;
   margin: 0 1.5rem 0 0;
@@ -106,12 +105,13 @@ const ListeFiltre = styled.div`
   color: white;
   background-color: rgba(79, 127, 99);
   height: fit-content;
-  display: ${({ filter }) => (filter ? 'none' : 'flex')};
+  display: ${({ filter }) => (filter ? 'flex' : 'none')};
   flex-direction: column;
   width: 90%;
 `;
 
 const Li = styled.li`
+  cursor: pointer;
   list-style: none;
   padding: 8px 2px 8px 2rem;
   width: 90%;
@@ -119,7 +119,7 @@ const Li = styled.li`
 `;
 
 const WindowFilter = styled.div`
-  display: ${({ filter }) => (filter ? 'none' : 'flex')};
+  display: ${({ filter }) => (filter ? 'flex' : 'none')};
   width: 90%;
   margin: 1.5rem;
   justify-content: center;
@@ -132,53 +132,25 @@ class Library extends React.Component {
     super(props);
     this.state = {
       all: false,
-      filter: true,
-      vegetals: [],
+      filter: false,
       choice: null,
       choicePlus: null,
-      tri: [],
       list: [],
-      scannedLybrary: [
-        '33ed6720a4fec83e401390ec5fb67d4ec7bdd9c4',
-        '770a3422810693f5ecf454fec5a8e17e68dd7cb0',
-        'eccf60b59b4396966fe81106c933cdaf269a91a3',
-        '9266fa81e583eb74558a0dd1e017f4a2e7627fd2',
-        '22030281a17bde724545be084f2b57f93a6bc1f9',
-        '0b5a76b82b6a71f9b94640d4d37a20492e6000b1',
-      ],
       description: ['', '', '', ''],
       showPanel: false,
     };
-    this.getData = this.getData.bind(this);
     this.handleVegetalClick = this.handleVegetalClick.bind(this);
     this.hidePanel = this.hidePanel.bind(this);
-  }
-
-  componentDidMount() {
-    this.getData();
   }
 
   componentDidUpdate(pervP, prevS) {
     if (prevS.choice !== this.state.choice) {
       this.setState({
-        list: this.state.tri.filter(
+        list: this.props.tri.filter(
           (element) => element.name === this.state.choice
         ),
       });
     }
-  }
-
-  getData() {
-    axios
-      .get(
-        'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_collection-vegetale-nantes&q=&rows=3923&facet=famille&facet=genre&facet=nom_du_site&facet=espece'
-      )
-      .then((res) => {
-        return this.setState({
-          vegetals: res.data.records,
-          tri: res.data.facet_groups,
-        });
-      });
   }
 
   handleVegetalClick(id, espece, genre, famille, image) {
@@ -282,9 +254,7 @@ class Library extends React.Component {
                 this.state.list[0].facets.map((item) => {
                   return (
                     <Li
-                      onClick={(event) =>
-                        this.setState({ choicePlus: item.name })
-                      }
+                      onClick={() => this.setState({ choicePlus: item.name })}
                     >
                       {item.name}({item.count})
                     </Li>
@@ -295,7 +265,7 @@ class Library extends React.Component {
         </WindowFilter>
         <Title>Votre collection : 0 / 15</Title>
         <Collection className="collection">
-          {this.state.vegetals
+          {this.props.vegetals
             .filter((element) => element.fields.photo1)
             .map((item) => (
               <DataBase
@@ -303,7 +273,7 @@ class Library extends React.Component {
                 filter={this.state.filter}
                 choicePlus={this.state.choicePlus}
                 all={this.state.all}
-                scanned={this.state.scannedLybrary.includes(item.recordid)}
+                scanned={this.props.scannedLybrary.includes(item.recordid)}
                 key={item.recordid}
                 id={item.recordid}
                 famille={item.fields.famille}

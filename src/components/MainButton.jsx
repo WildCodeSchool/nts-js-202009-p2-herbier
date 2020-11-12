@@ -84,7 +84,6 @@ const mainButtons = [
 
 const clickNav = (event) => {
   event.preventDefault();
-  console.log("on m'a cliqué");
 };
 
 const MainButton = () => {
