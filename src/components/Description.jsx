@@ -89,7 +89,7 @@ Description.propTypes = {
   espece: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   handleScan: PropTypes.func.isRequired,
-  photo1Id: PropTypes.number.isRequired,
+  photo1Id: PropTypes.string.isRequired,
 };
 
 Card.propTypes = {
@@ -97,7 +97,7 @@ Card.propTypes = {
   espece: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   handleScan: PropTypes.func.isRequired,
-  photo1Id: PropTypes.number.isRequired,
+  photo1Id: PropTypes.string.isRequired,
   scan: PropTypes.bool.isRequired,
 };
 
