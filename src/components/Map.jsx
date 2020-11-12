@@ -27,9 +27,9 @@ function LocationMarker() {
     click() {
       map.locate();
     },
-    locationfound(e) {
-      setPosition(e.latlng);
-      map.flyTo(e.latlng, map.getZoom());
+    locationfound(event) {
+      setPosition(event.latlng);
+      map.flyTo(event.latlng, map.getZoom());
     },
   });
 
