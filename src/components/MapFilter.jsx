@@ -40,7 +40,7 @@ const DailyPLants = [
 class MapFilter extends React.Component {
   constructor(props) {
     super(props);
-    this.props = {
+    this.state = {
       value: 0,
       boxchecked: false,
       click: false,
@@ -77,23 +77,15 @@ class MapFilter extends React.Component {
             type="range"
             min="1"
             max="10"
-            value={this.props.value}
+            value={this.state.value}
             onChange={this.handleChange}
             step="1"
           />
-          {this.props.value}
+          {this.state.value}
         </Range>
         <Checkbox>
           <h3>Plantes manquantes</h3>
-<<<<<<< HEAD
-          <input
-            type="checkbox"
-            onChange={this.handleInputChange}
-            value={this.state.boxchecked}
-          />
-=======
-          <input type="checkbox" onChange={this.handleInputChange} value={this.props.boxchecked}/>
->>>>>>> cfb3697623d38bba2bffc5e58f917ab7d09e86d9
+          <input type="checkbox" onChange={this.handleInputChange} value={this.state.boxchecked}/>
         </Checkbox>
         <DailyPLant>
           <h3>Plantes du moment</h3>
