@@ -11,7 +11,6 @@ import ContactForm from './components/ContactForm';
 import Profil from './components/Profil';
 import Footer from './components/Footer';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -49,6 +48,7 @@ class App extends React.Component {
   }
 
   render() {
+    const { scannedLybrary, vegetals, tri } = this.state;
     return (
       <div className="App">
         <BrowserRouter>
@@ -56,15 +56,21 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/around-me" component={AroundMePage} />
-            <Route exact path="/scan" component={ScanPage} />
+            <Route
+              exact
+              path="/scan"
+              component={() => (
+                <ScanPage vegetals={vegetals} scannedLybrary={scannedLybrary} />
+              )}
+            />
             <Route
               exact
               path="/herbier"
               component={() => (
                 <Library
-                  vegetals={this.state.vegetals}
-                  tri={this.state.tri}
-                  scannedLybrary={this.state.scannedLybrary}
+                  vegetals={vegetals}
+                  tri={tri}
+                  scannedLybrary={scannedLybrary}
                 />
               )}
             />
@@ -76,7 +82,6 @@ class App extends React.Component {
       </div>
     );
   }
-
 }
 
 export default App;
