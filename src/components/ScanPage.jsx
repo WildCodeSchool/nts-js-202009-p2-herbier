@@ -1,6 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import Button from './Button';
 import Scan from './Scan';
 import Reader from './Reader';
@@ -15,13 +16,11 @@ const PageStyle = styled.div`
 class ScanPage extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       espece: '',
       famille: '',
       genre: '',
       photo1Id: '',
-
       scan: true,
       open: false,
     };
@@ -43,15 +42,25 @@ class ScanPage extends React.Component {
           famille: res.data.records[0].fields.famille,
           genre: res.data.records[0].fields.genre,
           photo1Id: res.data.records[0].fields.photo1.id,
+          recordid: res.data.records[0].recordid,
         });
       });
     }
   }
 
   handleClick(data) {
-    if (data && this.state.espece !== '') {
+    if (data && this.state.espece !== '' && !this.props.scannedLybrary.includes(this.state.recordid)) {
       this.setState({
         open: true,
+        espece: '',
+        famille: '',
+        genre: '',
+        photo1Id: '',
+        scannedLybrary: this.props.scannedLybrary.push(this.state.recordid),
+      });
+    } else {
+      this.setState({
+        open: false,
         espece: '',
         famille: '',
         genre: '',
@@ -91,6 +100,7 @@ class ScanPage extends React.Component {
 
   render() {
     const { scan, espece, famille, genre, photo1Id, open } = this.state;
+    const { scannedLybrary, vegetals } = this.props;
     return (
       <PageStyle>
         <Scan />
@@ -116,14 +126,21 @@ class ScanPage extends React.Component {
           genre={genre}
           photo1Id={photo1Id}
           open={open}
+          vegetals={vegetals}
           handleClick={this.handleClick}
           handleClose={this.handleClose}
           handleShowScan={this.handleShowScan}
           deleteQrInfos={this.deleteQrInfos}
+          scannedLybrary={scannedLybrary}
         />
       </PageStyle>
     );
   }
 }
+
+ScanPage.propTypes = {
+  scannedLybrary: PropTypes.arrayOf.isRequired,
+  vegetals: PropTypes.arrayOf.isRequired,
+};
 
 export default ScanPage;
