@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Map from './Map';
 import MapFilter from './MapFilter';
-import ParkList from './ParkList';
 
 
 class AroundMePage extends React.Component {
@@ -15,7 +14,6 @@ class AroundMePage extends React.Component {
       <div>
         <MapFilter />
         <Map />
-        <ParkList />
       </div>
     );
   }

@@ -12,6 +12,7 @@ import {
 } from 'react-leaflet';
 import MapPicker from './logos/map-picker.svg';
 import MapPickerBlue from './logos/map-picker-blue.svg';
+import ParkList from './ParkList';
 import { element } from 'prop-types';
 
 const Card = styled.div`
@@ -104,34 +105,37 @@ class Map extends React.Component {
 
   render() {
     return (
-      <Card>
-        <MapContainer
-          className="cardmap"
-          center={{ lat: 47.214975, lng: -1.557501 }}
-          zoom={15}
-          scrollWheelZoom={false}
-        >
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <LocationMarker />
-          {this.state.parks
-            .filter(
-              (element) =>
-                element.fields.idobj === '1016' ||
-                element.fields.idobj === '1019' ||
-                element.fields.idobj === '1021' ||
-                element.fields.idobj === '1020' ||
-                element.fields.idobj === '2372'
-            )
-            .map((item) => (
-              <Marker position={item.fields.location} icon={Icon}>
-                <Popup>{item.fields.nom_complet}</Popup>
-              </Marker>
-            ))}
-        </MapContainer>
-      </Card>
+      <div>
+        <Card>
+          <MapContainer
+            className="cardmap"
+            center={{ lat: 47.214975, lng: -1.557501 }}
+            zoom={15}
+            scrollWheelZoom={false}
+          >
+            <TileLayer
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <LocationMarker />
+            {this.state.parks
+              .filter(
+                (element) =>
+                  element.fields.idobj === '1016' ||
+                  element.fields.idobj === '1019' ||
+                  element.fields.idobj === '1021' ||
+                  element.fields.idobj === '1020' ||
+                  element.fields.idobj === '2372'
+              )
+              .map((item) => (
+                <Marker position={item.fields.location} icon={Icon}>
+                  <Popup>{item.fields.nom_complet}</Popup>
+                </Marker>
+              ))}
+          </MapContainer>
+        </Card>
+        < ParkList />
+      </div>
     );
   }
 }
