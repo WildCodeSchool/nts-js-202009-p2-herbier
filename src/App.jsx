@@ -28,6 +28,7 @@ class App extends React.Component {
         '0b5a76b82b6a71f9b94640d4d37a20492e6000b1',
       ],
       open: false,
+      inLybrary: true,
     };
     this.getData = this.getData.bind(this);
     this.addToLybrary = this.addToLybrary.bind(this);
@@ -54,7 +55,8 @@ class App extends React.Component {
 
   alreadyInLybrary() {
     this.setState({
-      open: !false,
+      open: true,
+      inLybrary: true,
     });
   }
 
@@ -62,7 +64,8 @@ class App extends React.Component {
     const { scannedLybrary } = this.state;
     this.setState({
       scannedLybrary: [...scannedLybrary, id],
-      open: !false,
+      open: true,
+      inLybrary: false,
     });
   }
 
@@ -73,7 +76,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { scannedLybrary, vegetals, tri, open } = this.state;
+    const { scannedLybrary, vegetals, tri, open, inLybrary } = this.state;
     return (
       <div className="App">
         <BrowserRouter>
@@ -87,6 +90,7 @@ class App extends React.Component {
               component={() => (
                 <ScanPage
                   open={open}
+                  inLybrary={inLybrary}
                   handleClose={this.handleClose}
                   addToLybrary={this.addToLybrary}
                   alreadyInLybrary={this.alreadyInLybrary}

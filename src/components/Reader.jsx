@@ -5,8 +5,8 @@ import QrReader from 'react-qr-reader';
 import scanner from './logos/qrcode.svg';
 
 const ScanContener = styled.div`
-  background-color: #abb2b9;
-  height: ${({ scan }) => (scan ? '500px' : '300px')};
+  background-color: ${({ scan }) => (scan ? 'red' : 'transparent')};
+  height: ${({ scan }) => (scan ? '80vh' : '40vh')};
   transition: 0.3s;
   width: 100%;
   display: flex;
