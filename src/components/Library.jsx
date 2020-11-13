@@ -136,9 +136,11 @@ class Library extends React.Component {
       choice: null,
       choicePlus: null,
       list: [],
+      search: '',
       description: ['', '', '', ''],
       showPanel: false,
     };
+    this.handleChangeSearch = this.handleChangeSearch.bind(this);
     this.handleVegetalClick = this.handleVegetalClick.bind(this);
     this.hidePanel = this.hidePanel.bind(this);
   }
@@ -151,6 +153,10 @@ class Library extends React.Component {
         ),
       });
     }
+  }
+
+  handleChangeSearch(e) {
+    this.setState({ search: e.target.value });
   }
 
   handleVegetalClick(id, espece, genre, famille, image) {
@@ -169,13 +175,16 @@ class Library extends React.Component {
   render() {
     return (
       <div className="Library">
+        <SearchBar
+          search={this.state.search}
+          handleChangeSearch={this.handleChangeSearch}
+        />
         <DescriptionPanel
           handleVegetalClick={this.handleVegetalClick}
           hidePanel={this.hidePanel}
           description={this.state.description}
           showPanel={this.state.showPanel}
         />
-        <SearchBar />
         <ContainerFiltre>
           <ButtonAllSome
             all={this.state.all}
@@ -269,6 +278,7 @@ class Library extends React.Component {
             .filter((element) => element.fields.photo1)
             .map((item) => (
               <DataBase
+                search={this.state.search}
                 handleVegetalClick={this.handleVegetalClick}
                 filter={this.state.filter}
                 choicePlus={this.state.choicePlus}
