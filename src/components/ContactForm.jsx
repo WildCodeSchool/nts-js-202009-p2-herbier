@@ -63,7 +63,6 @@ const Field = styled.div`
 `;
 
 const StyledSelect = styled.div`
-
   select {
     -webkit-appearance: none;
     color: grey;
@@ -99,7 +98,7 @@ function Alert(props) {
 class ContactForm extends React.Component {
   constructor(props) {
     super(props);
-    this.props = {
+    this.state = {
       open: false,
     };
     this.handleClick = this.handleClick.bind(this);
@@ -152,7 +151,7 @@ class ContactForm extends React.Component {
               vertical: 'bottom',
               horizontal: 'center',
             }}
-            open={this.props.open}
+            open={this.state.open}
             autoHideDuration={2500}
             onClose={this.handleClose}
           >
