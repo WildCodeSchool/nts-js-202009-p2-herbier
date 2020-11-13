@@ -1,53 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
+import SearchBar from './SearchBar';
 import DataBase from './DataBase';
-import SearchBar from './SearchBar'
-
-const tree = [
-  {
-    name: 'aesculus',
-    image:
-      'https://images.pexels.com/photos/9198/nature-sky-twilight-grass-9198.jpg?auto=compress&cs=tinysrgb&h=750&w=1260',
-    have: true,
-  },
-  {
-    name: 'petraea',
-    image:
-      'https://images.pexels.com/photos/1067333/pexels-photo-1067333.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
-    have: false,
-  },
-  {
-    name: 'robur',
-    image:
-      'https://images.pexels.com/photos/286305/pexels-photo-286305.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
-    have: false,
-  },
-  {
-    name: 'ilex',
-    image:
-      'https://images.pexels.com/photos/1459495/pexels-photo-1459495.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
-    have: true,
-  },
-  {
-    name: 'araucaria',
-    image:
-      'https://images.pexels.com/photos/1083386/pexels-photo-1083386.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
-    have: false,
-  },
-  {
-    name: 'pseudotsuga',
-    image:
-      'https://images.pexels.com/photos/36717/amazing-animal-beautiful-beautifull.jpg?auto=compress&cs=tinysrgb&h=750&w=1260',
-    have: true,
-  },
-  {
-    name: 'alumette',
-    image:
-      'https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
-    have: true,
-  },
-];
+import DescriptionPanel from './DescriptionPanel';
 
 const Collection = styled.div`
   display: flex;
@@ -86,6 +41,8 @@ const TextInButton = styled.p`
 `;
 
 const FilterAdvenced = styled.button`
+  outline: none;
+  cursor: pointer;
   background-color: white;
   color: rgba(226, 122, 112);
   border: 3px solid rgba(226, 122, 112);
@@ -97,6 +54,7 @@ const FilterAdvenced = styled.button`
 
 const ContainerFiltre = styled.div`
   margin-top: 15px;
+  width: 90%;
   display: flex;
   justify-content: space-around;
 `;
@@ -105,29 +63,128 @@ const Title = styled.h3`
   margin-left: 1.3em;
 `;
 
+const UlListe = styled.div`
+  padding-top: ${({ filterChoice }) => (filterChoice ? '1.5rem' : '0')};
+  width: 90%;
+  display: ${({ filterChoice, filter }) =>
+    filter &&
+    (filterChoice === 'famille' ||
+      filterChoice === 'espece' ||
+      filterChoice === 'genre' ||
+      filterChoice === 'nom_du_site')
+      ? 'block'
+      : 'none'};
+`;
+
+const ButtonParameter = styled.div`
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 60px;
+  color: ${({ valueColor }) => (valueColor ? 'white' : 'black')};
+  background-color: rgba(
+    ${({ valueColor }) => (valueColor ? '79, 127, 99' : '156, 214, 155')}
+  );
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+`;
+
+const ParameterFiltre = styled.div`
+  display: ${({ filter }) => (filter ? 'flex' : 'none')};
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 1.5rem 0 0;
+  align-items: center;
+  height: 7vh;
+  margin-top: 20px;
+`;
+
+const ListeFiltre = styled.div`
+  color: white;
+  background-color: rgba(79, 127, 99);
+  height: fit-content;
+  display: ${({ filter }) => (filter ? 'flex' : 'none')};
+  flex-direction: column;
+  width: 90%;
+`;
+
+const Li = styled.li`
+  cursor: pointer;
+  list-style: none;
+  padding: 8px 2px 8px 2rem;
+  width: 90%;
+  margin: 0 1.5rem 0 0;
+`;
+
+const WindowFilter = styled.div`
+  display: ${({ filter }) => (filter ? 'flex' : 'none')};
+  width: 90%;
+  margin: 1.5rem;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+`;
+
 class Library extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { all: false, filter: false, vegetals: [] };
-    this.getData = this.getData.bind(this);
+    this.state = {
+      all: false,
+      filter: false,
+      choice: null,
+      choicePlus: null,
+      list: [],
+      search: '',
+      description: ['', '', '', ''],
+      showPanel: false,
+    };
+    this.handleChangeSearch = this.handleChangeSearch.bind(this);
+    this.handleVegetalClick = this.handleVegetalClick.bind(this);
+    this.hidePanel = this.hidePanel.bind(this);
   }
 
-  componentDidMount() {
-    this.getData();
+  componentDidUpdate(pervP, prevS) {
+    if (prevS.choice !== this.state.choice) {
+      this.setState({
+        list: this.props.tri.filter(
+          (element) => element.name === this.state.choice
+        ),
+      });
+    }
   }
 
-  getData() {
-    axios
-      .get(
-        'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_collection-vegetale-nantes&q=&facet=famille&facet=genre&facet=nom_du_site&facet=espece&facet=photo1&exclude.espece=+&exclude.famille=+&exclude.nom_du_site=+&exclude.genre=+&exclude.photo1=+'
-      )
-      .then((res) => this.setState({ vegetals: res.data }));
+  handleChangeSearch(e) {
+    this.setState({ search: e.target.value });
+  }
+
+  handleVegetalClick(id, espece, genre, famille, image) {
+    this.setState({
+      description: [image, famille, genre, espece],
+      showPanel: true,
+    });
+  }
+
+  hidePanel() {
+    this.setState({
+      showPanel: false,
+    });
   }
 
   render() {
     return (
       <div className="Library">
-        <SearchBar />
+        <SearchBar
+          search={this.state.search}
+          handleChangeSearch={this.handleChangeSearch}
+        />
+        <DescriptionPanel
+          handleVegetalClick={this.handleVegetalClick}
+          hidePanel={this.hidePanel}
+          description={this.state.description}
+          showPanel={this.state.showPanel}
+        />
         <ContainerFiltre>
           <ButtonAllSome
             all={this.state.all}
@@ -150,11 +207,92 @@ class Library extends React.Component {
             Avancées
           </FilterAdvenced>
         </ContainerFiltre>
-        <Title>Votre collection : 0 / 15</Title>
+        <WindowFilter filter={this.state.filter}>
+          <ParameterFiltre filter={this.state.filter}>
+            <ButtonParameter
+              filterChoice={this.state.choice}
+              valueColor={this.state.choice === 'nom_du_site' ? true : false}
+              onClick={(event) =>
+                this.setState({
+                  choice: 'nom_du_site',
+                })
+              }
+            >
+              Parc
+            </ButtonParameter>
+            <ButtonParameter
+              filterChoice={this.state.choice}
+              valueColor={this.state.choice === 'famille' ? true : false}
+              onClick={(event) =>
+                this.setState({
+                  choice: 'famille',
+                })
+              }
+            >
+              Famille
+            </ButtonParameter>
+            <ButtonParameter
+              filterChoice={this.state.choice}
+              valueColor={this.state.choice === 'genre' ? true : false}
+              onClick={(event) =>
+                this.setState({
+                  choice: 'genre',
+                })
+              }
+            >
+              Genre
+            </ButtonParameter>
+            <ButtonParameter
+              filterChoice={this.state.choice}
+              valueColor={this.state.choice === 'espece' ? true : false}
+              onClick={(event) =>
+                this.setState({
+                  choice: 'espece',
+                })
+              }
+            >
+              Espece
+            </ButtonParameter>
+          </ParameterFiltre>
+          <ListeFiltre filter={this.state.filter}>
+            <UlListe
+              filter={this.state.filter}
+              filterChoice={this.state.choice}
+            >
+              {this.state.list[0] &&
+                this.state.list[0].facets.map((item) => {
+                  return (
+                    <Li
+                      onClick={() => this.setState({ choicePlus: item.name })}
+                    >
+                      {item.name}({item.count})
+                    </Li>
+                  );
+                })}
+            </UlListe>
+          </ListeFiltre>
+        </WindowFilter>
+        <Title>Votre collection : {this.props.scannedLybrary.length-1} / 3000</Title>
         <Collection className="collection">
-          {tree.map((item) => (
-            <DataBase name={item.name} image={item.image} have={item.have} />
-          ))}
+          {this.props.vegetals
+            .filter((element) => element.fields.photo1)
+            .map((item) => (
+              <DataBase
+                search={this.state.search}
+                handleVegetalClick={this.handleVegetalClick}
+                filter={this.state.filter}
+                choicePlus={this.state.choicePlus}
+                all={this.state.all}
+                scanned={this.props.scannedLybrary.includes(item.recordid)}
+                key={item.recordid}
+                id={item.recordid}
+                famille={item.fields.famille}
+                espece={item.fields.espece}
+                genre={item.fields.genre}
+                parc={item.fields.nom_du_site}
+                image={item.fields.photo1 && item.fields.photo1.id}
+              />
+            ))}
         </Collection>
       </div>
     );
