@@ -26,8 +26,10 @@ class App extends React.Component {
         '22030281a17bde724545be084f2b57f93a6bc1f9',
         '0b5a76b82b6a71f9b94640d4d37a20492e6000b1',
       ],
+      open: false,
     };
     this.getData = this.getData.bind(this);
+    this.addToLybrary = this.addToLybrary.bind(this);
   }
 
   componentDidMount() {
@@ -47,8 +49,16 @@ class App extends React.Component {
       });
   }
 
+  addToLybrary(id) {
+    const { scannedLybrary } = this.state;
+    this.setState({
+      scannedLybrary: [...scannedLybrary, id],
+      open: true,
+    });
+  }
+
   render() {
-    const { scannedLybrary, vegetals, tri } = this.state;
+    const { scannedLybrary, vegetals, tri, open } = this.state;
     return (
       <div className="App">
         <BrowserRouter>
@@ -60,7 +70,11 @@ class App extends React.Component {
               exact
               path="/scan"
               component={() => (
-                <ScanPage vegetals={vegetals} scannedLybrary={scannedLybrary} />
+                <ScanPage
+                  open={open}
+                  addToLybrary={this.addToLybrary}
+                  scannedLybrary={scannedLybrary}
+                />
               )}
             />
             <Route
