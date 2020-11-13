@@ -74,8 +74,6 @@ class ScanPage extends React.Component {
     }
   }
 
-  
-
   deleteQrInfos() {
     this.setState({
       espece: '',
@@ -100,16 +98,8 @@ class ScanPage extends React.Component {
   }
 
   render() {
-    const {
-      scan,
-      espece,
-      famille,
-      genre,
-      photo1Id,
-      open,
-      recordid,
-    } = this.state;
-    const { scannedLybrary, handleClose } = this.props;
+    const { scan, espece, famille, genre, photo1Id } = this.state;
+    const { inLybrary, handleClose, open } = this.props;
     return (
       <PageStyle>
         <Scan />
@@ -146,9 +136,9 @@ class ScanPage extends React.Component {
           <Alert
             handleClick={this.handleClick}
             onClose={handleClose}
-            severity={scannedLybrary.includes(recordid) ? 'error' : 'success'}
+            severity={inLybrary ? 'error' : 'success'}
           >
-            {scannedLybrary.includes(recordid)
+            {inLybrary
               ? 'Plante déjà capturée !'
               : 'Plante ajoutée à votre Vegedex !'}
           </Alert>
@@ -163,6 +153,8 @@ ScanPage.propTypes = {
   addToLybrary: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
   alreadyInLybrary: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  inLybrary: PropTypes.bool.isRequired,
 };
 
 export default ScanPage;
