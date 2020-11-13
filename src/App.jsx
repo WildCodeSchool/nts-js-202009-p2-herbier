@@ -10,6 +10,7 @@ import Library from './components/Library';
 import ContactForm from './components/ContactForm';
 import Profil from './components/Profil';
 import Footer from './components/Footer';
+import AboutUs from './components/AboutUs';
 
 
 class App extends React.Component {
@@ -70,6 +71,7 @@ class App extends React.Component {
             />
             <Route exact path="/profil" component={Profil} />
             <Route exact path="/decouverte" component={ContactForm} />
+            <Route exact path="/about-us" component={AboutUs} />
           </Switch>
           <Footer />
         </BrowserRouter>
