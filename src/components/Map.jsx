@@ -17,6 +17,7 @@ import { element } from 'prop-types';
 const Card = styled.div`
   .cardmap {
     height: 50vh;
+    z-index: 95;
   }
 `;
 

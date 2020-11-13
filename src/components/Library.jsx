@@ -272,7 +272,7 @@ class Library extends React.Component {
             </UlListe>
           </ListeFiltre>
         </WindowFilter>
-        <Title>Votre collection : 0 / 15</Title>
+        <Title>Votre collection : {this.props.scannedLybrary.length-1} / 3000</Title>
         <Collection className="collection">
           {this.props.vegetals
             .filter((element) => element.fields.photo1)
