@@ -98,8 +98,8 @@ class ScanPage extends React.Component {
   }
 
   render() {
-    const { scan, espece, famille, genre, photo1Id, recordid } = this.state;
-    const { handleClose, open, inLybrary } = this.props;
+    const { scan, espece, famille, genre, photo1Id } = this.state;
+    const { inLybrary, handleClose, open } = this.props;
     return (
       <PageStyle>
         <Scan />
@@ -153,6 +153,8 @@ ScanPage.propTypes = {
   addToLybrary: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
   alreadyInLybrary: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  inLybrary: PropTypes.bool.isRequired,
 };
 
 export default ScanPage;
