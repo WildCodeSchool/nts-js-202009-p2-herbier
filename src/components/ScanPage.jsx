@@ -28,10 +28,8 @@ class ScanPage extends React.Component {
       genre: '',
       photo1Id: '',
       scan: true,
-      
     };
     this.handleClick = this.handleClick.bind(this);
-    this.handleClose = this.handleClose.bind(this);
     this.handleScan = this.handleScan.bind(this);
     this.handleError = this.handleError.bind(this);
     this.deleteQrInfos = this.deleteQrInfos.bind(this);
@@ -56,11 +54,9 @@ class ScanPage extends React.Component {
 
   handleClick(data) {
     const { espece, recordid } = this.state;
-    const { scannedLybrary, addToLybrary } = this.props;
+    const { scannedLybrary, addToLybrary, alreadyInLybrary } = this.props;
     if (data && espece !== '' && !scannedLybrary.includes(recordid)) {
-      
       this.setState({
-        
         espece: '',
         famille: '',
         genre: '',
@@ -69,20 +65,16 @@ class ScanPage extends React.Component {
       addToLybrary(recordid);
     } else if (data && espece !== '' && scannedLybrary.includes(recordid)) {
       this.setState({
-        open: true,
         espece: '',
         famille: '',
         genre: '',
         photo1Id: '',
       });
+      alreadyInLybrary();
     }
   }
 
-  handleClose() {
-    this.setState({
-      open: false,
-    });
-  }
+  
 
   deleteQrInfos() {
     this.setState({
@@ -117,7 +109,7 @@ class ScanPage extends React.Component {
       open,
       recordid,
     } = this.state;
-    const { scannedLybrary } = this.props;
+    const { scannedLybrary, handleClose } = this.props;
     return (
       <PageStyle>
         <Scan />
@@ -149,11 +141,11 @@ class ScanPage extends React.Component {
           }}
           open={open}
           autoHideDuration={2500}
-          onClose={this.handleClose}
+          onClose={handleClose}
         >
           <Alert
             handleClick={this.handleClick}
-            onClose={this.handleClose}
+            onClose={handleClose}
             severity={scannedLybrary.includes(recordid) ? 'error' : 'success'}
           >
             {scannedLybrary.includes(recordid)
@@ -169,6 +161,8 @@ class ScanPage extends React.Component {
 ScanPage.propTypes = {
   scannedLybrary: PropTypes.arrayOf(PropTypes.string).isRequired,
   addToLybrary: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  alreadyInLybrary: PropTypes.func.isRequired,
 };
 
 export default ScanPage;

@@ -30,6 +30,8 @@ class App extends React.Component {
     };
     this.getData = this.getData.bind(this);
     this.addToLybrary = this.addToLybrary.bind(this);
+    this.alreadyInLybrary = this.alreadyInLybrary.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   componentDidMount() {
@@ -49,11 +51,23 @@ class App extends React.Component {
       });
   }
 
+  alreadyInLybrary() {
+    this.setState({
+      open: !false,
+    });
+  }
+
   addToLybrary(id) {
     const { scannedLybrary } = this.state;
     this.setState({
       scannedLybrary: [...scannedLybrary, id],
-      open: true,
+      open: !false,
+    });
+  }
+
+  handleClose() {
+    this.setState({
+      open: false,
     });
   }
 
@@ -72,7 +86,9 @@ class App extends React.Component {
               component={() => (
                 <ScanPage
                   open={open}
+                  handleClose={this.handleClose}
                   addToLybrary={this.addToLybrary}
+                  alreadyInLybrary={this.alreadyInLybrary}
                   scannedLybrary={scannedLybrary}
                 />
               )}
