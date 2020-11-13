@@ -12,6 +12,7 @@ import {
 } from 'react-leaflet';
 import MapPicker from './logos/map-picker.svg';
 import MapPickerBlue from './logos/map-picker-blue.svg';
+import { element } from 'prop-types';
 
 const Card = styled.div`
   .cardmap {
@@ -53,6 +54,36 @@ class Map extends React.Component {
     super(props);
     this.state = {
       parks: [],
+      parksupp: [
+        {
+          fields: {
+            location: [47.2752, -1.580253],
+            nom_complet: 'Arboretum Cimetière Parc',
+            idobj: '1016',
+          },
+        },
+        {
+          fields: {
+            location: [47.222245, -1.538662],
+            nom_complet: 'Cimetière de la Bouteillerie',
+            idobj: '1016',
+          },
+        },
+        {
+          fields: {
+            location: [47.231688, -1.58187],
+            nom_complet: 'Foyer des Anciens',
+            idobj: '1016',
+          },
+        },
+        {
+          fields: {
+            location: [47.2269, -1.511953],
+            nom_complet: "Jardin d'agronomie tropical du Grand Blottereau",
+            idobj: '1016',
+          },
+        },
+      ],
     };
     this.getPark = this.getPark.bind(this);
   }
@@ -66,7 +97,7 @@ class Map extends React.Component {
       'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_parcs-jardins-nantes&q=&rows=92'
     ).then((res) => {
       this.setState({
-        parks: res.data.records,
+        parks: [...res.data.records, ...this.state.parksupp],
       });
     });
   }
@@ -85,11 +116,20 @@ class Map extends React.Component {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <LocationMarker />
-          {this.state.parks.map((item) => (
-            <Marker position={item.fields.location} icon={Icon}>
-              <Popup>{item.fields.nom_complet}</Popup>
-            </Marker>
-          ))}
+          {this.state.parks
+            .filter(
+              (element) =>
+                element.fields.idobj === '1016' ||
+                element.fields.idobj === '1019' ||
+                element.fields.idobj === '1021' ||
+                element.fields.idobj === '1020' ||
+                element.fields.idobj === '2372'
+            )
+            .map((item) => (
+              <Marker position={item.fields.location} icon={Icon}>
+                <Popup>{item.fields.nom_complet}</Popup>
+              </Marker>
+            ))}
         </MapContainer>
       </Card>
     );
