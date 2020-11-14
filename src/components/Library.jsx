@@ -68,10 +68,10 @@ const UlListe = styled.div`
   width: 90%;
   display: ${({ filterChoice, filter }) =>
     filter &&
-    (filterChoice === 'famille' ||
-      filterChoice === 'espece' ||
-      filterChoice === 'genre' ||
-      filterChoice === 'nom_du_site')
+      (filterChoice === 'famille' ||
+        filterChoice === 'espece' ||
+        filterChoice === 'genre' ||
+        filterChoice === 'nom_du_site')
       ? 'block'
       : 'none'};
 `;
@@ -272,7 +272,11 @@ class Library extends React.Component {
             </UlListe>
           </ListeFiltre>
         </WindowFilter>
-        <Title>Votre collection : {this.props.scannedLybrary.length-1} / {this.props.vegetals.length-1}</Title>
+        <Title>Votre collection : {this.props.scannedLybrary.length - 1} /
+        {([...new Set(this.props.vegetals.map(element => {
+          const unique = [element.fields.famille, element.fields.genre, element.fields.espece]
+          return unique.join('')
+        }))]).length}</Title>
         <Collection className="collection">
           {this.props.vegetals
             .filter((element) => element.fields.photo1)
