@@ -8,7 +8,7 @@ const Thumbnail = styled.img`
   filter: grayscale(${({ scanned }) => (!scanned ? '100%' : '0%')});
 `;
 
-const DataBas = styled.div`
+const DataBasediv = styled.div`
   display: ${({
     scanned,
     genre,
@@ -158,7 +158,7 @@ class DataBase extends React.Component {
 
   render() {
     return (
-      <DataBas
+      <DataBasediv
         search={this.props.search}
         famille={this.props.famille}
         espece={this.props.espece}
@@ -180,7 +180,7 @@ class DataBase extends React.Component {
           src={`https://data.nantesmetropole.fr/explore/dataset/244400404_collection-vegetale-nantes/files/${this.props.image}/300/`}
           alt="load"
         />
-      </DataBas>
+      </DataBasediv>
     );
   }
 }

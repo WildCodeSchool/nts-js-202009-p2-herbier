@@ -8,6 +8,10 @@ const Collection = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 1.2em;
+
+ div:disabled::before{
+  content:"Vous n'avez pas encore scanné de plantes dans cette catégorie";
+}
 `;
 
 const ButtonAllSome = styled.div`
@@ -139,6 +143,7 @@ class Library extends React.Component {
       search: '',
       description: ['', '', '', ''],
       showPanel: false,
+      divCollectionHeight: 1,
     };
     this.handleChangeSearch = this.handleChangeSearch.bind(this);
     this.handleVegetalClick = this.handleVegetalClick.bind(this);
@@ -277,7 +282,14 @@ class Library extends React.Component {
           const unique = [element.fields.famille, element.fields.genre, element.fields.espece]
           return unique.join('')
         }))]).length}</Title>
-        <Collection className="collection">
+        <Collection ref={el => {
+        if (!el) return;
+        setTimeout(() => {
+          // usually prints a value that is larger than the second console.log
+          this.setState({divCollectionHeight:el.getBoundingClientRect().height});
+        }, 200);
+      }}
+      >
           {this.props.vegetals
             .filter((element) => element.fields.photo1)
             .map((item) => (
@@ -298,6 +310,7 @@ class Library extends React.Component {
               />
             ))}
         </Collection>
+        {this.state.choicePlus ===null?null:this.state.divCollectionHeight > 10?null:`Vous n'avez pas scannée de plantes dans la catégorie: ${this.state.choicePlus}`}
       </div>
     );
   }
