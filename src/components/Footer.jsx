@@ -26,6 +26,7 @@ const Wrapper = styled.footer`
   justify-content: space-between;
   bottom: 0;
   margin-top: 2rem;
+  z-index: 100;
 `;
 
 const StyledLink = styled(Link)`
