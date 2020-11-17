@@ -110,7 +110,7 @@ class Map extends React.Component {
           <MapContainer
             className="cardmap"
             center={{ lat: 47.214975, lng: -1.557501 }}
-            zoom={15}
+            zoom={11}
             scrollWheelZoom={false}
           >
             <TileLayer
