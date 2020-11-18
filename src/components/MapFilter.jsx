@@ -76,7 +76,7 @@ class MapFilter extends React.Component {
           <input
             type="range"
             min="1"
-            max="10"
+            max="20"
             value={this.state.value}
             onChange={this.handleChange}
             step="1"
