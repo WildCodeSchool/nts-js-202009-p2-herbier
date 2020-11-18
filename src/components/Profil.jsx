@@ -5,8 +5,10 @@ import styled from 'styled-components';
 import avatar from './logos/profil-avatar.svg';
 import couronne from './logos/profil-cycle.svg';
 import modif from './logos/profil-mobile-pen.svg';
+import save from './logos/profil-save.svg';
 
 const View = styled.div`
+  column-count: 2;
   background-color: #69c5b2;
   margin: 0 18px 18px 18px;
   border-radius: 5px;
@@ -15,6 +17,7 @@ const View = styled.div`
   h2,
   h3 {
     color: #ffffff;
+    text-align: center;
   }
 `;
 
@@ -24,6 +27,7 @@ const Infos = styled.div`
   border-radius: 5px;
   text-align: center;
   padding: 18px 0 18px 0;
+  position: relative;
   p {
     color: #ffffff;
     font-size: 22px;
@@ -31,7 +35,7 @@ const Infos = styled.div`
   label {
     display: block;
     font-size: 30px;
-    color: #FFF;
+    color: #fff;
     font-weight: bold;
     margin-bottom: 20px;
   }
@@ -55,28 +59,24 @@ const Infos = styled.div`
     flex-direction: column;
     align-items: center;
   }
-  button {
-    display: block;
-    color: #e27a70;
-    border: none;
-    background-color: #ffffff;
-    width: 110px;
-    height: 25px;
-    font-size: 14px;
-    font-weight: bold;
-    margin: 0 0 10px 0;
-    background-image: url({modif});
+  .Button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
   }
+`;
+
+const AvatarCouronne = styled.div`
+  position: relative;
+  height: 280px;
 `;
 
 const Avatar = styled.img`
-  position: relative; top: -11px; left: 36px;
-  }
+  position: absolute; top: -11px; left: 36px;
 `;
 
 const Couronne = styled.img`
-  position: relative; top: 0px; left: -110px;
-  }
+  position: absolute; top: -21px; left: 18px;
 `;
 
 function Alert(props) {
@@ -121,6 +121,9 @@ class Profil extends Component {
 
   handleClick(event) {
     event.preventDefault();
+    localStorage.setItem('pseudo', 'John');
+    const pseudonyme = localStorage.getItem('pseudo');
+    console.log(pseudonyme);
     this.setState({
       open: true,
       pseudo: this.state.pseudoTemp,
@@ -139,12 +142,14 @@ class Profil extends Component {
       <div className="Profil">
         <View className="ViewProfile">
           <h1>{this.state.pseudo}</h1>
-          <div>
+          <AvatarCouronne>
             <Avatar src={avatar} alt="avatar" />
             <Couronne src={couronne} alt="couronne" />
+          </AvatarCouronne>
+          <div>
+            <h3>Rang</h3>
+            <h2>Marmotte</h2>
           </div>
-          <h3>Rang</h3>
-          <h2>Marmotte</h2>
         </View>
         <Infos className="InfosProfile">
           <form onSubmit={this.handleClick}>
@@ -153,6 +158,7 @@ class Profil extends Component {
               disabled={!this.state.formEnabled}
               value={this.state.pseudoTemp}
               type="text"
+              required="required"
               onChange={this.handleChangePseudo}
               id="pseudo"
               name="pseudo"
@@ -175,19 +181,17 @@ class Profil extends Component {
               id="email"
               name="email"
             />
-            <button type="button" onClick={this.handleClick}>
-              Envoi
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                this.setState({
-                  formEnabled: !this.state.formEnabled,
-                });
-              }}
-            >
-              Modifications
-            </button>
+            <img
+              className="Button"
+              src={this.state.formEnabled ? save : modif}
+              alt={this.state.formEnabled ? 'sauvegarder' : 'modifier'}
+              onClick={
+                this.state.formEnabled
+                  ? this.handleClick
+                  : () =>
+                      this.setState({ formEnabled: !this.state.formEnabled })
+              }
+            />
           </form>
         </Infos>
         <Snackbar
