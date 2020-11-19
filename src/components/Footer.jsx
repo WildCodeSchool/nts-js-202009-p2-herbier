@@ -25,7 +25,7 @@ const Wrapper = styled.footer`
   display: flex;
   justify-content: space-between;
   bottom: 0;
-  margin-top: 2rem;
+  margin-top: 1rem;
   z-index: 100;
 `;
 
