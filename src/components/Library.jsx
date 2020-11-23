@@ -4,16 +4,21 @@ import SearchBar from './SearchBar';
 import DataBase from './DataBase';
 import DescriptionPanel from './DescriptionPanel';
 
+const Lybrary = styled.div`
+  display:flex;
+  flex-direction:column;
+`;
+
 const Collection = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin: 1.2em;
+  width: 100%;
 `;
 
 const ButtonAllSome = styled.div`
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  width: 160px;
+  width: 140px;
   padding: 3px 10px;
   display: flex;
   justify-content: space-between;
@@ -31,7 +36,7 @@ const WhiteCircle = styled.div`
   height: 30px;
   border-radius: 50%;
   background-color: white;
-  transform: translate(${({ all }) => (all ? '-130px' : '0px')});
+  transform: translate(${({ all }) => (all ? '-110px' : '0px')});
   box-shadow: rgb(0, 0, 0, 0.5) 0px 0px 4px 2px;
   transition: all 0.3s ease-in-out;
 `;
@@ -53,27 +58,28 @@ const FilterAdvenced = styled.button`
 `;
 
 const ContainerFiltre = styled.div`
-  margin-top: 15px;
-  width: 90%;
+  margin: 1.5rem 1.5rem 0.5rem 1.5rem;
   display: flex;
   justify-content: space-around;
 `;
 
 const Title = styled.h3`
-  margin-left: 1.3em;
+  margin: 0.5rem 0 0 0;
 `;
 
 const UlListe = styled.div`
-  padding-top: ${({ filterChoice }) => (filterChoice ? '1.5rem' : '0')};
-  width: 90%;
+  width: 100%;
   display: ${({ filterChoice, filter }) =>
     filter &&
-    (filterChoice === 'famille' ||
-      filterChoice === 'espece' ||
-      filterChoice === 'genre' ||
-      filterChoice === 'nom_du_site')
-      ? 'block'
+      (filterChoice === 'famille' ||
+        filterChoice === 'espece' ||
+        filterChoice === 'genre' ||
+        filterChoice === 'nom_du_site')
+      ? 'flex'
       : 'none'};
+  flex-wrap:wrap;
+  height:${({showmore})=>showmore?'400px':'0'};
+  overflow:scroll;
 `;
 
 const ButtonParameter = styled.div`
@@ -83,54 +89,95 @@ const ButtonParameter = styled.div`
   align-items: center;
   height: 100%;
   width: 60px;
-  color: ${({ valueColor }) => (valueColor ? 'white' : 'black')};
+  color: ${({ valueColor }) => (valueColor ? 'black' : 'white')};
   background-color: rgba(
-    ${({ valueColor }) => (valueColor ? '79, 127, 99' : '156, 214, 155')}
+    ${({ valueColor }) => (valueColor ? '105, 197, 178,0.6' : '105, 197, 178')}
   );
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 `;
 
 const ParameterFiltre = styled.div`
-  display: ${({ filter }) => (filter ? 'flex' : 'none')};
-  justify-content: space-between;
-  width: 90%;
-  margin: 0 1.5rem 0 0;
+  display:flex;
+  justify-content: left;
+  width: 100%;
   align-items: center;
-  height: 7vh;
+  height: 40px;
   margin-top: 20px;
 `;
 
 const ListeFiltre = styled.div`
-  color: white;
-  background-color: rgba(79, 127, 99);
+  color: black;
+  background-color: rgba(105, 197, 178,0.6);
   height: fit-content;
   display: ${({ filter }) => (filter ? 'flex' : 'none')};
   flex-direction: column;
-  width: 90%;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius:5px;
 `;
 
 const Li = styled.li`
   cursor: pointer;
   list-style: none;
   padding: 8px 2px 8px 2rem;
-  width: 90%;
-  margin: 0 1.5rem 0 0;
+  width: 190px;
 `;
 
 const WindowFilter = styled.div`
-  display: ${({ filter }) => (filter ? 'flex' : 'none')};
+  transition: all 0.6s ease-in-out;
+  transform: translateX(${({ filter }) => (filter ? '0' : '-1000px')});
+  align-self: center;
   width: 90%;
-  margin: 1.5rem;
   justify-content: center;
   align-content: center;
   flex-direction: column;
+`;
+
+const Message = styled.div`
+  display: flex;
+  justify-content:center;
+  height: fit-content;
+  margin: 0 1.5rem 0 1.5rem 0;
+  font-size: 18px;
+  p {
+    text-align: center;
+  }
+`;
+
+const DivVisuel = styled.div`
+  align-self:center;
+  display:flex;
+  flex-direction:column;
+  align-items:left;
+  width:90%;
+`;
+
+const Showmore = styled.button`
+  display: ${({ filterChoice, filter }) =>
+    filter &&
+      (filterChoice === 'famille' ||
+        filterChoice === 'espece' ||
+        filterChoice === 'genre' ||
+        filterChoice === 'nom_du_site')
+      ? 'flex'
+      : 'none'};
+  justify-content:center;
+  align-items:center;
+  outline: none;
+  cursor: pointer;
+  height: 40px;
+  color: white;
+  background-color:rgba(105, 197, 178,0);
+  font-size: 30px;
+  border: 0;
 `;
 
 class Library extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      showmore: true,
       all: false,
       filter: false,
       choice: null,
@@ -139,6 +186,7 @@ class Library extends React.Component {
       search: '',
       description: ['', '', '', ''],
       showPanel: false,
+      divCollectionHeight: 1,
     };
     this.handleChangeSearch = this.handleChangeSearch.bind(this);
     this.handleVegetalClick = this.handleVegetalClick.bind(this);
@@ -174,7 +222,7 @@ class Library extends React.Component {
 
   render() {
     return (
-      <div className="Library">
+      <Lybrary>
         <SearchBar
           search={this.state.search}
           handleChangeSearch={this.handleChangeSearch}
@@ -256,6 +304,7 @@ class Library extends React.Component {
           </ParameterFiltre>
           <ListeFiltre filter={this.state.filter}>
             <UlListe
+              showmore={this.state.showmore}
               filter={this.state.filter}
               filterChoice={this.state.choice}
             >
@@ -270,31 +319,53 @@ class Library extends React.Component {
                   );
                 })}
             </UlListe>
+            <Showmore 
+            filter={this.state.filter}
+            filterChoice={this.state.choice}
+            onClick={()=>{
+              this.setState({showmore:!this.state.showmore})
+            }} ><i className={this.state.showmore?'fa fa-chevron-up':'fa fa-chevron-down'}></i></Showmore>
           </ListeFiltre>
         </WindowFilter>
-        <Title>Votre collection : {this.props.scannedLybrary.length-1} / {this.props.vegetals.length-1}</Title>
-        <Collection className="collection">
-          {this.props.vegetals
-            .filter((element) => element.fields.photo1)
-            .map((item) => (
-              <DataBase
-                search={this.state.search}
-                handleVegetalClick={this.handleVegetalClick}
-                filter={this.state.filter}
-                choicePlus={this.state.choicePlus}
-                all={this.state.all}
-                scanned={this.props.scannedLybrary.includes(item.recordid)}
-                key={item.recordid}
-                id={item.recordid}
-                famille={item.fields.famille}
-                espece={item.fields.espece}
-                genre={item.fields.genre}
-                parc={item.fields.nom_du_site}
-                image={item.fields.photo1 && item.fields.photo1.id}
-              />
-            ))}
-        </Collection>
-      </div>
+        <DivVisuel>
+          <Title>Votre collection : {this.props.scannedLybrary.length - 1} /
+        {([...new Set(this.props.vegetals.map(element => {
+            const unique = [element.fields.famille, element.fields.genre, element.fields.espece]
+            return unique.join('')
+          }))]).length}</Title>
+          <Collection ref={el => {
+            if (!el) return;
+            setTimeout(() => {
+              // usually prints a value that is larger than the second console.log
+              this.setState({ divCollectionHeight: el.getBoundingClientRect().height });
+            }, 200);
+          }}
+          >
+            {this.props.vegetals
+              .filter((element) => element.fields.photo1)
+              .map((item) => (
+                <DataBase
+                  search={this.state.search}
+                  handleVegetalClick={this.handleVegetalClick}
+                  filter={this.state.filter}
+                  choicePlus={this.state.choicePlus}
+                  all={this.state.all}
+                  scanned={this.props.scannedLybrary.includes(item.recordid)}
+                  key={item.recordid}
+                  id={item.recordid}
+                  famille={item.fields.famille}
+                  espece={item.fields.espece}
+                  genre={item.fields.genre}
+                  parc={item.fields.nom_du_site}
+                  image={item.fields.photo1 && item.fields.photo1.id}
+                />
+              ))}
+          </Collection>
+          <Message>
+            {this.state.choicePlus === null ? null : this.state.divCollectionHeight > 10 ? null : <p>Vous n'avez pas scanné de plantes dans la catégorie: {this.state.choicePlus}</p>}
+          </Message>
+        </DivVisuel>
+      </Lybrary>
     );
   }
 }

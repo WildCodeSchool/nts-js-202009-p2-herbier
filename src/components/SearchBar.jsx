@@ -18,6 +18,7 @@ const Search = styled.input`
   margin-top: 15px;
   height: 30px;
   width: 80vw;
+  max-width:500px;
 `;
 
 const HeaderTitle = styled.div`
