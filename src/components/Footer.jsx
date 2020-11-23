@@ -11,7 +11,7 @@ const Global = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    min-height: 100vh;
+    min-height: 83.3vh;
     padding-bottom: 5rem;
     position: relative;
   }
@@ -25,7 +25,8 @@ const Wrapper = styled.footer`
   display: flex;
   justify-content: space-between;
   bottom: 0;
-  margin-top: 2rem;
+  margin-top: 1rem;
+  z-index: 100;
 `;
 
 const StyledLink = styled(Link)`

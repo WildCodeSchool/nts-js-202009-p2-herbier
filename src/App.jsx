@@ -67,6 +67,7 @@ class App extends React.Component {
       open: true,
       inLybrary: false,
     });
+    localStorage.setItem('myCollection', JSON.stringify({ scannedLybrary }));
   }
 
   handleClose() {
