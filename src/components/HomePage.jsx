@@ -16,7 +16,6 @@ const HomePageWrap = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: scroll;
     height: 80vh;
   }
 `;

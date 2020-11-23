@@ -14,7 +14,6 @@ const media = {
 
 const ScrollWrap = styled.div`
   ${media.desktop} {
-
   }
 `;
 
@@ -47,8 +46,10 @@ const Main = styled.section`
   background-size: cover;
   :active {
     transform: translate(0px, 2px);
-    transform: translateX(-96%);
     box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
+    ${media.desktop} {
+      transform: translateX(-96%);
+    }
   }
 `;
 
@@ -174,6 +175,7 @@ const MainButton = () => {
           >
             <p>{button.text}</p>
           </Slider>
+          
         </Main>
       ))}
     </ScrollWrap>

@@ -11,7 +11,7 @@ const Global = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    min-height: 100vh;
+    min-height: 83.3vh;
     padding-bottom: 5rem;
     position: relative;
   }
