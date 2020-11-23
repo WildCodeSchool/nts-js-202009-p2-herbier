@@ -148,8 +148,11 @@ function Map(props) {
             .map((item) => (
               <ParkList
                 position={position}
-                name={item.fields.nom_complet}
+                namePark={item.fields.nom_complet}
                 coord={item.fields.location}
+                // count={props.tri.facets}
+                key={item.fields.nom_complet}
+                rangeDistance={props.rangeDistance}
               />
             ))
         )}

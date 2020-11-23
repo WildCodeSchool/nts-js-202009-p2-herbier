@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Map from './Map';
 
 const Filter = styled.div`
   background-color: #9cd69b;
@@ -70,6 +71,7 @@ class MapFilter extends React.Component {
 
   render() {
     return (
+      <div>
       <Filter>
         <Range>
           <h3>Distance (Km)</h3>
@@ -105,6 +107,8 @@ class MapFilter extends React.Component {
           />
         </DailyPLant>
       </Filter>
+      <Map tri={this.props.tri} rangeDistance={this.state.value}/>
+      </div>
     );
   }
 }

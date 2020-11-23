@@ -6,6 +6,10 @@ const List = styled.div`
   display: flex;
   flex-direction: column;
   order: ${({ distance }) => distance};
+
+  div {
+    display: ${({ showPark }) => (showPark ? 'block' : 'none')};
+  }
 `;
 
 function toRadian(degree) {
@@ -37,12 +41,17 @@ function calcDistance(coord1, coord2) {
 function ParkList(props) {
   const position =
     props.position === null ? null : [props.position.lat, props.position.lng];
+  const showPark =
+    calcDistance(position, props.coord) <= parseInt(props.rangeDistance);
 
   return (
-    <List distance={parseInt(calcDistance(position, props.coord))}>
+    <List
+      distance={parseInt(calcDistance(position, props.coord))}
+      showPark={showPark}
+    >
       <div>
-        <img src={MapPicker} alt="map marker" /> {props.name}{' '}
-        {calcDistance(position, props.coord) + ' km'}
+        <img src={MapPicker} alt="map marker" />
+        {`${calcDistance(position, props.coord)} km`} {props.namePark}
       </div>
     </List>
   );
