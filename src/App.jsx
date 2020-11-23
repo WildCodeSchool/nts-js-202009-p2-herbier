@@ -28,16 +28,18 @@ class App extends React.Component {
         '0b5a76b82b6a71f9b94640d4d37a20492e6000b1',
       ],
       open: false,
-      inLybrary: true,
+      inLibrary: true,
     };
     this.getData = this.getData.bind(this);
-    this.addToLybrary = this.addToLybrary.bind(this);
-    this.alreadyInLybrary = this.alreadyInLybrary.bind(this);
+    this.addToLibrary = this.addToLibrary.bind(this);
+    this.alreadyInLibrary = this.alreadyInLibrary.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.saveToLocalStorage = this.saveToLocalStorage.bind(this);
   }
 
   componentDidMount() {
     this.getData();
+    this.saveToLocalStorage();
   }
 
   getData() {
@@ -53,21 +55,28 @@ class App extends React.Component {
       });
   }
 
-  alreadyInLybrary() {
-    this.setState({
-      open: true,
-      inLybrary: true,
-    });
+  addToLibrary(id) {
+    const { scannedLybrary } = this.state;
+    this.setState(
+      {
+        scannedLybrary: [...scannedLybrary, id],
+        open: true,
+        inLibrary: false,
+      },
+      this.saveToLocalStorage
+    );
   }
 
-  addToLybrary(id) {
+  saveToLocalStorage() {
     const { scannedLybrary } = this.state;
+    localStorage.setItem('myCollection', JSON.stringify(scannedLybrary));
+  }
+
+  alreadyInLibrary() {
     this.setState({
-      scannedLybrary: [...scannedLybrary, id],
       open: true,
-      inLybrary: false,
+      inLibrary: true,
     });
-    localStorage.setItem('myCollection', JSON.stringify({ scannedLybrary }));
   }
 
   handleClose() {
@@ -77,7 +86,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { scannedLybrary, vegetals, tri, open, inLybrary } = this.state;
+    const { scannedLybrary, vegetals, tri, open, inLibrary } = this.state;
     return (
       <div className="App">
         <BrowserRouter>
@@ -91,10 +100,10 @@ class App extends React.Component {
               component={() => (
                 <ScanPage
                   open={open}
-                  inLybrary={inLybrary}
+                  inLibrary={inLibrary}
                   handleClose={this.handleClose}
-                  addToLybrary={this.addToLybrary}
-                  alreadyInLybrary={this.alreadyInLybrary}
+                  addToLibrary={this.addToLibrary}
+                  alreadyInLibrary={this.alreadyInLibrary}
                   scannedLybrary={scannedLybrary}
                 />
               )}

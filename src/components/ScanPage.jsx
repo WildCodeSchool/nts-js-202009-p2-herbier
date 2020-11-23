@@ -54,7 +54,7 @@ class ScanPage extends React.Component {
 
   handleClick(data) {
     const { espece, recordid } = this.state;
-    const { scannedLybrary, addToLybrary, alreadyInLybrary } = this.props;
+    const { scannedLybrary, addToLibrary, alreadyInLibrary } = this.props;
     if (data && espece !== '' && !scannedLybrary.includes(recordid)) {
       this.setState({
         espece: '',
@@ -62,7 +62,7 @@ class ScanPage extends React.Component {
         genre: '',
         photo1Id: '',
       });
-      addToLybrary(recordid);
+      addToLibrary(recordid);
     } else if (data && espece !== '' && scannedLybrary.includes(recordid)) {
       this.setState({
         espece: '',
@@ -70,7 +70,7 @@ class ScanPage extends React.Component {
         genre: '',
         photo1Id: '',
       });
-      alreadyInLybrary();
+      alreadyInLibrary();
     }
   }
 
@@ -99,7 +99,7 @@ class ScanPage extends React.Component {
 
   render() {
     const { scan, espece, famille, genre, photo1Id } = this.state;
-    const { inLybrary, handleClose, open } = this.props;
+    const { inLibrary, handleClose, open } = this.props;
     return (
       <PageStyle>
         <Scan />
@@ -136,9 +136,9 @@ class ScanPage extends React.Component {
           <Alert
             handleClick={this.handleClick}
             onClose={handleClose}
-            severity={inLybrary ? 'error' : 'success'}
+            severity={inLibrary ? 'error' : 'success'}
           >
-            {inLybrary
+            {inLibrary
               ? 'Plante déjà capturée !'
               : 'Plante ajoutée à votre Vegedex !'}
           </Alert>
@@ -150,11 +150,11 @@ class ScanPage extends React.Component {
 
 ScanPage.propTypes = {
   scannedLybrary: PropTypes.arrayOf(PropTypes.string).isRequired,
-  addToLybrary: PropTypes.func.isRequired,
+  addToLibrary: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
-  alreadyInLybrary: PropTypes.func.isRequired,
+  alreadyInLibrary: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  inLybrary: PropTypes.bool.isRequired,
+  inLibrary: PropTypes.bool.isRequired,
 };
 
 export default ScanPage;
