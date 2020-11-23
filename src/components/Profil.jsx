@@ -6,18 +6,42 @@ import avatar from './logos/profil-avatar.svg';
 import couronne from './logos/profil-cycle.svg';
 import modif from './logos/profil-mobile-pen.svg';
 import save from './logos/profil-save.svg';
+import emptyLogo from './logos/empty-logo.svg';
+import logoBlank from './logos/logo.svg';
 
 const View = styled.div`
-  column-count: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: #69c5b2;
   margin: 0 18px 18px 18px;
   border-radius: 5px;
-  padding: 1px 18px 1px 18px;
-  h1,
-  h2,
+  padding: 18px 0 18px 0;
+  h1 {
+    color: #ffffff;
+    margin: 0 0 20px 0;
+  }
+  h2 {
+    color: #ffffff;
+    margin-top: 0;
+  }
   h3 {
     color: #ffffff;
-    text-align: center;
+  }
+  .rang {
+    height: 23px;
+    padding: 0 3px 0 3px;
+  }
+  .AvatarCouronne {
+    background-image: url(${couronne});
+    height: 148px;
+    width: 162px;
+    .Avatar {
+      padding: 8px 20px 20px 22px;
+      border-radius: 50%;
+      height: 120px;
+      width: auto;
+    }
   }
 `;
 
@@ -46,13 +70,16 @@ const Infos = styled.div`
     height: 25px;
     font-size: 20px;
     padding: 0 0 0 10px;
-    //box-shadow: 0 0 0 ;
     border: 1px solid;
+    background-color: #ffffff;
   }
   input:disabled {
     background-color: #e27a70;
     color: #ffffff;
     border: 0;
+    padding: 0;
+    text-align: center;
+    white-space: nowrap;
   }
   form {
     display: flex;
@@ -66,19 +93,6 @@ const Infos = styled.div`
   }
 `;
 
-const AvatarCouronne = styled.div`
-  position: relative;
-  height: 280px;
-`;
-
-const Avatar = styled.img`
-  position: absolute; top: -11px; left: 36px;
-`;
-
-const Couronne = styled.img`
-  position: absolute; top: -21px; left: 18px;
-`;
-
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -86,13 +100,16 @@ function Alert(props) {
 class Profil extends Component {
   constructor(props) {
     super(props);
+    const pseudo = localStorage.getItem('pseudo');
+    const adresse = localStorage.getItem('adresse');
+    const email = localStorage.getItem('email');
     this.state = {
-      pseudo: 'Pseudo',
-      pseudoTemp: '',
-      adresse: '',
-      email: '',
+      pseudo: pseudo ? pseudo : 'Pseudo',
+      adresse: adresse ? adresse : 'Adresse',
+      email: email ? email : 'Email',
       formEnabled: false,
       open: false,
+      level: 6,
     };
     this.handleChangePseudo = this.handleChangePseudo.bind(this);
     this.handleChangeAdresse = this.handleChangeAdresse.bind(this);
@@ -103,7 +120,7 @@ class Profil extends Component {
 
   handleChangePseudo(event) {
     this.setState({
-      pseudoTemp: event.target.value,
+      pseudo: event.target.value,
     });
   }
 
@@ -120,13 +137,13 @@ class Profil extends Component {
   }
 
   handleClick(event) {
+    const { pseudo, adresse, email } = this.state;
     event.preventDefault();
-    localStorage.setItem('pseudo', 'John');
-    const pseudonyme = localStorage.getItem('pseudo');
-    console.log(pseudonyme);
+    localStorage.setItem('pseudo', pseudo);
+    localStorage.setItem('adresse', adresse);
+    localStorage.setItem('email', email);
     this.setState({
       open: true,
-      pseudo: this.state.pseudoTemp,
       formEnabled: false,
     });
   }
@@ -138,76 +155,147 @@ class Profil extends Component {
   }
 
   render() {
+    const { pseudo, adresse, email, formEnabled, open, level } = this.state;
     return (
-      <div className="Profil">
-        <View className="ViewProfile">
-          <h1>{this.state.pseudo}</h1>
-          <AvatarCouronne>
-            <Avatar src={avatar} alt="avatar" />
-            <Couronne src={couronne} alt="couronne" />
-          </AvatarCouronne>
-          <div>
-            <h3>Rang</h3>
-            <h2>Marmotte</h2>
-          </div>
-        </View>
-        <Infos className="InfosProfile">
-          <form onSubmit={this.handleClick}>
-            <label htmlFor="pseudo">Pseudo</label>
-            <input
-              disabled={!this.state.formEnabled}
-              value={this.state.pseudoTemp}
-              type="text"
-              required="required"
-              onChange={this.handleChangePseudo}
-              id="pseudo"
-              name="pseudo"
-            />
-            <label htmlFor="adresse">Adresse</label>
-            <input
-              disabled={!this.state.formEnabled}
-              value={this.state.adresse}
-              type="text"
-              onChange={this.handleChangeAdresse}
-              id="adresse"
-              name="adresse"
-            />
-            <label htmlFor="email">Email</label>
-            <input
-              disabled={!this.state.formEnabled}
-              value={this.state.email}
-              type="text"
-              onChange={this.handleChangeEmail}
-              id="email"
-              name="email"
-            />
-            <img
-              className="Button"
-              src={this.state.formEnabled ? save : modif}
-              alt={this.state.formEnabled ? 'sauvegarder' : 'modifier'}
-              onClick={
-                this.state.formEnabled
-                  ? this.handleClick
-                  : () =>
-                      this.setState({ formEnabled: !this.state.formEnabled })
-              }
-            />
-          </form>
-        </Infos>
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          open={this.state.open}
-          autoHideDuration={2500}
-          onClose={this.handleClose}
-        >
-          <Alert onClose={this.handleClose} severity="success">
-            Informations enregistrées!
-          </Alert>
-        </Snackbar>
-      </div>
+      localStorage.setItem('level', level),
+      (
+        <div className="Profil">
+          <View className="ViewProfile">
+            <h1>{localStorage.getItem('pseudo')}</h1>
+            <div className="AvatarCouronne">
+              <img
+                className="Avatar"
+                src="https://randomuser.me/api/portraits/men/86.jpg"
+                alt="avatar"
+              />
+            </div>
+            <h3>Rang {localStorage.getItem('level')} :</h3>
+            <h2>
+              {level === 0
+                ? 'Petite graine'
+                : level === 1
+                ? 'Jeune pousse'
+                : level === 2
+                ? 'Cotyledon'
+                : level === 3
+                ? 'Petit buisson'
+                : level === 4
+                ? 'Grand buisson'
+                : level === 5
+                ? 'Petit arbre'
+                : level === 6
+                ? 'Grand arbre'
+                : level === 7
+                ? 'Yggdrassil'
+                : ''}
+            </h2>
+            <div className="gauge">
+              <img
+                className="rang"
+                src={level > 0 ? logoBlank : emptyLogo}
+                alt="rang 1"
+              />
+              <img
+                className="rang"
+                src={level > 1 ? logoBlank : emptyLogo}
+                alt="rang 2"
+              />
+              <img
+                className="rang"
+                src={level > 2 ? logoBlank : emptyLogo}
+                alt="rang 3"
+              />
+              <img
+                className="rang"
+                src={level > 3 ? logoBlank : emptyLogo}
+                alt="rang 4"
+              />
+              <img
+                className="rang"
+                src={level > 4 ? logoBlank : emptyLogo}
+                alt="rang 5"
+              />
+              <img
+                className="rang"
+                src={level > 5 ? logoBlank : emptyLogo}
+                alt="rang 6"
+              />
+              <img
+                className="rang"
+                src={level > 6 ? logoBlank : emptyLogo}
+                alt="rang 7"
+              />
+            </div>
+          </View>
+          {this.handleLevel}
+          <Infos className="InfosProfile">
+            <form onSubmit={this.handleClick}>
+              <label htmlFor="pseudo">
+                Pseudo
+                <input
+                  disabled={!formEnabled}
+                  value={formEnabled ? pseudo : localStorage.getItem('pseudo')}
+                  placeholder={localStorage.getItem('pseudo')}
+                  type="text"
+                  onChange={this.handleChangePseudo}
+                  id="pseudo"
+                  name="pseudo"
+                />
+              </label>
+              <label htmlFor="adresse">
+                Adresse
+                <input
+                  disabled={!formEnabled}
+                  value={
+                    formEnabled ? adresse : localStorage.getItem('adresse')
+                  }
+                  placeholder={localStorage.getItem('adresse')}
+                  type="text"
+                  onChange={this.handleChangeAdresse}
+                  id="adresse"
+                  name="adresse"
+                />
+              </label>
+              <label htmlFor="email">
+                Email
+                <input
+                  disabled={!formEnabled}
+                  value={formEnabled ? email : localStorage.getItem('email')}
+                  placeholder={localStorage.getItem('email')}
+                  type="text"
+                  onChange={this.handleChangeEmail}
+                  id="email"
+                  name="email"
+                />
+              </label>
+              <img
+                className="Button"
+                src={formEnabled ? save : modif}
+                alt={formEnabled ? 'sauvegarder' : 'modifier'}
+                onClick={
+                  formEnabled
+                    ? this.handleClick
+                    : () => this.setState({ formEnabled: !formEnabled })
+                }
+                aria-hidden
+              />
+            </form>
+          </Infos>
+          <Snackbar
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            open={open}
+            autoHideDuration={2500}
+            onClose={this.handleClose}
+          >
+            <Alert onClose={this.handleClose} severity="success">
+              Informations enregistrées!
+            </Alert>
+          </Snackbar>
+        </div>
+      )
     );
   }
 }
