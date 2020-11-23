@@ -48,8 +48,7 @@ const DataBasediv = styled.div`
       } else {
         return 'block';
       }
-    } 
-    else if (filter && choicePlus === null){
+    } else if (filter && choicePlus === null){
             if (all){
               if (search) {
         if (
@@ -79,7 +78,7 @@ const DataBasediv = styled.div`
             }else{
               return 'none'
             }
-    }else if (all) {
+    } else if (all) {
       if (
         choicePlus === genre ||
         choicePlus === famille ||

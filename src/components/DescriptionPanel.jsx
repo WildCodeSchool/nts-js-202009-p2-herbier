@@ -136,7 +136,7 @@ const Panel = styled.div`
   p {
     color: black;
     font-size: 20px;
-  }
+    margin: 0.5rem 0 0.5rem 0;
   }
 `;
 
@@ -157,7 +157,7 @@ class DescriptionPanel extends Component {
           <p>Famille : {this.props.description[1]}</p>
           <p>Genre : {this.props.description[2]}</p>
           <p>Espèce : {this.props.description[3]}</p>
-          <img src={cross} onClick={this.props.hidePanel} />
+          <img src={cross} alt='close' onClick={this.props.hidePanel} />
         </div>
       </Panel>
     );

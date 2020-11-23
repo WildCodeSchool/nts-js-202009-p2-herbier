@@ -146,37 +146,52 @@ const HeaderMobile = () => {
         <MenuLinks nav={nav}>
           <ul>
             <li>
-              <StyledLink to="/">
+              <StyledLink to="/" onClick={() => (nav ? showNav(!nav) : true)}>
                 <img src={menuHome} alt="Accueil" />
                 Accueil
               </StyledLink>
             </li>
             <li>
-              <StyledLink to="/profil">
+              <StyledLink
+                to="/profil"
+                onClick={() => (nav ? showNav(!nav) : true)}
+              >
                 <img src={menuProfil} alt="Profil" />
                 Profil
               </StyledLink>
             </li>
             <li>
-              <StyledLink to="/around-me">
+              <StyledLink
+                to="/around-me"
+                onClick={() => (nav ? showNav(!nav) : true)}
+              >
                 <img src={menuPicker} alt="Autour de moi" />
                 Autour de moi
               </StyledLink>
             </li>
             <li>
-              <StyledLink to="/scan">
+              <StyledLink
+                to="/scan"
+                onClick={() => (nav ? showNav(!nav) : true)}
+              >
                 <img src={menuQrcode} alt="Scanner une plante" />
                 Scanner une plante
               </StyledLink>
             </li>
             <li>
-              <StyledLink to="/herbier">
+              <StyledLink
+                to="/herbier"
+                onClick={() => (nav ? showNav(!nav) : true)}
+              >
                 <img src={menuHerbier} alt="Mon herbier" />
                 Mon herbier
               </StyledLink>
             </li>
             <li>
-              <StyledLink to="/decouverte">
+              <StyledLink
+                to="/decouverte"
+                onClick={() => (nav ? showNav(!nav) : true)}
+              >
                 <img src={menuDecouverte} alt="Découverte" />
                 Découverte ?
               </StyledLink>
