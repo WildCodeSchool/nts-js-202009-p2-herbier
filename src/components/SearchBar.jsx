@@ -28,7 +28,7 @@ const H1 = styled.h1`
   font-size: 36px;
   font-weight: bold;
   @media ${device.tablet}{
-    width: 500px;
+    width: 100%;
   }
 `;
 
@@ -43,7 +43,7 @@ const Search = styled.input`
   margin-top: 15px;
   height: 30px;
   width: 80vw;
-  max-width:500px;
+  max-width:450px;
 `;
 
 const HeaderTitle = styled.div`
@@ -56,6 +56,9 @@ const HeaderTitle = styled.div`
   width: 90%;
   border-radius: 5px;
   text-align: center;
+  @media ${device.tablet}{
+    width: 100%;
+  }
 `;
 
 const SearchForm = styled.form`
@@ -65,15 +68,16 @@ const SearchForm = styled.form`
   align-items: center;
 
   @media ${device.tablet}{
-   order:2;
+    order: 2;
+    width: 100%;
   }
 `;
 
 class SearchBar extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
   }
-  render(){
+  render() {
     return (
       <SearchForm className="SearchBar">
         <HeaderTitle>
