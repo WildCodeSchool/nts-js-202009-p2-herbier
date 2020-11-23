@@ -13,6 +13,7 @@ import {
 import MapPicker from './logos/map-picker.svg';
 import MapPickerBlue from './logos/map-picker-blue.svg';
 import ParkList from './ParkList';
+import { calcDistance } from '../utils';
 
 const Card = styled.div`
   .cardmap {
@@ -126,8 +127,18 @@ function Map(props) {
               element.fields.idobj === '1020' ||
               element.fields.idobj === '2372'
           )
+          .filter(
+            (item) =>
+              position &&
+              calcDistance(position, item.fields.location) <=
+                parseInt(props.rangeDistance)
+          )
           .map((item) => (
-            <Marker position={item.fields.location} icon={Icon}>
+            <Marker
+              key={item.fields.nom_complet}
+              position={item.fields.location}
+              icon={Icon}
+            >
               <Popup>{item.fields.nom_complet}</Popup>
             </Marker>
           ))}
@@ -150,9 +161,9 @@ function Map(props) {
                 position={position}
                 namePark={item.fields.nom_complet}
                 coord={item.fields.location}
-                // count={props.tri.facets}
                 key={item.fields.nom_complet}
                 rangeDistance={props.rangeDistance}
+                distance={calcDistance(position, item.fields.location)}
               />
             ))
         )}
