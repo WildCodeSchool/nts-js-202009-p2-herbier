@@ -25,7 +25,7 @@ const device = {
   desktopL: `(min-width: ${size.desktop})`,
 };
 
-const Lybrary = styled.div`
+const LibraryWrap = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -330,9 +330,9 @@ class Library extends React.Component {
       pageWidth,
       divCollectionHeight,
     } = this.state;
-    const { scannedLybrary, vegetals } = this.props;
+    const { scannedLibrary, vegetals } = this.props;
     return (
-      <Lybrary
+      <LibraryWrap
         ref={(el) => {
           if (!el) return;
           setTimeout(() => {
@@ -527,7 +527,7 @@ class Library extends React.Component {
             )}
           </Message>
         </DivVisuel>
-      </Lybrary>
+      </LibraryWrap>
     );
   }
 }

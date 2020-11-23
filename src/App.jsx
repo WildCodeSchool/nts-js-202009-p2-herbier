@@ -16,10 +16,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dailyPlants: [],
       vegetals: [],
       tri: [],
-      scannedLybrary: [
+      scannedLibrary: [
         '33ed6720a4fec83e401390ec5fb67d4ec7bdd9c4',
         '770a3422810693f5ecf454fec5a8e17e68dd7cb0',
         'eccf60b59b4396966fe81106c933cdaf269a91a3',
@@ -56,10 +55,10 @@ class App extends React.Component {
   }
 
   addToLibrary(id) {
-    const { scannedLybrary } = this.state;
+    const { scannedLibrary } = this.state;
     this.setState(
       {
-        scannedLybrary: [...scannedLybrary, id],
+        scannedLibrary: [...scannedLibrary, id],
         open: true,
         inLibrary: false,
       },
@@ -68,8 +67,8 @@ class App extends React.Component {
   }
 
   saveToLocalStorage() {
-    const { scannedLybrary } = this.state;
-    localStorage.setItem('myCollection', JSON.stringify(scannedLybrary));
+    const { scannedLibrary } = this.state;
+    localStorage.setItem('myCollection', JSON.stringify(scannedLibrary));
   }
 
   alreadyInLibrary() {
@@ -86,7 +85,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { scannedLybrary, vegetals, tri, open, inLibrary } = this.state;
+    const { scannedLibrary, vegetals, tri, open, inLibrary } = this.state;
     return (
       <div className="App">
         <BrowserRouter>
@@ -104,7 +103,7 @@ class App extends React.Component {
                   handleClose={this.handleClose}
                   addToLibrary={this.addToLibrary}
                   alreadyInLibrary={this.alreadyInLibrary}
-                  scannedLybrary={scannedLybrary}
+                  scannedLibrary={scannedLibrary}
                 />
               )}
             />
@@ -115,7 +114,7 @@ class App extends React.Component {
                 <Library
                   vegetals={vegetals}
                   tri={tri}
-                  scannedLybrary={scannedLybrary}
+                  scannedLibrary={scannedLibrary}
                 />
               )}
             />

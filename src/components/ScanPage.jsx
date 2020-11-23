@@ -54,8 +54,8 @@ class ScanPage extends React.Component {
 
   handleClick(data) {
     const { espece, recordid } = this.state;
-    const { scannedLybrary, addToLibrary, alreadyInLibrary } = this.props;
-    if (data && espece !== '' && !scannedLybrary.includes(recordid)) {
+    const { scannedLibrary, addToLibrary, alreadyInLibrary } = this.props;
+    if (data && espece !== '' && !scannedLibrary.includes(recordid)) {
       this.setState({
         espece: '',
         famille: '',
@@ -63,7 +63,7 @@ class ScanPage extends React.Component {
         photo1Id: '',
       });
       addToLibrary(recordid);
-    } else if (data && espece !== '' && scannedLybrary.includes(recordid)) {
+    } else if (data && espece !== '' && scannedLibrary.includes(recordid)) {
       this.setState({
         espece: '',
         famille: '',
@@ -149,7 +149,7 @@ class ScanPage extends React.Component {
 }
 
 ScanPage.propTypes = {
-  scannedLybrary: PropTypes.arrayOf(PropTypes.string).isRequired,
+  scannedLibrary: PropTypes.arrayOf(PropTypes.string).isRequired,
   addToLibrary: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
   alreadyInLibrary: PropTypes.func.isRequired,
