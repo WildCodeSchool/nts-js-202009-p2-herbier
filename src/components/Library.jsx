@@ -25,7 +25,7 @@ const device = {
   desktopL: `(min-width: ${size.desktop})`,
 };
 
-const Lybrary = styled.div`
+const LibraryWrap = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -330,9 +330,9 @@ class Library extends React.Component {
       pageWidth,
       divCollectionHeight,
     } = this.state;
-    const { scannedLybrary, vegetals } = this.props;
+    const { scannedLibrary, vegetals } = this.props;
     return (
-      <Lybrary
+      <LibraryWrap
         ref={(el) => {
           if (!el) return;
           setTimeout(() => {
@@ -372,7 +372,7 @@ class Library extends React.Component {
                   this.setState({
                     choice: null,
                     choicePlus: null,
-                  })
+                  });
                 }
               }}
             >
@@ -449,13 +449,14 @@ class Library extends React.Component {
                 filter={filter}
                 filterChoice={choice}
                 onClick={() => {
-                  this.setState({ showmore: !showmore })
+                  this.setState({ showmore: !showmore });
                 }}
               >
                 <i
-                  className={showmore
-                    ? 'fa fa-chevron-up' 
-                    :'fa fa-chevron-down'} />
+                  className={
+                    showmore ? 'fa fa-chevron-up' : 'fa fa-chevron-down'
+                  }
+                />
               </Showmore>
             </ListeFiltre>
           </WindowFilter>
@@ -466,19 +467,34 @@ class Library extends React.Component {
             showPanel={showPanel}
           />
         </DivVisuel4>
-        <DivVisuel
-          showmore={showmore}>
-          <Title>Votre collection : {scannedLybrary.length - 1} /
-        {([...new Set(vegetals.map(element => {
-            const unique = [element.fields.famille, element.fields.genre, element.fields.espece]
-            return unique.join('')
-          }))]).length}</Title>
-          <Collection ref={el => {
-            if (!el) return;
-            setTimeout(() => {
-              this.setState({ divCollectionHeight: el.getBoundingClientRect().height });
-            }, 200);
-          }}
+        <DivVisuel showmore={showmore}>
+          <Title>
+            Votre collection :{' '}
+            {JSON.parse(localStorage.getItem('myCollection')).length - 1} /
+            {
+              [
+                ...new Set(
+                  vegetals.map((element) => {
+                    const unique = [
+                      element.fields.famille,
+                      element.fields.genre,
+                      element.fields.espece,
+                    ];
+                    return unique.join('');
+                  })
+                ),
+              ].length
+            }
+          </Title>
+          <Collection
+            ref={(el) => {
+              if (!el) return;
+              setTimeout(() => {
+                this.setState({
+                  divCollectionHeight: el.getBoundingClientRect().height,
+                });
+              }, 200);
+            }}
           >
             {vegetals
               .filter((element) => element.fields.photo1)
@@ -489,7 +505,9 @@ class Library extends React.Component {
                   filter={filter}
                   choicePlus={choicePlus}
                   all={all}
-                  scanned={scannedLybrary.includes(item.recordid)}
+                  scanned={JSON.parse(
+                    localStorage.getItem('myCollection')
+                  ).includes(item.recordid)}
                   key={item.recordid}
                   id={item.recordid}
                   famille={item.fields.famille}
@@ -501,10 +519,15 @@ class Library extends React.Component {
               ))}
           </Collection>
           <Message>
-            {choicePlus === null ? null : divCollectionHeight > 10 ? null : <p>Vous n'avez pas scanné de plantes dans la catégorie: {choicePlus}</p>}
+            {choicePlus === null ? null : divCollectionHeight > 10 ? null : (
+              <p>
+                Vous n'avez pas scanné de plantes dans la catégorie:{' '}
+                {choicePlus}
+              </p>
+            )}
           </Message>
         </DivVisuel>
-      </Lybrary>
+      </LibraryWrap>
     );
   }
 }
