@@ -81,7 +81,11 @@ const Range = styled.div`
   }
 
   input[type='range']::-webkit-slider-thumb {
-    color: red;
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 30px;
+    background: #ffffff;
   }
 `;
 

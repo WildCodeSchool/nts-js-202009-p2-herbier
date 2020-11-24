@@ -38,6 +38,11 @@ const myIcon = L.icon({
 const ParkNear = styled.div`
   display: flex;
   flex-direction: column;
+
+  .ClickOnMap {
+    font-size: 20px;
+    text-align: center;
+  }
 `;
 
 function LocationMarker(props) {
@@ -150,7 +155,7 @@ function Map(props) {
       </MapContainer>
       <ParkNear>
         {position === null ? (
-          <p>Clique sur la carte</p>
+          <div className="ClickOnMap">Cliquez sur la carte</div>
         ) : (
           [...parks, ...parksupp]
             .filter(
