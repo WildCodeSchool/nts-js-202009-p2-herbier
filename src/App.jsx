@@ -92,7 +92,7 @@ class App extends React.Component {
           <HeaderMobile />
           <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route exact path="/around-me" component={AroundMePage} />
+            <Route exact path="/around-me" component={() => <AroundMePage />} />
             <Route
               exact
               path="/scan"
