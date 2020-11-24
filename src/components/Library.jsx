@@ -116,7 +116,7 @@ const UlListe = styled.div`
   @media ${device.tablet} {
     width: 100%;
     display: ${({ filterChoice, pageWidth }) =>
-      pageWidth >768 ||
+      pageWidth > 768 ||
       filterChoice === 'famille' ||
       filterChoice === 'espece' ||
       filterChoice === 'genre' ||
@@ -236,7 +236,7 @@ const DivVisuel3 = styled.div`
 `;
 
 const DivVisuel4 = styled.div`
-  margin-left:1.5rem;
+  margin-left: 1.5rem;
   @media ${device.tablet} {
     display: flex;
     flex-direction: column;
@@ -278,8 +278,8 @@ const DivVisuel5 = styled.div`
   display: flex;
   align-items: flex-end;
   margin-bottom: 10px;
-    div {
-        padding-left: 50px;
+  div {
+    padding-left: 50px;
   }
 `;
 
@@ -360,7 +360,7 @@ class Library extends React.Component {
         ref={(el) => {
           if (!el) return;
           setTimeout(() => {
-            this.setState({ pageWidth: el.getBoundingClientRect().width + 96});
+            this.setState({ pageWidth: el.getBoundingClientRect().width + 96 });
             if (pageWidth > 768) {
               this.setState({
                 filter: true,
@@ -426,7 +426,7 @@ class Library extends React.Component {
                   this.setState({
                     choice: 'famille',
                   })
-              }
+                }
               >
                 Famille
               </ButtonParameter>
@@ -462,20 +462,22 @@ class Library extends React.Component {
                 filterChoice={choice}
               >
                 {nochoice && pageWidth > 768
-                ? this.setState({
+                  ? this.setState({
                       nochoice: false,
                       choice: 'nom_du_site',
-                })
-                :list[0] &&
-                  list[0].facets.map((item) => {
-                    return (
-                      <Li
-                        onClick={() => this.setState({ choicePlus: item.name })}
-                      >
-                        {item.name}({item.count})
-                      </Li>
-                    );
-                  })}
+                    })
+                  : list[0] &&
+                    list[0].facets.map((item) => {
+                      return (
+                        <Li
+                          onClick={() =>
+                            this.setState({ choicePlus: item.name })
+                          }
+                        >
+                          {item.name}({item.count})
+                        </Li>
+                      );
+                    })}
               </UlListe>
               <Showmore
                 filter={filter}
@@ -500,41 +502,76 @@ class Library extends React.Component {
             showPanel={showPanel}
           />
         </DivVisuel4>
-        <DivVisuel
-          showmore={showmore}>
-            <DivVisuel5>
-          <Title>Votre collection : {scannedLybrary.length - 1} /
-        {([...new Set(vegetals.map(element => {
-            const unique = [element.fields.famille, element.fields.genre, element.fields.espece]
-            return unique.join('')
-          }))]).length}</Title>
-          {pageWidth >= 768
-              ? <div>
-              <label htmlFor="taille">Taille d'image :</label>
-              <select name='taille'>
-                <option value="100x100" onClick={()=> this.setState({
-                  tailleImageX: 100,
-                  tailleImageY: 100,
-                })}>100x100</option>
-                <option value="180x150"  onClick={()=> this.setState({
-                  tailleImageX: 180,
-                  tailleImageY: 150, 
-                })}>180x150 </option>
-                <option value="280x200"  onClick={()=> this.setState({
-                  tailleImageX: 280,
-                  tailleImageY: 200, 
-                })}> 280x200 </option>
-              </select>
+        <DivVisuel showmore={showmore}>
+          <DivVisuel5>
+            <Title>
+              Votre collection : {scannedLibrary.length - 1} /
+              {
+                [
+                  ...new Set(
+                    vegetals.map((element) => {
+                      const unique = [
+                        element.fields.famille,
+                        element.fields.genre,
+                        element.fields.espece,
+                      ];
+                      return unique.join('');
+                    })
+                  ),
+                ].length
+              }
+            </Title>
+            {pageWidth >= 768 ? (
+              <div>
+                <label htmlFor="taille">Taille d'image :</label>
+                <select name="taille">
+                  <option
+                    value="100x100"
+                    onClick={() =>
+                      this.setState({
+                        tailleImageX: 100,
+                        tailleImageY: 100,
+                      })
+                    }
+                  >
+                    100x100
+                  </option>
+                  <option
+                    value="180x150"
+                    onClick={() =>
+                      this.setState({
+                        tailleImageX: 180,
+                        tailleImageY: 150,
+                      })
+                    }
+                  >
+                    180x150{' '}
+                  </option>
+                  <option
+                    value="280x200"
+                    onClick={() =>
+                      this.setState({
+                        tailleImageX: 280,
+                        tailleImageY: 200,
+                      })
+                    }
+                  >
+                    {' '}
+                    280x200{' '}
+                  </option>
+                </select>
               </div>
-              : null
-               }
+            ) : null}
           </DivVisuel5>
-          <Collection ref={el => {
-            if (!el) return;
-            setTimeout(() => {
-              this.setState({ divCollectionHeight: el.getBoundingClientRect().height });
-            }, 200);
-          }}
+          <Collection
+            ref={(el) => {
+              if (!el) return;
+              setTimeout(() => {
+                this.setState({
+                  divCollectionHeight: el.getBoundingClientRect().height,
+                });
+              }, 200);
+            }}
           >
             {vegetals
               .filter((element) => element.fields.photo1)

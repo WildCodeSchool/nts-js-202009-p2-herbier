@@ -5,7 +5,8 @@ import QrReader from 'react-qr-reader';
 import scanner from './logos/qrcode.svg';
 
 const ScanContener = styled.div`
-  background-color: ${({ scan }) => (scan ? 'red' : 'transparent')};
+  background-color: ${({ scan }) =>
+    scan ? 'rgba(105,197,178,0.3)' : 'transparent'};
   height: ${({ scan }) => (scan ? '80vh' : '40vh')};
   transition: 0.3s;
   width: 100%;
@@ -38,7 +39,7 @@ class Reader extends Component {
             delay={300}
             onError={handleError}
             onScan={handleScan}
-            style={{ width: '200px' }}
+            style={{ width: '70vw' }}
           />
         </QrStyle>
         <ScanImgStyle scan={scan} src={scanner} alt="QR code scanner" />
@@ -51,7 +52,8 @@ Reader.propTypes = {
   scan: PropTypes.bool.isRequired,
   handleShowScan: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,
-  handleScan: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  handleScan: PropTypes.func,
 };
 
 export default Reader;
