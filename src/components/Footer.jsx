@@ -11,7 +11,7 @@ const Global = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    min-height: 83.3vh;
+    min-height: 100vh;
     padding-bottom: 5rem;
     position: relative;
   }
@@ -27,6 +27,9 @@ const Wrapper = styled.footer`
   bottom: 0;
   margin-top: 1rem;
   z-index: 100;
+  @media (min-width: 768px) {
+    height: 2.5rem;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -55,14 +58,23 @@ const Links = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: center;
+    }
   }
 
   li {
-    font-family: 'Roboto';
+    font-family: 'Roboto', sans-serif;
     height: 50%;
     display: flex;
     align-items: center;
     margin-left: 0.5rem;
+    @media (min-width: 768px) {
+      :first-child {
+        margin-right: 4rem;
+      }
+    }
   }
 `;
 

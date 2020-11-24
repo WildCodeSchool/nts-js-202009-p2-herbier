@@ -7,29 +7,32 @@ const List = styled.div`
   flex-direction: column;
   order: ${({ distance }) => distance};
 
-  div {
-    display: ${({ showPark }) => (showPark ? 'block' : 'none')};
-    display: flex;
-    margin-bottom: 20px;
-
     img {
       margin-right: 10px;
     }
+  }
+`;
 
+const ParkElement = styled.div`
+  display: ${({ showPark }) => (showPark ? 'flex' : 'none')};
+  margin-bottom: 20px;
+
+  .namePark{
+    font-weight: bold;
   }
 `;
 
 function ParkList(props) {
-  const { distance, namePark, rangeDistance } = props;
+  const { distance, namePark, rangeDistance, showNantes } = props;
   const showPark = distance <= parseInt(rangeDistance);
 
   return (
-    <List distance={distance} showPark={showPark}>
-      <div>
+    <List distance={distance}>
+      <ParkElement distance={distance} showPark={!showNantes ? showPark : true}>
         <img src={MapPicker} alt="map marker" />
-        <div>{`${distance} km`}</div>
-        <div>{namePark}</div>
-      </div>
+        <div className="namePark">{namePark}</div>
+        <div className="distancePark">{`${distance} km`}</div>
+      </ParkElement>
     </List>
   );
 }
