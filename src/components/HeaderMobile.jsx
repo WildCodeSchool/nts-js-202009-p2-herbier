@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { createGlobalStyle } from 'styled-components';
 import menuProfil from './logos/menu-profil.svg';
@@ -200,7 +200,9 @@ const HeaderMobile = () => {
                 onClick={() => (nav ? showNav(!nav) : true)}
               >
                 <img src={menuProfil} alt="Profil" />
-                Profil
+                {localStorage.getItem('pseudo')
+                  ? localStorage.getItem('pseudo')
+                  : 'Profil'}
               </StyledLink>
             </li>
             <li>

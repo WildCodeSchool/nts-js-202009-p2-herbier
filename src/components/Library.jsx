@@ -505,7 +505,7 @@ class Library extends React.Component {
         <DivVisuel showmore={showmore}>
           <DivVisuel5>
             <Title>
-              Votre collection : {scannedLibrary.length - 1} /
+              Votre collection : {scannedLibrary.length} /
               {
                 [
                   ...new Set(

@@ -20,7 +20,6 @@ class App extends React.Component {
       tri: [],
       scannedLibrary: [
         '33ed6720a4fec83e401390ec5fb67d4ec7bdd9c4',
-        '770a3422810693f5ecf454fec5a8e17e68dd7cb0',
         'eccf60b59b4396966fe81106c933cdaf269a91a3',
         '9266fa81e583eb74558a0dd1e017f4a2e7627fd2',
         '22030281a17bde724545be084f2b57f93a6bc1f9',
