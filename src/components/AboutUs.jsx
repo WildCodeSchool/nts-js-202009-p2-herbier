@@ -5,6 +5,7 @@ import FannyProfile from './pictures/Fanny-profile.jpeg';
 import NicolasProfile from './pictures/Nicolas-profile.jpg';
 import GwenProfile from './pictures/Gwen-profile.jpg';
 import AymericProfile from './pictures/Aymeric-profile.jpg';
+import Couronne from './logos/profil-cycle.svg';
 
 const Member = styled.div`
   display: flex;
@@ -74,6 +75,13 @@ const Head = styled.div`
   }
 `;
 
+const Laurier = styled.div`
+  background: url(${Couronne}) no-repeat center/cover;
+  height: 170px;
+  width: 190px;
+  transform: translateX(-2.25rem);
+`;
+
 const AboutUs = () => {
   return (
     <div>
@@ -83,62 +91,87 @@ const AboutUs = () => {
         <div />
       </Head>
       <Member>
-        <Benoit />
+        <Benoit>
+          <Laurier />
+        </Benoit>
         <div>
           <h3>Benoit Le Bourdonnec</h3>
           <a href="https://github.com/Benoit2109">
-            <i className="fa fa-github-square" style={{ color: 'black' }} />
+            <i className="fa fa-github-square" style={{ color: ' #69C5B2' }} />
           </a>
           <a href="http://www.linkedin.com/in/benoit-le-bourdonnec">
-            <i className="fa fa-linkedin-square" style={{ color: 'blue' }} />
+            <i
+              className="fa fa-linkedin-square"
+              style={{ color: ' #E27A70' }}
+            />
           </a>
         </div>
       </Member>
       <Member>
-        <Nicolas />
+        <Nicolas>
+          <Laurier />
+        </Nicolas>
         <div>
           <h3>Nicolas Bonamy</h3>
           <a href="https://github.com/NicolasBonamy">
-            <i className="fa fa-github-square" style={{ color: 'black' }} />
+            <i className="fa fa-github-square" style={{ color: ' #69C5B2' }} />
           </a>
           <a href="https://www.linkedin.com/in/nicolas-bonamy/">
-            <i className="fa fa-linkedin-square" style={{ color: 'blue' }} />
+            <i
+              className="fa fa-linkedin-square"
+              style={{ color: ' #E27A70' }}
+            />
           </a>
         </div>
       </Member>
       <Member>
-        <Gwen />
+        <Gwen>
+          <Laurier />
+        </Gwen>
         <div>
           <h3>Gwenvaël Laskar</h3>
           <a href="https://github.com/rouxxi">
-            <i className="fa fa-github-square" style={{ color: 'black' }} />
+            <i className="fa fa-github-square" style={{ color: ' #69C5B2' }} />
           </a>
           <a href="https://www.linkedin.com/in/gwenvael-laskar-39096a1b8">
-            <i className="fa fa-linkedin-square" style={{ color: 'blue' }} />
+            <i
+              className="fa fa-linkedin-square"
+              style={{ color: ' #E27A70' }}
+            />
           </a>
         </div>
       </Member>
       <Member>
-        <Fanny />
+        <Fanny>
+          <Laurier />
+        </Fanny>
         <div>
           <h3>Fanny Debrabant</h3>
           <a href="https://github.com/fdebrabant">
-            <i className="fa fa-github-square" style={{ color: 'black' }} />
+            <i className="fa fa-github-square" style={{ color: ' #69C5B2' }} />
           </a>
           <a href="http://www.linkedin.com/in/fanny-debrabant">
-            <i className="fa fa-linkedin-square" style={{ color: 'blue' }} />
+            <i
+              className="fa fa-linkedin-square"
+              style={{ color: ' #E27A70' }}
+            />
           </a>
         </div>
       </Member>
       <Member>
-        <Aymeric />
+        <Aymeric>
+          <Laurier />
+        </Aymeric>
         <div>
           <h3>Aymeric Lancien</h3>
           <a href="https://github.com/Aymeric-Lancien">
-            <i className="fa fa-github-square" style={{ color: 'black' }} />
+            <i className="fa fa-github-square" style={{ color: ' #69C5B2' }} />
           </a>
           <a href="https://www.google.fr/">
-            <i className="fa fa-linkedin-square" style={{ color: 'blue' }} />
+            <i
+              className="fa fa-linkedin-square"
+              style={{ color: ' #E27A70' }}
+            />
           </a>
         </div>
       </Member>
