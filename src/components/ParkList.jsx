@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import MapPicker from './logos/map-picker.svg';
-import { calcDistance } from '../utils';
 
 const List = styled.div`
   display: flex;
@@ -14,18 +13,15 @@ const List = styled.div`
 `;
 
 function ParkList(props) {
-  const showPark =
-    calcDistance(props.position, props.coord) <= parseInt(props.rangeDistance);
+  const { distance, namePark, rangeDistance } = props;
+  const showPark = distance <= parseInt(rangeDistance);
 
   return (
-    <List
-      distance={props.distance}
-      showPark={showPark}
-    >
+    <List distance={distance} showPark={showPark}>
       <div>
         <img src={MapPicker} alt="map marker" />
-        {`${props.distance} km`}
-        {props.namePark}
+        {`${distance} km`}
+        {namePark}
       </div>
     </List>
   );

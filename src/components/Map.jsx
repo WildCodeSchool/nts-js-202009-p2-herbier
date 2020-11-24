@@ -58,6 +58,7 @@ function LocationMarker(props) {
 }
 
 function Map(props) {
+  const { rangeDistance } = props;
   const [position, setPosition] = React.useState(null);
   const [parks, setParks] = React.useState([]);
   const [parksupp, setParksupp] = React.useState([
@@ -131,7 +132,7 @@ function Map(props) {
             (item) =>
               position &&
               calcDistance(position, item.fields.location) <=
-                parseInt(props.rangeDistance)
+                parseInt(rangeDistance)
           )
           .map((item) => (
             <Marker
@@ -158,11 +159,11 @@ function Map(props) {
             )
             .map((item) => (
               <ParkList
-                position={position}
+                // position={position}
                 namePark={item.fields.nom_complet}
-                coord={item.fields.location}
+                // coord={item.fields.location}
                 key={item.fields.nom_complet}
-                rangeDistance={props.rangeDistance}
+                rangeDistance={rangeDistance}
                 distance={calcDistance(position, item.fields.location)}
               />
             ))
