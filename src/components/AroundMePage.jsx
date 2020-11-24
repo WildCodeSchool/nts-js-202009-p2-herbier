@@ -8,11 +8,26 @@ const Filter = styled.div`
 
 const Range = styled.div``;
 
+
+const Button = styled.div`
+  outline: none;
+  cursor: pointer;
+  background-color: #9cd69b;
+  color: white;
+  border: 2px solid white;
+  border-radius: 30px;
+  padding: 10px 15px;
+  box-shadow: rgb(0, 0, 0, 0.3) 0px 3px 3px 1px;
+  font-size: inherit;
+  width:fit-content;
+`;
+
 class AroundMePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       rangeDistance: 0,
+      showNantes: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -23,7 +38,7 @@ class AroundMePage extends React.Component {
   }
 
   render() {
-    const { rangeDistance } = this.state;
+    const { rangeDistance, showNantes } = this.state;
     return (
       <div>
         <Filter>
@@ -39,8 +54,9 @@ class AroundMePage extends React.Component {
             />
             {rangeDistance}
           </Range>
+    <Button onClick={()=> this.setState({showNantes:!showNantes})}> {showNantes?'Seulement les parcs proches':'Afficher tout les parcs'}</Button>
         </Filter>
-        <Map rangeDistance={rangeDistance} />
+        <Map showNantes={showNantes} rangeDistance={rangeDistance} />
       </div>
     );
   }
