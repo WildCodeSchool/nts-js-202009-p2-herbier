@@ -4,9 +4,36 @@ import SearchBar from './SearchBar';
 import DataBase from './DataBase';
 import DescriptionPanel from './DescriptionPanel';
 
-const Lybrary = styled.div`
-  display:flex;
-  flex-direction:column;
+const size = {
+  mobileS: '320px',
+  mobileM: '375px',
+  mobileL: '425px',
+  tablet: '768px',
+  laptop: '1024px',
+  laptopL: '1440px',
+  desktop: '2560px',
+};
+
+const device = {
+  mobileS: `(min-width: ${size.mobileS})`,
+  mobileM: `(min-width: ${size.mobileM})`,
+  mobileL: `(min-width: ${size.mobileL})`,
+  tablet: `(min-width: ${size.tablet})`,
+  laptop: `(min-width: ${size.laptop})`,
+  laptopL: `(min-width: ${size.laptopL})`,
+  desktop: `(min-width: ${size.desktop})`,
+  desktopL: `(min-width: ${size.desktop})`,
+};
+
+const LibraryWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media ${device.tablet} {
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    margin: 3rem;
+  }
 `;
 
 const Collection = styled.div`
@@ -21,6 +48,7 @@ const ButtonAllSome = styled.div`
   width: 140px;
   padding: 3px 10px;
   display: flex;
+  height: 41px;
   justify-content: space-between;
   align-items: center;
   color: white;
@@ -61,6 +89,10 @@ const ContainerFiltre = styled.div`
   margin: 1.5rem 1.5rem 0.5rem 1.5rem;
   display: flex;
   justify-content: space-around;
+
+  @media ${device.tablet} {
+    width: 90%;
+  }
 `;
 
 const Title = styled.h3`
@@ -71,15 +103,31 @@ const UlListe = styled.div`
   width: 100%;
   display: ${({ filterChoice, filter }) =>
     filter &&
-      (filterChoice === 'famille' ||
-        filterChoice === 'espece' ||
-        filterChoice === 'genre' ||
-        filterChoice === 'nom_du_site')
+    (filterChoice === 'famille' ||
+      filterChoice === 'espece' ||
+      filterChoice === 'genre' ||
+      filterChoice === 'nom_du_site')
       ? 'flex'
       : 'none'};
-  flex-wrap:wrap;
-  height:${({showmore})=>showmore?'400px':'0'};
-  overflow:scroll;
+  flex-wrap: wrap;
+  height: ${({ showmore }) => (showmore ? '400px' : '0')};
+  overflow: scroll;
+
+  @media ${device.tablet} {
+    width: 100%;
+    display: ${({ filterChoice, pageWidth }) =>
+      pageWidth >768 ||
+      filterChoice === 'famille' ||
+      filterChoice === 'espece' ||
+      filterChoice === 'genre' ||
+      filterChoice === 'nom_du_site'
+        ? 'flex'
+        : 'none'};
+    flex-wrap: wrap;
+    height: 35vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
 `;
 
 const ButtonParameter = styled.div`
@@ -98,7 +146,7 @@ const ButtonParameter = styled.div`
 `;
 
 const ParameterFiltre = styled.div`
-  display:flex;
+  display: flex;
   justify-content: left;
   width: 100%;
   align-items: center;
@@ -108,13 +156,17 @@ const ParameterFiltre = styled.div`
 
 const ListeFiltre = styled.div`
   color: black;
-  background-color: rgba(105, 197, 178,0.6);
+  background-color: rgba(105, 197, 178, 0.6);
   height: fit-content;
   display: ${({ filter }) => (filter ? 'flex' : 'none')};
   flex-direction: column;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
-  border-top-right-radius:5px;
+  border-top-right-radius: 5px;
+
+  @media ${device.tablet} {
+    display: flex;
+  }
 `;
 
 const Li = styled.li`
@@ -132,11 +184,17 @@ const WindowFilter = styled.div`
   justify-content: center;
   align-content: center;
   flex-direction: column;
+
+  @media ${device.tablet} {
+    width: 25vw;
+    transform: translateX(0);
+    top: 2rem;
+  }
 `;
 
 const Message = styled.div`
   display: flex;
-  justify-content:center;
+  justify-content: center;
   height: fit-content;
   margin: 0 1.5rem 0 1.5rem 0;
   font-size: 18px;
@@ -146,31 +204,83 @@ const Message = styled.div`
 `;
 
 const DivVisuel = styled.div`
-  align-self:center;
-  display:flex;
-  flex-direction:column;
-  align-items:left;
-  width:90%;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 90%;
+
+  @media ${device.tablet} {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 2rem;
+    margin-left: 30vw;
+    order: 3;
+  }
+`;
+
+const DivVisuel3 = styled.div`
+  @media ${device.tablet} {
+    margin-left: 30vw;
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    margin-right: 1.5rem;
+
+    input {
+      margin: 1rem 0 1rem 0;
+      width: 100%;
+    }
+  }
+`;
+
+const DivVisuel4 = styled.div`
+  margin-left:1.5rem;
+  @media ${device.tablet} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    order: 1;
+    width: 25vw;
+    height: 80vh;
+    left: 1rem;
+    margin-bottom: 5rem;
+  }
 `;
 
 const Showmore = styled.button`
   display: ${({ filterChoice, filter }) =>
     filter &&
-      (filterChoice === 'famille' ||
-        filterChoice === 'espece' ||
-        filterChoice === 'genre' ||
-        filterChoice === 'nom_du_site')
+    (filterChoice === 'famille' ||
+      filterChoice === 'espece' ||
+      filterChoice === 'genre' ||
+      filterChoice === 'nom_du_site')
       ? 'flex'
       : 'none'};
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
   outline: none;
   cursor: pointer;
   height: 40px;
   color: white;
-  background-color:rgba(105, 197, 178,0);
+  background-color: rgba(105, 197, 178, 0);
   font-size: 30px;
   border: 0;
+
+  @media ${device.tablet} {
+    display: none;
+  }
+`;
+
+const DivVisuel5 = styled.div`
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 10px;
+    div {
+        padding-left: 50px;
+  }
 `;
 
 class Library extends React.Component {
@@ -187,6 +297,11 @@ class Library extends React.Component {
       description: ['', '', '', ''],
       showPanel: false,
       divCollectionHeight: 1,
+      pageWidth: 1,
+      noClick: true,
+      nochoice: true,
+      tailleImageX: 100,
+      tailleImageY: 100,
     };
     this.handleChangeSearch = this.handleChangeSearch.bind(this);
     this.handleVegetalClick = this.handleVegetalClick.bind(this);
@@ -194,11 +309,11 @@ class Library extends React.Component {
   }
 
   componentDidUpdate(pervP, prevS) {
-    if (prevS.choice !== this.state.choice) {
+    const { choice } = this.state;
+    const { tri } = this.props;
+    if (prevS.choice !== choice) {
       this.setState({
-        list: this.props.tri.filter(
-          (element) => element.name === this.state.choice
-        ),
+        list: tri.filter((element) => element.name === choice),
       });
     }
   }
@@ -211,6 +326,7 @@ class Library extends React.Component {
     this.setState({
       description: [image, famille, genre, espece],
       showPanel: true,
+      noClick: false,
     });
   }
 
@@ -221,136 +337,219 @@ class Library extends React.Component {
   }
 
   render() {
+    const {
+      filter,
+      search,
+      all,
+      choice,
+      choicePlus,
+      showmore,
+      list,
+      showPanel,
+      description,
+      pageWidth,
+      divCollectionHeight,
+      noClick,
+      nochoice,
+      tailleImageX,
+      tailleImageY,
+    } = this.state;
+    const { scannedLibrary, vegetals } = this.props;
     return (
-      <Lybrary>
-        <SearchBar
-          search={this.state.search}
-          handleChangeSearch={this.handleChangeSearch}
-        />
-        <DescriptionPanel
-          handleVegetalClick={this.handleVegetalClick}
-          hidePanel={this.hidePanel}
-          description={this.state.description}
-          showPanel={this.state.showPanel}
-        />
-        <ContainerFiltre>
-          <ButtonAllSome
-            all={this.state.all}
-            onClick={() => {
-              this.setState({ all: !this.state.all });
-            }}
-          >
-            <TextInButton all={this.state.all}>
-              {this.state.all ? 'Toutes' : 'Ma collection'}
-            </TextInButton>
-            <WhiteCircle all={this.state.all} />
-          </ButtonAllSome>
-          <FilterAdvenced
-            type="button"
-            className="optionAvancees"
-            onClick={() => {
-              this.setState({ filter: !this.state.filter });
-            }}
-          >
-            Avancées
-          </FilterAdvenced>
-        </ContainerFiltre>
-        <WindowFilter filter={this.state.filter}>
-          <ParameterFiltre filter={this.state.filter}>
-            <ButtonParameter
-              filterChoice={this.state.choice}
-              valueColor={this.state.choice === 'nom_du_site' ? true : false}
-              onClick={(event) =>
-                this.setState({
-                  choice: 'nom_du_site',
-                })
+      <LibraryWrap
+        ref={(el) => {
+          if (!el) return;
+          setTimeout(() => {
+            this.setState({ pageWidth: el.getBoundingClientRect().width + 96});
+            if (pageWidth > 768) {
+              this.setState({
+                filter: true,
+              });
+            }
+          }, 200);
+        }}
+      >
+        <DivVisuel3>
+          <SearchBar
+            search={search}
+            handleChangeSearch={this.handleChangeSearch}
+          />
+          <ContainerFiltre>
+            <ButtonAllSome
+              all={all}
+              onClick={() => {
+                this.setState({ all: !all });
+              }}
+            >
+              <TextInButton all={all}>
+                {all ? 'Toutes' : 'Ma collection'}
+              </TextInButton>
+              <WhiteCircle all={all} />
+            </ButtonAllSome>
+            <FilterAdvenced
+              type="button"
+              className="optionAvancees"
+              onClick={() => {
+                if (pageWidth < 768) {
+                  this.setState({ filter: !filter });
+                } else {
+                  this.setState({
+                    choicePlus: null,
+                    search: '',
+                    all: false,
+                  });
+                }
+              }}
+            >
+              {pageWidth >= 768 ? 'Rafraichir les filtres' : 'Avancées'}
+            </FilterAdvenced>
+          </ContainerFiltre>
+        </DivVisuel3>
+        <DivVisuel4>
+          <WindowFilter showmore={showmore} filter={filter}>
+            <ParameterFiltre filter={filter}>
+              <ButtonParameter
+                filterChoice={choice}
+                valueColor={choice === 'nom_du_site' ? true : false}
+                onClick={(event) =>
+                  this.setState({
+                    choice: 'nom_du_site',
+                  })
+                }
+              >
+                Parc
+              </ButtonParameter>
+              <ButtonParameter
+                filterChoice={choice}
+                valueColor={choice === 'famille' ? true : false}
+                onClick={(event) =>
+                  this.setState({
+                    choice: 'famille',
+                  })
               }
-            >
-              Parc
-            </ButtonParameter>
-            <ButtonParameter
-              filterChoice={this.state.choice}
-              valueColor={this.state.choice === 'famille' ? true : false}
-              onClick={(event) =>
-                this.setState({
-                  choice: 'famille',
+              >
+                Famille
+              </ButtonParameter>
+              <ButtonParameter
+                filterChoice={choice}
+                valueColor={choice === 'genre' ? true : false}
+                onClick={(event) =>
+                  this.setState({
+                    choice: 'genre',
+                  })
+                }
+              >
+                Genre
+              </ButtonParameter>
+              <ButtonParameter
+                filterChoice={choice}
+                valueColor={choice === 'espece' ? true : false}
+                onClick={(event) =>
+                  this.setState({
+                    choice: 'espece',
+                  })
+                }
+              >
+                Espece
+              </ButtonParameter>
+            </ParameterFiltre>
+            <ListeFiltre filter={filter}>
+              <UlListe
+                nochoice={nochoice}
+                pageWidth={pageWidth}
+                showmore={showmore}
+                filter={filter}
+                filterChoice={choice}
+              >
+                {nochoice && pageWidth > 768
+                ? this.setState({
+                      nochoice: false,
+                      choice: 'nom_du_site',
                 })
-              }
-            >
-              Famille
-            </ButtonParameter>
-            <ButtonParameter
-              filterChoice={this.state.choice}
-              valueColor={this.state.choice === 'genre' ? true : false}
-              onClick={(event) =>
-                this.setState({
-                  choice: 'genre',
-                })
-              }
-            >
-              Genre
-            </ButtonParameter>
-            <ButtonParameter
-              filterChoice={this.state.choice}
-              valueColor={this.state.choice === 'espece' ? true : false}
-              onClick={(event) =>
-                this.setState({
-                  choice: 'espece',
-                })
-              }
-            >
-              Espece
-            </ButtonParameter>
-          </ParameterFiltre>
-          <ListeFiltre filter={this.state.filter}>
-            <UlListe
-              showmore={this.state.showmore}
-              filter={this.state.filter}
-              filterChoice={this.state.choice}
-            >
-              {this.state.list[0] &&
-                this.state.list[0].facets.map((item) => {
-                  return (
-                    <Li
-                      onClick={() => this.setState({ choicePlus: item.name })}
-                    >
-                      {item.name}({item.count})
-                    </Li>
-                  );
-                })}
-            </UlListe>
-            <Showmore 
-            filter={this.state.filter}
-            filterChoice={this.state.choice}
-            onClick={()=>{
-              this.setState({showmore:!this.state.showmore})
-            }} ><i className={this.state.showmore?'fa fa-chevron-up':'fa fa-chevron-down'}></i></Showmore>
-          </ListeFiltre>
-        </WindowFilter>
-        <DivVisuel>
-          <Title>Votre collection : {this.props.scannedLybrary.length - 1} /
-        {([...new Set(this.props.vegetals.map(element => {
+                :list[0] &&
+                  list[0].facets.map((item) => {
+                    return (
+                      <Li
+                        onClick={() => this.setState({ choicePlus: item.name })}
+                      >
+                        {item.name}({item.count})
+                      </Li>
+                    );
+                  })}
+              </UlListe>
+              <Showmore
+                filter={filter}
+                filterChoice={choice}
+                onClick={() => {
+                  this.setState({ showmore: !showmore });
+                }}
+              >
+                <i
+                  className={
+                    showmore ? 'fa fa-chevron-up' : 'fa fa-chevron-down'
+                  }
+                />
+              </Showmore>
+            </ListeFiltre>
+          </WindowFilter>
+          <DescriptionPanel
+            noClick={noClick}
+            handleVegetalClick={this.handleVegetalClick}
+            hidePanel={this.hidePanel}
+            description={description}
+            showPanel={showPanel}
+          />
+        </DivVisuel4>
+        <DivVisuel
+          showmore={showmore}>
+            <DivVisuel5>
+          <Title>Votre collection : {scannedLybrary.length - 1} /
+        {([...new Set(vegetals.map(element => {
             const unique = [element.fields.famille, element.fields.genre, element.fields.espece]
             return unique.join('')
           }))]).length}</Title>
+          {pageWidth >= 768
+              ? <div>
+              <label htmlFor="taille">Taille d'image :</label>
+              <select name='taille'>
+                <option value="100x100" onClick={()=> this.setState({
+                  tailleImageX: 100,
+                  tailleImageY: 100,
+                })}>100x100</option>
+                <option value="180x150"  onClick={()=> this.setState({
+                  tailleImageX: 180,
+                  tailleImageY: 150, 
+                })}>180x150 </option>
+                <option value="280x200"  onClick={()=> this.setState({
+                  tailleImageX: 280,
+                  tailleImageY: 200, 
+                })}> 280x200 </option>
+              </select>
+              </div>
+              : null
+               }
+          </DivVisuel5>
           <Collection ref={el => {
             if (!el) return;
             setTimeout(() => {
-              // usually prints a value that is larger than the second console.log
               this.setState({ divCollectionHeight: el.getBoundingClientRect().height });
             }, 200);
           }}
           >
-            {this.props.vegetals
+            {vegetals
               .filter((element) => element.fields.photo1)
               .map((item) => (
                 <DataBase
-                  search={this.state.search}
+                  tailleImageX={tailleImageX}
+                  tailleImageY={tailleImageY}
+                  search={search}
                   handleVegetalClick={this.handleVegetalClick}
-                  filter={this.state.filter}
-                  choicePlus={this.state.choicePlus}
-                  all={this.state.all}
-                  scanned={this.props.scannedLybrary.includes(item.recordid)}
+                  filter={filter}
+                  choicePlus={choicePlus}
+                  all={all}
+                  scanned={JSON.parse(
+                    localStorage.getItem('myCollection')
+                  ).includes(item.recordid)}
                   key={item.recordid}
                   id={item.recordid}
                   famille={item.fields.famille}
@@ -362,10 +561,15 @@ class Library extends React.Component {
               ))}
           </Collection>
           <Message>
-            {this.state.choicePlus === null ? null : this.state.divCollectionHeight > 10 ? null : <p>Vous n'avez pas scanné de plantes dans la catégorie: {this.state.choicePlus}</p>}
+            {choicePlus === null ? null : divCollectionHeight > 10 ? null : (
+              <p>
+                Vous n'avez pas scanné de plantes dans la catégorie:{' '}
+                {choicePlus}
+              </p>
+            )}
           </Message>
         </DivVisuel>
-      </Lybrary>
+      </LibraryWrap>
     );
   }
 }
