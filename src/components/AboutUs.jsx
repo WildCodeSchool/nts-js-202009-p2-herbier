@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import BenProfile from './pictures/Ben-profile.jpg';
-import FannyProfile from './pictures/Fanny-profile.jpeg';
+import FannyProfile from './pictures/Fanny-profile.jpg';
 import NicolasProfile from './pictures/Nicolas-profile.jpg';
 import GwenProfile from './pictures/Gwen-profile.jpg';
 import AymericProfile from './pictures/Aymeric-profile.jpg';
 import Couronne from './logos/profil-cycle.svg';
+import SideBars from './SideBars';
 
 const Member = styled.div`
   display: flex;
@@ -13,21 +14,32 @@ const Member = styled.div`
   margin-left: 1rem;
   @media (min-width: 768px) {
     flex-direction: column;
+    align-items: center;
     margin-right: 3rem;
+
+    .Nicolas {
+      margin-right: 1.5rem;
+    }
   }
 
   div {
     margin-left: 1rem;
 
     h3 {
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px;
+      font-size: 18px;
+      text-align: center;
     }
 
     i {
       font-size: 3rem;
       margin-right: 1rem;
       margin-left: 1rem;
+      @media (min-width: 768px) {
+        :hover {
+          transform: scale(1.3);
+          transition: transform ease-in 150ms;
+        }
+      }
     }
   }
 `;
@@ -43,6 +55,9 @@ const Nicolas = styled.div`
   width: 150px;
   border-radius: 50%;
   background: url(${NicolasProfile}) no-repeat center/cover;
+  @media (min-width: 768px) {
+    margin-right: 1.5rem;
+  }
 `;
 const Gwen = styled.div`
   height: 150px;
@@ -67,16 +82,13 @@ const Head = styled.div`
   font-family: 'Roboto', sans-serif;
   text-align: center;
   margin-bottom: 3rem;
-  width: 100%;
-  padding: 0;
-
-  div {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #000000;
-    margin: 2rem 1.5rem;
-    padding: 0;
+  margin-left: 1.8rem;
+  width: 85%;
+  background-color: #69c5b2;
+  border-radius: 5px;
+  @media (min-width: 768px) {
+    width: 50%;
+    margin-left: 0;
   }
 `;
 
@@ -88,30 +100,30 @@ const Laurier = styled.div`
 `;
 
 const Wrapper = styled.div`
-  text-align: center;
   @media (min-width: 768px) {
     display: flex;
+    text-align: center;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
+    width: 60%;
   }
+`;
 
-  h3 {
-    @media (min-width: 768px) {
-    }
+const Page = styled.div`
+  @media (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-}
 `;
 
 const AboutUs = () => {
   return (
-    <div>
+    <Page>
       <Head>
         <h1>A propos de nous</h1>
         <h3>L'équipe de VegeNantes Go !</h3>
-        <div />
       </Head>
       <Wrapper>
         <Member>
@@ -119,7 +131,7 @@ const AboutUs = () => {
             <Laurier />
           </Benoit>
           <div>
-            <h3>Benoit Le Bourdonnec</h3>
+            <h3>Benoit LE BOURDONNEC</h3>
             <a href="https://github.com/Benoit2109">
               <i
                 className="fa fa-github-square"
@@ -138,8 +150,8 @@ const AboutUs = () => {
           <Nicolas>
             <Laurier />
           </Nicolas>
-          <div>
-            <h3>Nicolas Bonamy</h3>
+          <div className="Nicolas">
+            <h3>Nicolas BONAMY</h3>
             <a href="https://github.com/NicolasBonamy">
               <i
                 className="fa fa-github-square"
@@ -159,7 +171,7 @@ const AboutUs = () => {
             <Laurier />
           </Gwen>
           <div>
-            <h3>Gwenvaël Laskar</h3>
+            <h3>Gwenvaël LASKAR</h3>
             <a href="https://github.com/rouxxi">
               <i
                 className="fa fa-github-square"
@@ -179,7 +191,7 @@ const AboutUs = () => {
             <Laurier />
           </Fanny>
           <div>
-            <h3>Fanny Debrabant</h3>
+            <h3>Fanny DEBRABANT</h3>
             <a href="https://github.com/fdebrabant">
               <i
                 className="fa fa-github-square"
@@ -199,7 +211,7 @@ const AboutUs = () => {
             <Laurier />
           </Aymeric>
           <div>
-            <h3>Aymeric Lancien</h3>
+            <h3>Aymeric LANCIEN</h3>
             <a href="https://github.com/Aymeric-Lancien">
               <i
                 className="fa fa-github-square"
@@ -215,7 +227,8 @@ const AboutUs = () => {
           </div>
         </Member>
       </Wrapper>
-    </div>
+      <SideBars />
+    </Page>
   );
 };
 
