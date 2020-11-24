@@ -143,7 +143,7 @@ const mainButtons = [
     title: 'Découverte ?',
     picture: mainDecouverte,
     color: ' #9CD69B',
-    url: '/decouverte',
+    url: '/contact',
     text: 'Vous pensez avoir fait une découverte? Ca se passe ici !',
     backgroundColor: 'rgba(156,214,155,0.5)',
   },

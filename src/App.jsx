@@ -118,7 +118,7 @@ class App extends React.Component {
               )}
             />
             <Route exact path="/profil" component={Profil} />
-            <Route exact path="/decouverte" component={ContactForm} />
+            <Route exact path="/contact" component={ContactForm} />
             <Route exact path="/about-us" component={AboutUs} />
           </Switch>
           <Footer />
