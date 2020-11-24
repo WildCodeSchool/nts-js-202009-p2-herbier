@@ -13,11 +13,11 @@ const List = styled.div`
 `;
 
 function ParkList(props) {
-  const { distance, namePark, rangeDistance } = props;
+  const { distance, namePark, rangeDistance, showNantes } = props;
   const showPark = distance <= parseInt(rangeDistance);
 
   return (
-    <List distance={distance} showPark={showPark}>
+    <List distance={distance} showPark={ showNantes ? true : showPark }>
       <div>
         <img src={MapPicker} alt="map marker" />
         {`${distance} km`}

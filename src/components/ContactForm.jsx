@@ -4,6 +4,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import mainContact from './logos/main-contact.svg';
 import formArrow from './logos/form-arrow.svg';
+import SideBars from './SideBars';
 
 const Title = styled.div`
   background-color: #69c5b2;
@@ -159,7 +160,8 @@ class ContactForm extends React.Component {
               Message Envoyé!
             </Alert>
           </Snackbar>
-        </Form>
+        </Form> 
+        <SideBars/>
       </div>
     );
   }

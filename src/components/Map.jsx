@@ -129,8 +129,9 @@ function Map(props) {
               element.fields.idobj === '2372'
           )
           .filter(
-            (item) =>
-              position &&
+            (item) => props.showNantes
+              ?true
+              :position &&
               calcDistance(position, item.fields.location) <=
                 parseInt(rangeDistance)
           )
@@ -162,6 +163,7 @@ function Map(props) {
                 // position={position}
                 namePark={item.fields.nom_complet}
                 // coord={item.fields.location}
+                showNantes={props.showNantes}
                 key={item.fields.nom_complet}
                 rangeDistance={rangeDistance}
                 distance={calcDistance(position, item.fields.location)}
