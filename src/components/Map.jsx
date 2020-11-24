@@ -159,9 +159,7 @@ function Map(props) {
             )
             .map((item) => (
               <ParkList
-                // position={position}
                 namePark={item.fields.nom_complet}
-                // coord={item.fields.location}
                 key={item.fields.nom_complet}
                 rangeDistance={rangeDistance}
                 distance={calcDistance(position, item.fields.location)}
