@@ -17,7 +17,7 @@ function ParkList(props) {
   const showPark = distance <= parseInt(rangeDistance);
 
   return (
-    <List distance={distance} showPark={showNantes?true:showPark}>
+    <List distance={distance} showPark={ showNantes ? true : showPark }>
       <div>
         <img src={MapPicker} alt="map marker" />
         {`${distance} km`}
