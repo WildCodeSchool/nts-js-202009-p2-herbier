@@ -2,11 +2,47 @@ import React from 'react';
 import styled from 'styled-components';
 import Map from './Map';
 
-const Filter = styled.div`
-  background-color: #9cd69b;
+const AroundMe = styled.div`
+  margin: 0 15px;
 `;
 
-const Range = styled.div``;
+const Filter = styled.div`
+  background-color: #9cd69b;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 10px;
+`;
+
+const Title = styled.div`
+  font-size: 18px;
+  line-height: 21px;
+  color: #ffffff;
+
+  span {
+    font-size: 10px;
+  }
+`;
+
+const Range = styled.div`
+  display: flex;
+  color: #ffffff;
+
+  span {
+    font-size: 18px;
+  }
+
+  input[type='range'] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 3px;
+    cursor: pointer;
+    margin: auto;
+  }
+
+  input[type='range']::-webkit-slider-thumb {
+    color: red;
+  }
+`;
 
 class AroundMePage extends React.Component {
   constructor(props) {
@@ -25,10 +61,13 @@ class AroundMePage extends React.Component {
   render() {
     const { rangeDistance } = this.state;
     return (
-      <div>
+      <AroundMe>
         <Filter>
+          <Title>
+            Distance <span>(Km)</span>
+          </Title>
           <Range>
-            <h3>Distance (Km)</h3>
+            <span>0</span>
             <input
               type="range"
               min="1"
@@ -36,12 +75,13 @@ class AroundMePage extends React.Component {
               value={rangeDistance}
               onChange={this.handleChange}
               step="1"
+              list="tickmarks"
             />
-            {rangeDistance}
+            <span>{rangeDistance}</span>
           </Range>
         </Filter>
         <Map rangeDistance={rangeDistance} />
-      </div>
+      </AroundMe>
     );
   }
 }

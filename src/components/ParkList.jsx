@@ -9,6 +9,13 @@ const List = styled.div`
 
   div {
     display: ${({ showPark }) => (showPark ? 'block' : 'none')};
+    display: flex;
+    margin-bottom: 20px;
+
+    img {
+      margin-right: 10px;
+    }
+
   }
 `;
 
@@ -20,8 +27,8 @@ function ParkList(props) {
     <List distance={distance} showPark={showPark}>
       <div>
         <img src={MapPicker} alt="map marker" />
-        {`${distance} km`}
-        {namePark}
+        <div>{`${distance} km`}</div>
+        <div>{namePark}</div>
       </div>
     </List>
   );

@@ -19,6 +19,8 @@ const Card = styled.div`
   .cardmap {
     height: 50vh;
     z-index: 95;
+    border-radius: 5px;
+    margin-bottom: 20px;
   }
 `;
 
