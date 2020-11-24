@@ -48,6 +48,7 @@ const ButtonAllSome = styled.div`
   width: 140px;
   padding: 3px 10px;
   display: flex;
+  height: 41px;
   justify-content: space-between;
   align-items: center;
   color: white;
@@ -114,7 +115,8 @@ const UlListe = styled.div`
 
   @media ${device.tablet} {
     width: 100%;
-    display: ${({ filterChoice }) =>
+    display: ${({ filterChoice, pageWidth }) =>
+      pageWidth >768 ||
       filterChoice === 'famille' ||
       filterChoice === 'espece' ||
       filterChoice === 'genre' ||
@@ -123,7 +125,8 @@ const UlListe = styled.div`
         : 'none'};
     flex-wrap: wrap;
     height: 35vh;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 `;
 
@@ -185,7 +188,7 @@ const WindowFilter = styled.div`
   @media ${device.tablet} {
     width: 25vw;
     transform: translateX(0);
-    top: 3rem;
+    top: 2rem;
   }
 `;
 
@@ -211,14 +214,15 @@ const DivVisuel = styled.div`
     flex-direction: column;
     width: 100%;
     margin-top: 2rem;
-    margin-left: 28vw;
+    margin-left: 30vw;
     order: 3;
   }
 `;
 
 const DivVisuel3 = styled.div`
   @media ${device.tablet} {
-    width: 60vw;
+    margin-left: 30vw;
+    width: 100%;
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
@@ -226,12 +230,13 @@ const DivVisuel3 = styled.div`
 
     input {
       margin: 1rem 0 1rem 0;
-      width: 90%;
+      width: 100%;
     }
   }
 `;
 
 const DivVisuel4 = styled.div`
+  margin-left:1.5rem;
   @media ${device.tablet} {
     display: flex;
     flex-direction: column;
@@ -241,6 +246,7 @@ const DivVisuel4 = styled.div`
     width: 25vw;
     height: 80vh;
     left: 1rem;
+    margin-bottom: 5rem;
   }
 `;
 
@@ -268,6 +274,15 @@ const Showmore = styled.button`
   }
 `;
 
+const DivVisuel5 = styled.div`
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 10px;
+    div {
+        padding-left: 50px;
+  }
+`;
+
 class Library extends React.Component {
   constructor(props) {
     super(props);
@@ -283,6 +298,10 @@ class Library extends React.Component {
       showPanel: false,
       divCollectionHeight: 1,
       pageWidth: 1,
+      noClick: true,
+      nochoice: true,
+      tailleImageX: 100,
+      tailleImageY: 100,
     };
     this.handleChangeSearch = this.handleChangeSearch.bind(this);
     this.handleVegetalClick = this.handleVegetalClick.bind(this);
@@ -307,6 +326,7 @@ class Library extends React.Component {
     this.setState({
       description: [image, famille, genre, espece],
       showPanel: true,
+      noClick: false,
     });
   }
 
@@ -329,6 +349,10 @@ class Library extends React.Component {
       description,
       pageWidth,
       divCollectionHeight,
+      noClick,
+      nochoice,
+      tailleImageX,
+      tailleImageY,
     } = this.state;
     const { scannedLibrary, vegetals } = this.props;
     return (
@@ -336,8 +360,8 @@ class Library extends React.Component {
         ref={(el) => {
           if (!el) return;
           setTimeout(() => {
-            this.setState({ pageWidth: el.getBoundingClientRect().width });
-            if (pageWidth > 780) {
+            this.setState({ pageWidth: el.getBoundingClientRect().width + 96});
+            if (pageWidth > 768) {
               this.setState({
                 filter: true,
               });
@@ -366,17 +390,18 @@ class Library extends React.Component {
               type="button"
               className="optionAvancees"
               onClick={() => {
-                if (pageWidth < 780) {
+                if (pageWidth < 768) {
                   this.setState({ filter: !filter });
                 } else {
                   this.setState({
-                    choice: null,
                     choicePlus: null,
+                    search: '',
+                    all: false,
                   });
                 }
               }}
             >
-              {pageWidth >= 780 ? 'Reset filtres' : 'Avancées'}
+              {pageWidth >= 768 ? 'Rafraichir les filtres' : 'Avancées'}
             </FilterAdvenced>
           </ContainerFiltre>
         </DivVisuel3>
@@ -401,7 +426,7 @@ class Library extends React.Component {
                   this.setState({
                     choice: 'famille',
                   })
-                }
+              }
               >
                 Famille
               </ButtonParameter>
@@ -430,11 +455,18 @@ class Library extends React.Component {
             </ParameterFiltre>
             <ListeFiltre filter={filter}>
               <UlListe
+                nochoice={nochoice}
+                pageWidth={pageWidth}
                 showmore={showmore}
                 filter={filter}
                 filterChoice={choice}
               >
-                {list[0] &&
+                {nochoice && pageWidth > 768
+                ? this.setState({
+                      nochoice: false,
+                      choice: 'nom_du_site',
+                })
+                :list[0] &&
                   list[0].facets.map((item) => {
                     return (
                       <Li
@@ -461,45 +493,55 @@ class Library extends React.Component {
             </ListeFiltre>
           </WindowFilter>
           <DescriptionPanel
+            noClick={noClick}
             handleVegetalClick={this.handleVegetalClick}
             hidePanel={this.hidePanel}
             description={description}
             showPanel={showPanel}
           />
         </DivVisuel4>
-        <DivVisuel showmore={showmore}>
-          <Title>
-            Votre collection :{' '}
-            {JSON.parse(localStorage.getItem('myCollection')).length - 1} /
-            {
-              [
-                ...new Set(
-                  vegetals.map((element) => {
-                    const unique = [
-                      element.fields.famille,
-                      element.fields.genre,
-                      element.fields.espece,
-                    ];
-                    return unique.join('');
-                  })
-                ),
-              ].length
-            }
-          </Title>
-          <Collection
-            ref={(el) => {
-              if (!el) return;
-              setTimeout(() => {
-                this.setState({
-                  divCollectionHeight: el.getBoundingClientRect().height,
-                });
-              }, 200);
-            }}
+        <DivVisuel
+          showmore={showmore}>
+            <DivVisuel5>
+          <Title>Votre collection : {scannedLybrary.length - 1} /
+        {([...new Set(vegetals.map(element => {
+            const unique = [element.fields.famille, element.fields.genre, element.fields.espece]
+            return unique.join('')
+          }))]).length}</Title>
+          {pageWidth >= 768
+              ? <div>
+              <label htmlFor="taille">Taille d'image :</label>
+              <select name='taille'>
+                <option value="100x100" onClick={()=> this.setState({
+                  tailleImageX: 100,
+                  tailleImageY: 100,
+                })}>100x100</option>
+                <option value="180x150"  onClick={()=> this.setState({
+                  tailleImageX: 180,
+                  tailleImageY: 150, 
+                })}>180x150 </option>
+                <option value="280x200"  onClick={()=> this.setState({
+                  tailleImageX: 280,
+                  tailleImageY: 200, 
+                })}> 280x200 </option>
+              </select>
+              </div>
+              : null
+               }
+          </DivVisuel5>
+          <Collection ref={el => {
+            if (!el) return;
+            setTimeout(() => {
+              this.setState({ divCollectionHeight: el.getBoundingClientRect().height });
+            }, 200);
+          }}
           >
             {vegetals
               .filter((element) => element.fields.photo1)
               .map((item) => (
                 <DataBase
+                  tailleImageX={tailleImageX}
+                  tailleImageY={tailleImageY}
                   search={search}
                   handleVegetalClick={this.handleVegetalClick}
                   filter={filter}

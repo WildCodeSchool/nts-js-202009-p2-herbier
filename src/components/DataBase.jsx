@@ -2,24 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Thumbnail = styled.img`
-  width: 100px;
-  height: 100px;
+  width: ${({ tailleImageX }) => tailleImageX}px;
+  height: ${({ tailleImageY }) => tailleImageY}px;
   object-fit: cover;
   filter: grayscale(${({ scanned }) => (!scanned ? '100%' : '0%')});
 `;
 
 const DataBasediv = styled.div`
   display: ${({
-    scanned,
-    genre,
-    espece,
-    parc,
-    famille,
-    choicePlus,
-    all,
-    filter,
-    search,
-  }) => {
+  scanned,
+  genre,
+  espece,
+  parc,
+  famille,
+  choicePlus,
+  all,
+  filter,
+  search,
+}) => {
     if (!filter && !all && scanned) {
       if (search) {
         if (
@@ -48,36 +48,36 @@ const DataBasediv = styled.div`
       } else {
         return 'block';
       }
-    } else if (filter && choicePlus === null){
-            if (all){
-              if (search) {
-        if (
-          (genre && genre.toLowerCase().includes(search.toLowerCase())) ||
-          (famille && famille.toLowerCase().includes(search.toLowerCase())) ||
-          (espece && espece.toLowerCase().includes(search.toLowerCase()))
-        ) {
-          return 'block';
-        } else {
-          return 'none';
+    } else if (filter && choicePlus === null) {
+      if (all) {
+        if (search) {
+          if (
+            (genre && genre.toLowerCase().includes(search.toLowerCase())) ||
+            (famille && famille.toLowerCase().includes(search.toLowerCase())) ||
+            (espece && espece.toLowerCase().includes(search.toLowerCase()))
+          ) {
+            return 'block';
+          } else {
+            return 'none';
+          }
         }
-      }
-            }else if (!all) {
-              if (scanned){
-                if (search) {
-        if (
-          (genre && genre.toLowerCase().includes(search.toLowerCase())) ||
-          (famille && famille.toLowerCase().includes(search.toLowerCase())) ||
-          (espece && espece.toLowerCase().includes(search.toLowerCase()))
-        ) {
-          return 'block';
-        } else {
-          return 'none';
-        }
-      }
-              }else {return 'none'}
-            }else{
-              return 'none'
+      } else if (!all) {
+        if (scanned) {
+          if (search) {
+            if (
+              (genre && genre.toLowerCase().includes(search.toLowerCase())) ||
+              (famille && famille.toLowerCase().includes(search.toLowerCase())) ||
+              (espece && espece.toLowerCase().includes(search.toLowerCase()))
+            ) {
+              return 'block';
+            } else {
+              return 'none';
             }
+          }
+        } else { return 'none' }
+      } else {
+        return 'none'
+      }
     } else if (all) {
       if (
         choicePlus === genre ||
@@ -140,9 +140,9 @@ const DataBasediv = styled.div`
     }
   }};
   margin: 1px;
-  width: 100px;
-  height: 100px;
-  order:${({scanned})=>scanned?"0":"1"};
+  width: ${({ tailleImageX }) => tailleImageX}px;
+  height: ${({ tailleImageY }) => tailleImageY}px;
+  order:${({ scanned }) => scanned ? "0" : "1"};
 `;
 
 class DataBase extends React.Component {
@@ -156,25 +156,43 @@ class DataBase extends React.Component {
   }
 
   render() {
+    const {
+      search,
+      famille,
+      espece,
+      genre,
+      parc,
+      filter,
+      choicePlus,
+      scanned,
+      all,
+      tailleImageX,
+      tailleImageY,
+      id,
+    } = this.props;
     return (
       <DataBasediv
-        search={this.props.search}
-        famille={this.props.famille}
-        espece={this.props.espece}
-        genre={this.props.genre}
-        parc={this.props.parc}
-        filter={this.props.filter}
-        choicePlus={this.props.choicePlus}
-        scanned={this.props.scanned}
-        all={this.props.all}
+        tailleImageX={tailleImageX}
+        tailleImageY={tailleImageY}
+        search={search}
+        famille={famille}
+        espece={espece}
+        genre={genre}
+        parc={parc}
+        filter={filter}
+        choicePlus={choicePlus}
+        scanned={scanned}
+        all={all}
       >
         <Thumbnail
+          tailleImageX={tailleImageX}
+          tailleImageY={tailleImageY}
           onClick={this.handleClick}
-          famille={this.props.famille}
-          espece={this.props.espece}
-          genre={this.props.genre}
-          scanned={this.props.scanned}
-          id={this.props.id}
+          famille={famille}
+          espece={espece}
+          genre={genre}
+          scanned={scanned}
+          id={id}
           loading="lazy"
           src={`https://data.nantesmetropole.fr/explore/dataset/244400404_collection-vegetale-nantes/files/${this.props.image}/300/`}
           alt="load"

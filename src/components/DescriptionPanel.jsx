@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import cross from './pictures/imagedefault.png';
+import cross from './logos/close-line-blank.png';
+import plant from './pictures/imagedefault.png';
+
 const size = {
   mobileS: '320px',
   mobileM: '375px',
@@ -74,7 +76,7 @@ const Panel = styled.div`
     margin: 2px 0 2px 0;
   }
 
-  @media ${device.tablet}{
+  @media ${device.tablet} {
     margin:0;
     margin-top: 15px;
     padding:0;
@@ -114,10 +116,15 @@ const Panel = styled.div`
     padding: 0;
     transform: translateX(0);
   } img:first-child {
+    background-image: url(${({noClick})=>noClick?plant:''});
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:cover;
     border-radius:0;
-    width: 100%;
+    width: ${({noClick})=>(noClick?'80%':'100%')};
+    width:100%;
     max-width:330px;
-    height: 200px;
+    height: 180px;
     object-fit: cover;
     margin:0;
     padding: 0;
@@ -135,9 +142,10 @@ const Panel = styled.div`
   }
   p {
     color: black;
-    font-size: 20px;
-    margin: 0.5rem 0 0.5rem 0;
-  }
+    font-size: 17px;
+    margin: 3px 0 3px 0;
+    padding:0;
+  }}
 `;
 
 class DescriptionPanel extends Component {
@@ -148,7 +156,7 @@ class DescriptionPanel extends Component {
 
   render() {
     return (
-      <Panel className="DescriptionPanel">
+      <Panel className="DescriptionPanel" noClick={this.props.noClick}>
         <div className={this.props.showPanel ? 'showDescriptionPanel' : ''}>
           <img
             src={`https://data.nantesmetropole.fr/explore/dataset/244400404_collection-vegetale-nantes/files/${this.props.description[0]}/300/`}
