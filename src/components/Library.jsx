@@ -25,7 +25,7 @@ const device = {
   desktopL: `(min-width: ${size.desktop})`,
 };
 
-const Lybrary = styled.div`
+const LibraryWrap = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -354,9 +354,9 @@ class Library extends React.Component {
       tailleImageX,
       tailleImageY,
     } = this.state;
-    const { scannedLybrary, vegetals } = this.props;
+    const { scannedLibrary, vegetals } = this.props;
     return (
-      <Lybrary
+      <LibraryWrap
         ref={(el) => {
           if (!el) return;
           setTimeout(() => {
@@ -485,9 +485,10 @@ class Library extends React.Component {
                 }}
               >
                 <i
-                  className={showmore
-                    ? 'fa fa-chevron-up' 
-                    :'fa fa-chevron-down'} />
+                  className={
+                    showmore ? 'fa fa-chevron-up' : 'fa fa-chevron-down'
+                  }
+                />
               </Showmore>
             </ListeFiltre>
           </WindowFilter>
@@ -546,7 +547,9 @@ class Library extends React.Component {
                   filter={filter}
                   choicePlus={choicePlus}
                   all={all}
-                  scanned={scannedLybrary.includes(item.recordid)}
+                  scanned={JSON.parse(
+                    localStorage.getItem('myCollection')
+                  ).includes(item.recordid)}
                   key={item.recordid}
                   id={item.recordid}
                   famille={item.fields.famille}
@@ -558,10 +561,15 @@ class Library extends React.Component {
               ))}
           </Collection>
           <Message>
-            {choicePlus === null ? null : divCollectionHeight > 10 ? null : <p>Vous n'avez pas scanné de plantes dans la catégorie: {choicePlus}</p>}
+            {choicePlus === null ? null : divCollectionHeight > 10 ? null : (
+              <p>
+                Vous n'avez pas scanné de plantes dans la catégorie:{' '}
+                {choicePlus}
+              </p>
+            )}
           </Message>
         </DivVisuel>
-      </Lybrary>
+      </LibraryWrap>
     );
   }
 }
