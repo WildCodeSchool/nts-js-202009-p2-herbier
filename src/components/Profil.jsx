@@ -2,9 +2,9 @@
 import React, { Component } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import SideBars from './SideBars';
-import avatar from './logos/profil-avatar.svg';
 import couronne from './logos/profil-cycle.svg';
 import modif from './logos/profil-mobile-pen.svg';
 import save from './logos/profil-save.svg';
@@ -279,7 +279,8 @@ class Profil extends Component {
   }
 
   handleClick(event) {
-    const { pseudo, adresse, email, firstName, lastName } = this.state;
+    const { pseudo, adresse, email } = this.state;
+    const { changePseudoHeader } = this.props;
     event.preventDefault();
     localStorage.setItem('pseudo', pseudo);
     localStorage.setItem('adresse', adresse);
@@ -290,6 +291,7 @@ class Profil extends Component {
       open: true,
       formEnabled: false,
     });
+    changePseudoHeader(pseudo);
   }
 
   handleClose() {
@@ -523,5 +525,8 @@ class Profil extends Component {
     );
   }
 }
+Profil.propTypes = {
+  changePseudoHeader: PropTypes.func.isRequired,
+};
 
 export default Profil;

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
 import DataBase from './DataBase';
 import DescriptionPanel from './DescriptionPanel';
@@ -610,5 +611,10 @@ class Library extends React.Component {
     );
   }
 }
+
+Library.propTypes = {
+  vegetals: PropTypes.arrayOf(String).isRequired,
+  scannedLibrary: PropTypes.arrayOf(String).isRequired,
+};
 
 export default Library;

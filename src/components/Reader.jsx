@@ -39,7 +39,7 @@ class Reader extends Component {
             delay={300}
             onError={handleError}
             onScan={handleScan}
-            style={{ width: '70vw' }}
+            style={{ width: '330px' }}
           />
         </QrStyle>
         <ScanImgStyle scan={scan} src={scanner} alt="QR code scanner" />

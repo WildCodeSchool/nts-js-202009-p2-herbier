@@ -27,12 +27,16 @@ class App extends React.Component {
       ],
       open: false,
       inLibrary: true,
+      pseudo: localStorage.getItem('pseudo')
+        ? localStorage.getItem('pseudo')
+        : 'Profil',
     };
     this.getData = this.getData.bind(this);
     this.addToLibrary = this.addToLibrary.bind(this);
     this.alreadyInLibrary = this.alreadyInLibrary.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.saveToLocalStorage = this.saveToLocalStorage.bind(this);
+    this.changePseudoHeader = this.changePseudoHeader.bind(this);
   }
 
   componentDidMount() {
@@ -83,12 +87,23 @@ class App extends React.Component {
     });
   }
 
+  changePseudoHeader(pseudo) {
+    this.setState({ pseudo });
+  }
+
   render() {
-    const { scannedLibrary, vegetals, tri, open, inLibrary } = this.state;
+    const {
+      scannedLibrary,
+      vegetals,
+      tri,
+      open,
+      inLibrary,
+      pseudo,
+    } = this.state;
     return (
       <div className="App">
         <BrowserRouter>
-          <HeaderMobile />
+          <HeaderMobile pseudo={pseudo} />
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/around-me" component={() => <AroundMePage />} />
@@ -117,7 +132,13 @@ class App extends React.Component {
                 />
               )}
             />
-            <Route exact path="/profil" component={Profil} />
+            <Route
+              exact
+              path="/profil"
+              component={() => (
+                <Profil changePseudoHeader={this.changePseudoHeader} />
+              )}
+            />
             <Route exact path="/contact" component={ContactForm} />
             <Route exact path="/about-us" component={AboutUs} />
           </Switch>
