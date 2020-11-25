@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { createGlobalStyle } from 'styled-components';
+import PropTypes from 'prop-types';
 import menuProfil from './logos/menu-profil.svg';
 import menuHerbier from './logos/menu-herbier.svg';
 import menuHome from './logos/menu-home.svg';
@@ -174,8 +175,9 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const HeaderMobile = () => {
+const HeaderMobile = (props) => {
   const [nav, showNav] = useState(false);
+  const { pseudo } = props;
 
   return (
     <Box>
@@ -200,7 +202,7 @@ const HeaderMobile = () => {
                 onClick={() => (nav ? showNav(!nav) : true)}
               >
                 <img src={menuProfil} alt="Profil" />
-                Profil
+                {pseudo}
               </StyledLink>
             </li>
             <li>
@@ -252,6 +254,10 @@ const HeaderMobile = () => {
       </Wrapper>
     </Box>
   );
+};
+
+HeaderMobile.propTypes = {
+  pseudo: PropTypes.string.isRequired,
 };
 
 export default HeaderMobile;
