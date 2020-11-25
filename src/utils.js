@@ -20,8 +20,7 @@ const calcDistance = function (position, coord) {
 
   const c = 2 * Math.asin(Math.sqrt(a));
   const EARTH_RADIUS = 6371;
-
-  return (c * EARTH_RADIUS).toFixed(2);
+  return c * EARTH_RADIUS;
 };
 
 export { calcDistance };

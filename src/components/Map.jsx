@@ -19,6 +19,9 @@ const Card = styled.div`
   .cardmap {
     height: 50vh;
     z-index: 95;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    filter: grayscale(${({ position }) => (position === null ? '60%' : '0%')});
   }
 `;
 
@@ -35,6 +38,11 @@ const myIcon = L.icon({
 const ParkNear = styled.div`
   display: flex;
   flex-direction: column;
+
+  .ClickOnMap {
+    font-size: 20px;
+    text-align: center;
+  }
 `;
 
 function LocationMarker(props) {
@@ -107,7 +115,7 @@ function Map(props) {
   };
 
   return (
-    <Card>
+    <Card position={position}>
       <MapContainer
         className="cardmap"
         center={{ lat: 47.214975, lng: -1.557501 }}
@@ -128,12 +136,12 @@ function Map(props) {
               element.fields.idobj === '1020' ||
               element.fields.idobj === '2372'
           )
-          .filter(
-            (item) => props.showNantes
-              ?true
-              :position &&
-              calcDistance(position, item.fields.location) <=
-                parseInt(rangeDistance)
+          .filter((item) =>
+            props.showNantes
+              ? true
+              : position &&
+                calcDistance(position, item.fields.location) <=
+                  parseInt(rangeDistance)
           )
           .map((item) => (
             <Marker
@@ -147,7 +155,7 @@ function Map(props) {
       </MapContainer>
       <ParkNear>
         {position === null ? (
-          <p>Clique sur la carte</p>
+          <div className="ClickOnMap">Cliquez sur la carte</div>
         ) : (
           [...parks, ...parksupp]
             .filter(
@@ -160,9 +168,7 @@ function Map(props) {
             )
             .map((item) => (
               <ParkList
-                // position={position}
                 namePark={item.fields.nom_complet}
-                // coord={item.fields.location}
                 showNantes={props.showNantes}
                 key={item.fields.nom_complet}
                 rangeDistance={rangeDistance}

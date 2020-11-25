@@ -11,7 +11,7 @@ const LeftBar = styled.img`
     display: inline;
   }
   display: none;
-  height: 83vh;
+  height: 87vh;
   width: 20vw;
   z-index: 5;
   position: fixed;
@@ -27,7 +27,7 @@ const RightBar = styled.img`
     display: inline;
   }
   display: none;
-  height: 83vh;
+  height: 87vh;
   width: 20vw;
   z-index: 5;
   position: fixed;
