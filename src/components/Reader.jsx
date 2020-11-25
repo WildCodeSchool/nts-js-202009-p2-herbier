@@ -16,6 +16,8 @@ const ScanContener = styled.div`
   justify-content: center;
   .CliquerIci {
     display: ${({ scan }) => (scan ? 'block' : 'none')};
+    font-weight: bold;
+    font-size: 20px;
   }
 `;
 
@@ -33,16 +35,26 @@ const QrStyle = styled.div`
 `;
 
 class Reader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      delay: 500,
+      style: { width: '330px' },
+    };
+  }
+
   render() {
-    const { scan, handleShowScan, handleError, handleScan } = this.props;
+    const { scan, handleError, handleScan, handleShowScan } = this.props;
+    const { delay, style } = this.state;
     return (
       <ScanContener scan={scan} onClick={handleShowScan}>
         <QrStyle reverseScan={!scan}>
           <QrReader
-            delay={300}
+            delay={delay}
             onError={handleError}
             onScan={handleScan}
-            style={{ width: '330px' }}
+            style={style}
+            legacyMode
           />
         </QrStyle>
         <p className="CliquerIci">Cliquer ici.</p>

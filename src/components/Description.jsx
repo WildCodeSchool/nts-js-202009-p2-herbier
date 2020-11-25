@@ -88,7 +88,7 @@ Description.propTypes = {
   famille: PropTypes.string.isRequired,
   espece: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
-  handleScan: PropTypes.func.isRequired,
+  handleScan: PropTypes.func,
   photo1Id: PropTypes.string.isRequired,
 };
 
