@@ -102,6 +102,7 @@ const Button = styled.div`
   width: fit-content;
   margin: auto;
   cursor: pointer;
+  width: fit-content;
 `;
 
 class AroundMePage extends React.Component {

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import mainPicker from './logos/main-picker.svg';
 import qrCode from './logos/main-qrcode.svg';
 import mainHerbier from './logos/main-herbier.svg';
-import mainDecouverte from './logos/main-decouverte.svg';
+import mainContact from './logos/main-contact.svg';
 import mainBackground from './pictures/main.png';
 import greenBackground from './pictures/greenbackground.png';
 
@@ -140,11 +140,11 @@ const mainButtons = [
     backgroundColor: 'rgba(226,122,112,0.5)',
   },
   {
-    title: 'Découverte ?',
-    picture: mainDecouverte,
+    title: 'Nous contacter',
+    picture: mainContact,
     color: ' #9CD69B',
     url: '/contact',
-    text: 'Vous pensez avoir fait une découverte? Ca se passe ici !',
+    text: 'Vous souhaitez nous faire part de votre expérience ?',
     backgroundColor: 'rgba(156,214,155,0.5)',
   },
 ];
@@ -175,7 +175,6 @@ const MainButton = () => {
           >
             <p>{button.text}</p>
           </Slider>
-          
         </Main>
       ))}
     </ScrollWrap>
