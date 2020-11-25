@@ -3,7 +3,6 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import styled from 'styled-components';
 import SideBars from './SideBars';
-import avatar from './logos/profil-avatar.svg';
 import couronne from './logos/profil-cycle.svg';
 import modif from './logos/profil-mobile-pen.svg';
 import save from './logos/profil-save.svg';
@@ -78,6 +77,16 @@ const View = styled.div`
   }
 `;
 
+const Input = styled.div`
+  ${media.desktop} {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 95%;
+  }
+  width: fit-content;
+`;
+
 const Infos = styled.div`
   ${media.desktop} {
     width: 59vw;
@@ -126,6 +135,12 @@ const Infos = styled.div`
   }
   .AdresseChamps {
     ${media.desktop} {
+      display: block;
+    }
+    display: none;
+  }
+  .AdresseChamps {
+    ${media.desktop} {
       padding: 30px 0 30px 0;
     }
   }
@@ -134,7 +149,7 @@ const Infos = styled.div`
       color: #a8a8a8;
       font-size: 20px;
       margin-bottom: 0;
-      width: 100%;
+      width: 20%;
     }
     display: block;
     font-size: 30px;
@@ -197,19 +212,6 @@ const Infos = styled.div`
   }
 `;
 
-const Input = styled.div`
-  ${media.desktop} {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 90%;
-    input {
-      width: 100%;
-    }
-  }
-  width: fit-content;
-`;
-
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -223,11 +225,11 @@ class Profil extends Component {
     const firstName = localStorage.getItem('firstName');
     const lastName = localStorage.getItem('lastName');
     this.state = {
-      pseudo: pseudo ? pseudo : 'Pseudo',
-      adresse: adresse ? adresse : 'Adresse',
-      email: email ? email : 'Email',
-      firstName: firstName ? firstName : 'Prénom',
-      lastName: lastName ? lastName : 'Nom',
+      pseudo: pseudo || 'Pseudo',
+      adresse: adresse || 'Adresse',
+      email: email || 'Email',
+      firstName: firstName || 'Prénom',
+      lastName: lastName || 'Nom',
       formEnabled: false,
       open: false,
       level: JSON.parse(localStorage.getItem('myCollection')).length,
