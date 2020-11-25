@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
 import DataBase from './DataBase';
 import DescriptionPanel from './DescriptionPanel';
@@ -93,6 +94,7 @@ const ContainerFiltre = styled.div`
   justify-content: space-around;
 
   @media ${device.tablet} {
+    flex-direction:row-reverse;
     width: 90%;
   }
 `;
@@ -273,6 +275,13 @@ const Showmore = styled.button`
 
   @media ${device.tablet} {
     display: none;
+  }
+`;
+
+const TailleImage = styled.div`
+  display:none;
+  @media ${device.tablet} {
+    display: flex;
   }
 `;
 
@@ -518,8 +527,7 @@ class Library extends React.Component {
                 ].length
               }
             </Title>
-            {pageWidth >= 768 ? (
-              <div>
+              <TailleImage>
                 <label htmlFor="taille">Taille d'image :</label>
                 <select name="taille">
                   <option
@@ -556,8 +564,7 @@ class Library extends React.Component {
                     280x200
                   </option>
                 </select>
-              </div>
-            ) : null}
+              </TailleImage>
           </DivVisuel5>
           <Collection>
             {vegetals
@@ -596,5 +603,10 @@ class Library extends React.Component {
     );
   }
 }
+
+Library.propTypes = {
+  vegetals: PropTypes.arrayOf(String).isRequired,
+  scannedLibrary: PropTypes.arrayOf(String).isRequired,
+};
 
 export default Library;

@@ -4,24 +4,40 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import mainContact from './logos/main-contact.svg';
 import formArrow from './logos/form-arrow.svg';
+import SideBars from './SideBars';
+
+const media = {
+  desktop: '@media(min-width:768px)',
+};
 
 const Title = styled.div`
+  ${media.desktop} {
+    width: 59vw;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
   background-color: #69c5b2;
   color: white;
   text-align: center;
   padding-top: 10px;
   width: 90vw;
-  max-width: 380px;
+  padding: 0;
   border-radius: 5px;
   margin: auto;
+  margin-bottom: 2rem;
   display: flex;
 
   h1 {
     margin-left: 20px;
+    font-size: 36px;
   }
 `;
 
 const Logo = styled.img`
+  ${media.desktop} {
+    display: none;
+  }
   padding: 0 25px;
   padding-bottom: 10px;
 `;
@@ -160,6 +176,7 @@ class ContactForm extends React.Component {
             </Alert>
           </Snackbar>
         </Form>
+        <SideBars />
       </div>
     );
   }

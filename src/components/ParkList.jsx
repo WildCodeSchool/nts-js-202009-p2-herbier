@@ -1,31 +1,51 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import MapPicker from './logos/map-picker.svg';
 
 const List = styled.div`
-  width: 382px;
-  height: 214px;
-  background-color: white;
+  display: flex;
+  flex-direction: column;
+  order: ${({ distance }) => Math.floor(distance)};
+  width: 100%;
+  margin: auto;
+
+  @media (min-width: 768px) {
+    width: 70%;
+  }
 `;
 
-const Parks = [
-  { name: 'Jardin des plantes', distance: '0,3 km', speciesNumber: '(150)' },
-  { name: 'Parc des plantes', distance: '2 km', speciesNumber: '(8)' },
-  { name: 'Parc de Procé', distance: '5 km', speciesNumber: '(300)' },
-  { name: 'Parc Municipal', distance: '8 km', speciesNumber: '(56)' },
-];
+const ParkElement = styled.div`
+  display: ${({ showPark }) => (showPark ? 'flex' : 'none')};
+  margin-bottom: 20px;
+  justify-content: space-between;
+  align-items: baseline;
 
-function ParkList({ park }) {
+  .namePark {
+    font-weight: bold;
+    text-align: center;
+  }
+`;
+
+function ParkList(props) {
+  const { distance, namePark, rangeDistance, showNantes } = props;
+  const showPark = distance <= parseInt(rangeDistance);
+
   return (
-    <List>
-      {Parks.map((park) => (
-        <p>
-          <img src={MapPicker}></img> {park.distance} {park.name}{' '}
-          {park.speciesNumber}
-        </p>
-      ))}
+    <List distance={distance}>
+      <ParkElement distance={distance} showPark={!showNantes ? showPark : true}>
+        <img src={MapPicker} alt="map marker" />
+        <div className="namePark">{namePark}</div>
+        <div className="distancePark">{`${distance.toFixed(2)} km`}</div>
+      </ParkElement>
     </List>
   );
 }
+
+ParkList.propTypes = {
+  distance: PropTypes.number.isRequired,
+  namePark: PropTypes.string.isRequired,
+  showNantes: PropTypes.bool.isRequired,
+};
 
 export default ParkList;
