@@ -279,7 +279,7 @@ class Profil extends Component {
   }
 
   handleClick(event) {
-    const { pseudo, adresse, email } = this.state;
+    const { pseudo, adresse, email, firstName, lastName } = this.state;
     const { changePseudoHeader } = this.props;
     event.preventDefault();
     localStorage.setItem('pseudo', pseudo);
