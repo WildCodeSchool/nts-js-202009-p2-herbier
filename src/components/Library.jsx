@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import SearchBar from './SearchBar';
 import DataBase from './DataBase';
 import DescriptionPanel from './DescriptionPanel';
+import {largeurLibrary ,hauteurDivImage} from './Variable';
+
 
 const size = {
   mobileS: '320px',
@@ -309,6 +311,7 @@ class Library extends React.Component {
   }
 
   componentDidUpdate(pervP, prevS) {
+    console.log('update');
     const { choice } = this.state;
     const { tri } = this.props;
     if (prevS.choice !== choice) {
@@ -336,6 +339,10 @@ class Library extends React.Component {
     });
   }
 
+  HeightDiv(element){
+
+  }
+
   render() {
     const {
       filter,
@@ -355,18 +362,16 @@ class Library extends React.Component {
       tailleImageY,
     } = this.state;
     const { scannedLibrary, vegetals } = this.props;
+    let HAUTEURIMAGE = 1;
+    let LARGEUR = 1;
+
     return (
       <LibraryWrap
         ref={(el) => {
+          console.log('heuteur',hauteurDivImage, 'largeur', largeurLibrary)
           if (!el) return;
-          setTimeout(() => {
-            this.setState({ pageWidth: el.getBoundingClientRect().width + 96 });
-            if (pageWidth > 768) {
-              this.setState({
-                filter: true,
-              });
-            }
-          }, 200);
+          console.log('ref');
+          return  largeurLibrary = el.getBoundingClientRect().width + 96;
         }}
       >
         <DivVisuel3>
@@ -470,11 +475,12 @@ class Library extends React.Component {
                     list[0].facets.map((item) => {
                       return (
                         <Li
+                          key={item.name}
                           onClick={() =>
                             this.setState({ choicePlus: item.name })
                           }
                         >
-                          {item.name}({item.count})
+                          {`${item.name}  (${item.count})`}
                         </Li>
                       );
                     })}
@@ -505,7 +511,7 @@ class Library extends React.Component {
         <DivVisuel showmore={showmore}>
           <DivVisuel5>
             <Title>
-              Votre collection : {scannedLibrary.length - 1} /
+              Votre collection : {scannedLibrary.length} /
               {
                 [
                   ...new Set(
@@ -545,7 +551,7 @@ class Library extends React.Component {
                       })
                     }
                   >
-                    180x150{' '}
+                    180x150
                   </option>
                   <option
                     value="280x200"
@@ -556,8 +562,7 @@ class Library extends React.Component {
                       })
                     }
                   >
-                    {' '}
-                    280x200{' '}
+                    280x200
                   </option>
                 </select>
               </div>
@@ -565,12 +570,12 @@ class Library extends React.Component {
           </DivVisuel5>
           <Collection
             ref={(el) => {
+              console.log('heuteur',hauteurDivImage, 'largeur', largeurLibrary)
               if (!el) return;
-              setTimeout(() => {
-                this.setState({
-                  divCollectionHeight: el.getBoundingClientRect().height,
-                });
-              }, 200);
+              console.log('hauteur');
+              hauteurDivImage = el.getBoundingClientRect().height;
+              console.log(hauteurDivImage);
+              return hauteurDivImage;
             }}
           >
             {vegetals
@@ -598,12 +603,11 @@ class Library extends React.Component {
               ))}
           </Collection>
           <Message>
-            {choicePlus === null ? null : divCollectionHeight > 10 ? null : (
-              <p>
-                Vous n'avez pas scanné de plantes dans la catégorie:{' '}
-                {choicePlus}
+            
+            {choicePlus === null ? null : divCollectionHeight > 10 ? null : <p>
+                Vous n'avez pas scanné de plantes dans la catégorie: {choicePlus}
               </p>
-            )}
+            }
           </Message>
         </DivVisuel>
       </LibraryWrap>
