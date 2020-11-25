@@ -102,6 +102,7 @@ const Button = styled.div`
   width: fit-content;
   margin: auto;
   cursor: pointer;
+  width: fit-content;
 `;
 
 class AroundMePage extends React.Component {
@@ -145,7 +146,6 @@ class AroundMePage extends React.Component {
               />
               <span>{rangeDistance}</span>
             </Range>
-          </div>
         </Filter>
         <Map showNantes={showNantes} rangeDistance={rangeDistance} />
         <SideBars />
