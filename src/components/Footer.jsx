@@ -97,7 +97,7 @@ const Footer = () => {
       <Links>
         <ul>
           <li>
-            <StyledLink to="/decouverte">Contactez nous</StyledLink>
+            <StyledLink to="/contact">Contactez nous</StyledLink>
           </li>
           <li>
             <StyledLink to="/about-us">A propos de nous</StyledLink>
