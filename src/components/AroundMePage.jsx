@@ -20,10 +20,19 @@ const H1 = styled.h1`
   color: #ffffff;
   border-radius: 5px;
   text-align: center;
-  padding: 10px 0;
-
+  padding-top: 20px;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  width: 90vw;
+  margin-bottom: 2rem;
   @media (min-width: 768px) {
     margin-top: 0;
+    width: 59vw;
+    display: flex;
+    flex-direction: column;
   }
 `;
 
