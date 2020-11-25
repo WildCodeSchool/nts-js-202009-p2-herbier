@@ -128,12 +128,12 @@ function Map(props) {
               element.fields.idobj === '1020' ||
               element.fields.idobj === '2372'
           )
-          .filter(
-            (item) => props.showNantes
-              ?true
-              :position &&
-              calcDistance(position, item.fields.location) <=
-                parseInt(rangeDistance)
+          .filter((item) =>
+            props.showNantes
+              ? true
+              : position &&
+                calcDistance(position, item.fields.location) <=
+                  parseInt(rangeDistance)
           )
           .map((item) => (
             <Marker
