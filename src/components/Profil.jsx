@@ -5,7 +5,6 @@ import MuiAlert from '@material-ui/lab/Alert';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import SideBars from './SideBars';
-import avatar from './logos/profil-avatar.svg';
 import couronne from './logos/profil-cycle.svg';
 import modif from './logos/profil-mobile-pen.svg';
 import save from './logos/profil-save.svg';
