@@ -1,6 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import {
@@ -25,6 +26,13 @@ const Card = styled.div`
   }
 `;
 
+const ClickMessage = styled.div`
+  display: ${({ position }) => (position === null ? 'block' : 'none')};
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+`;
+
 const Icon = L.icon({
   iconUrl: MapPicker,
   iconSize: [30, 30],
@@ -38,22 +46,18 @@ const myIcon = L.icon({
 const ParkNear = styled.div`
   display: flex;
   flex-direction: column;
-
-  .ClickOnMap {
-    font-size: 20px;
-    text-align: center;
-  }
 `;
 
 function LocationMarker(props) {
   const [position, setPosition] = React.useState(null);
+  const { getPosition } = props;
   const map = useMapEvents({
     click() {
       map.locate();
     },
     locationfound(event) {
       setPosition(event.latlng);
-      props.getPosition(event.latlng);
+      getPosition(event.latlng);
       map.flyTo(event.latlng, map.getZoom());
     },
   });
@@ -66,7 +70,7 @@ function LocationMarker(props) {
 }
 
 function Map(props) {
-  const { rangeDistance } = props;
+  const { rangeDistance, showNantes } = props;
   const [position, setPosition] = React.useState(null);
   const [parks, setParks] = React.useState([]);
   const [parksupp, setParksupp] = React.useState([
@@ -116,6 +120,9 @@ function Map(props) {
 
   return (
     <Card position={position}>
+      <ClickMessage position={position}>
+        Pour commencer, cliquez sur la carte
+      </ClickMessage>
       <MapContainer
         className="cardmap"
         center={{ lat: 47.214975, lng: -1.557501 }}
@@ -137,7 +144,7 @@ function Map(props) {
               element.fields.idobj === '2372'
           )
           .filter((item) =>
-            props.showNantes
+            showNantes
               ? true
               : position &&
                 calcDistance(position, item.fields.location) <=
@@ -154,31 +161,37 @@ function Map(props) {
           ))}
       </MapContainer>
       <ParkNear>
-        {position === null ? (
-          <div className="ClickOnMap">Cliquez sur la carte</div>
-        ) : (
-          [...parks, ...parksupp]
-            .filter(
-              (element) =>
-                element.fields.idobj === '1016' ||
-                element.fields.idobj === '1019' ||
-                element.fields.idobj === '1021' ||
-                element.fields.idobj === '1020' ||
-                element.fields.idobj === '2372'
-            )
-            .map((item) => (
-              <ParkList
-                namePark={item.fields.nom_complet}
-                showNantes={props.showNantes}
-                key={item.fields.nom_complet}
-                rangeDistance={rangeDistance}
-                distance={calcDistance(position, item.fields.location)}
-              />
-            ))
-        )}
+        {position === null
+          ? ''
+          : [...parks, ...parksupp]
+              .filter(
+                (element) =>
+                  element.fields.idobj === '1016' ||
+                  element.fields.idobj === '1019' ||
+                  element.fields.idobj === '1021' ||
+                  element.fields.idobj === '1020' ||
+                  element.fields.idobj === '2372'
+              )
+              .map((item) => (
+                <ParkList
+                  namePark={item.fields.nom_complet}
+                  showNantes={showNantes}
+                  key={item.fields.nom_complet}
+                  rangeDistance={rangeDistance}
+                  distance={calcDistance(position, item.fields.location)}
+                />
+              ))}
       </ParkNear>
     </Card>
   );
 }
+
+Map.propTypes = {
+  showNantes: PropTypes.bool.isRequired,
+};
+
+LocationMarker.propTypes = {
+  getPosition: PropTypes.func.isRequired,
+};
 
 export default Map;
