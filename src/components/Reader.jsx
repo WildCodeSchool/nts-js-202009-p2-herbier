@@ -14,6 +14,9 @@ const ScanContener = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  .CliquerIci {
+    display: ${({ scan }) => (scan ? 'block' : 'none')};
+  }
 `;
 
 const ScanImgStyle = styled.img`
@@ -42,6 +45,7 @@ class Reader extends Component {
             style={{ width: '330px' }}
           />
         </QrStyle>
+        <p className="CliquerIci">Cliquer ici.</p>
         <ScanImgStyle scan={scan} src={scanner} alt="QR code scanner" />
       </ScanContener>
     );
