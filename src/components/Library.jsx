@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
 import DataBase from './DataBase';
 import DescriptionPanel from './DescriptionPanel';
-import {largeurLibrary ,hauteurDivImage} from './Variable';
+import { largeurLibrary, hauteurDivImage } from './Variable';
 
 
 const size = {
@@ -107,10 +107,10 @@ const UlListe = styled.div`
   width: 100%;
   display: ${({ filterChoice, filter }) =>
     filter &&
-    (filterChoice === 'famille' ||
-      filterChoice === 'espece' ||
-      filterChoice === 'genre' ||
-      filterChoice === 'nom_du_site')
+      (filterChoice === 'famille' ||
+        filterChoice === 'espece' ||
+        filterChoice === 'genre' ||
+        filterChoice === 'nom_du_site')
       ? 'flex'
       : 'none'};
   flex-wrap: wrap;
@@ -120,13 +120,13 @@ const UlListe = styled.div`
   @media ${device.tablet} {
     width: 100%;
     display: ${({ filterChoice, pageWidth }) =>
-      pageWidth > 768 ||
+    pageWidth > 768 ||
       filterChoice === 'famille' ||
       filterChoice === 'espece' ||
       filterChoice === 'genre' ||
       filterChoice === 'nom_du_site'
-        ? 'flex'
-        : 'none'};
+      ? 'flex'
+      : 'none'};
     flex-wrap: wrap;
     height: 35vh;
     overflow-y: scroll;
@@ -196,17 +196,6 @@ const WindowFilter = styled.div`
   }
 `;
 
-const Message = styled.div`
-  display: flex;
-  justify-content: center;
-  height: fit-content;
-  margin: 0 1.5rem 0 1.5rem 0;
-  font-size: 18px;
-  p {
-    text-align: center;
-  }
-`;
-
 const DivVisuel = styled.div`
   align-self: center;
   display: flex;
@@ -257,10 +246,10 @@ const DivVisuel4 = styled.div`
 const Showmore = styled.button`
   display: ${({ filterChoice, filter }) =>
     filter &&
-    (filterChoice === 'famille' ||
-      filterChoice === 'espece' ||
-      filterChoice === 'genre' ||
-      filterChoice === 'nom_du_site')
+      (filterChoice === 'famille' ||
+        filterChoice === 'espece' ||
+        filterChoice === 'genre' ||
+        filterChoice === 'nom_du_site')
       ? 'flex'
       : 'none'};
   justify-content: center;
@@ -294,6 +283,18 @@ const DivVisuel5 = styled.div`
   }
 `;
 
+const Message = styled.div`
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+  margin: 0 1.5rem 0 1.5rem 0;
+  font-size: 18px;
+  p {
+    text-align: center;
+  }
+`;
+
+
 class Library extends React.Component {
   constructor(props) {
     super(props);
@@ -317,6 +318,10 @@ class Library extends React.Component {
     this.handleChangeSearch = this.handleChangeSearch.bind(this);
     this.handleVegetalClick = this.handleVegetalClick.bind(this);
     this.hidePanel = this.hidePanel.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({ pageWidth: window.innerWidth });
   }
 
   componentDidUpdate(pervP, prevS) {
@@ -371,9 +376,7 @@ class Library extends React.Component {
     const { scannedLibrary, vegetals } = this.props;
 
     return (
-      <LibraryWrap
-
-      >
+      <LibraryWrap>
         <DivVisuel3>
           <SearchBar
             search={search}
@@ -411,7 +414,7 @@ class Library extends React.Component {
           </ContainerFiltre>
         </DivVisuel3>
         <DivVisuel4>
-          <WindowFilter showmore={showmore} filter={filter}>
+          <WindowFilter showmore={showmore} filter={filter} >
             <ParameterFiltre filter={filter}>
               <ButtonParameter
                 filterChoice={choice}
@@ -468,22 +471,23 @@ class Library extends React.Component {
               >
                 {nochoice && pageWidth > 768
                   ? this.setState({
-                      nochoice: false,
-                      choice: 'nom_du_site',
-                    })
+                    nochoice: false,
+                    choice: 'nom_du_site',
+                    filter: true,
+                  })
                   : list[0] &&
-                    list[0].facets.map((item) => {
-                      return (
-                        <Li
-                          key={item.name}
-                          onClick={() =>
-                            this.setState({ choicePlus: item.name })
-                          }
-                        >
-                          {`${item.name}  (${item.count})`}
-                        </Li>
-                      );
-                    })}
+                  list[0].facets.map((item) => {
+                    return (
+                      <Li
+                        key={item.name}
+                        onClick={() =>
+                          this.setState({ choicePlus: item.name })
+                        }
+                      >
+                        {`${item.name}  (${item.count})`}
+                      </Li>
+                    );
+                  })}
               </UlListe>
               <Showmore
                 filter={filter}
@@ -527,46 +531,52 @@ class Library extends React.Component {
                 ].length
               }
             </Title>
-              <TailleImage>
-                <label htmlFor="taille">Taille d'image :</label>
-                <select name="taille">
-                  <option
-                    value="100x100"
-                    onClick={() =>
-                      this.setState({
-                        tailleImageX: 100,
-                        tailleImageY: 100,
-                      })
-                    }
-                  >
-                    100x100
+            <TailleImage>
+              <label htmlFor="taille">Taille d'image :</label>
+              <select name="taille">
+                <option
+                  value="100x100"
+                  onClick={() =>
+                    this.setState({
+                      tailleImageX: 100,
+                      tailleImageY: 100,
+                    })
+                  }
+                >
+                  100x100
                   </option>
-                  <option
-                    value="180x150"
-                    onClick={() =>
-                      this.setState({
-                        tailleImageX: 180,
-                        tailleImageY: 150,
-                      })
-                    }
-                  >
-                    180x150
+                <option
+                  value="180x150"
+                  onClick={() =>
+                    this.setState({
+                      tailleImageX: 180,
+                      tailleImageY: 150,
+                    })
+                  }
+                >
+                  180x150
                   </option>
-                  <option
-                    value="280x200"
-                    onClick={() =>
-                      this.setState({
-                        tailleImageX: 280,
-                        tailleImageY: 200,
-                      })
-                    }
-                  >
-                    280x200
+                <option
+                  value="280x200"
+                  onClick={() =>
+                    this.setState({
+                      tailleImageX: 280,
+                      tailleImageY: 200,
+                    })
+                  }
+                >
+                  280x200
                   </option>
-                </select>
-              </TailleImage>
+              </select>
+            </TailleImage>
           </DivVisuel5>
-          <Collection>
+          <Collection ref={el => {
+            if (!el) return;
+            setTimeout(() => {
+              // usually prints a value that is larger than the second console.log
+              this.setState({ divCollectionHeight: el.getBoundingClientRect().height });
+            }, 200);
+          }}>
             {vegetals
               .filter((element) => element.fields.photo1)
               .map((item) => (
@@ -592,12 +602,27 @@ class Library extends React.Component {
               ))}
           </Collection>
           <Message>
+
+            {/* 
             
-            {choicePlus === null ? null : divCollectionHeight > 10 ? null : <p>
-                Vous n'avez pas scanné de plantes dans la catégorie: {choicePlus}
-              </p>
-            }
-          </Message>
+            {console.log(document.getElementById('collect'))}
+
+            en dernier recourt a mettre en attribut du composant Collection
+
+            ref={el => {
+            if (!el) return;
+            setTimeout(() => {
+              // usually prints a value that is larger than the second console.log
+              this.setState({ divCollectionHeight: el.getBoundingClientRect().height });
+            }, 200);
+          }}  */}
+                   
+
+          {choicePlus === null ? null : divCollectionHeight>10 ? null : <p>
+            Vous n'avez pas scanné de plantes dans la catégorie: {choicePlus}
+          </p>
+          }
+        </Message>
         </DivVisuel>
       </LibraryWrap>
     );
