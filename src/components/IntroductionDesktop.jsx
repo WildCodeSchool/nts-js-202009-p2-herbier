@@ -19,9 +19,6 @@ const VegeNantes = styled.div`
     height: 90%;
     margin-top: 0.5rem;
   }
-  p {
-    font-weight: bold;
-  }
 `;
 
 const IntroWrapper = styled.div`

@@ -85,7 +85,6 @@ const Slider = styled.div`
     transform: translateY(3px);
     p {
       width: 36vw;
-      font-weight: bold;
       padding: 2rem 1rem 2rem 1rem;
     }
   }
