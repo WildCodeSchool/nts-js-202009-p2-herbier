@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import MapPicker from './logos/map-picker.svg';
 
@@ -40,5 +41,11 @@ function ParkList(props) {
     </List>
   );
 }
+
+ParkList.propTypes = {
+  distance: PropTypes.number.isRequired,
+  namePark: PropTypes.string.isRequired,
+  showNantes: PropTypes.bool.isRequired,
+};
 
 export default ParkList;
