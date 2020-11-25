@@ -1,27 +1,45 @@
 import React from 'react';
 import styled from 'styled-components';
 import BenProfile from './pictures/Ben-profile.jpg';
-import FannyProfile from './pictures/Fanny-profile.jpeg';
+import FannyProfile from './pictures/Fanny-profile.jpg';
 import NicolasProfile from './pictures/Nicolas-profile.jpg';
 import GwenProfile from './pictures/Gwen-profile.jpg';
 import AymericProfile from './pictures/Aymeric-profile.jpg';
+import Couronne from './logos/profil-cycle.svg';
+import SideBars from './SideBars';
 
 const Member = styled.div`
   display: flex;
-  margin-bottom: 1.5rem;
+  margin-bottom: 3rem;
+  margin-left: 1rem;
+  @media (min-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    margin-right: 3rem;
+
+    .Nicolas {
+      margin-right: 1.5rem;
+    }
+  }
 
   div {
     margin-left: 1rem;
 
     h3 {
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px;
+      font-size: 18px;
+      text-align: center;
     }
 
     i {
       font-size: 3rem;
       margin-right: 1rem;
       margin-left: 1rem;
+      @media (min-width: 768px) {
+        :hover {
+          transform: scale(1.3);
+          transition: transform ease-in 150ms;
+        }
+      }
     }
   }
 `;
@@ -37,6 +55,9 @@ const Nicolas = styled.div`
   width: 150px;
   border-radius: 50%;
   background: url(${NicolasProfile}) no-repeat center/cover;
+  @media (min-width: 768px) {
+    margin-right: 1.5rem;
+  }
 `;
 const Gwen = styled.div`
   height: 150px;
@@ -61,88 +82,153 @@ const Head = styled.div`
   font-family: 'Roboto', sans-serif;
   text-align: center;
   margin-bottom: 3rem;
-  width: 100%;
-  padding: 0;
+  margin-left: 1.8rem;
+  width: 85%;
+  background-color: #69c5b2;
+  border-radius: 5px;
+  @media (min-width: 768px) {
+    width: 50%;
+    margin-left: 0;
+  }
+`;
 
-  div {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #000000;
-    margin: 2rem 1.5rem;
-    padding: 0;
+const Laurier = styled.div`
+  background: url(${Couronne}) no-repeat center/cover;
+  height: 190px;
+  width: 210px;
+  transform: translate(-2.9rem, -0.9rem);
+`;
+
+const Wrapper = styled.div`
+  @media (min-width: 768px) {
+    display: flex;
+    text-align: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 60%;
+  }
+`;
+
+const Page = styled.div`
+  @media (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
 const AboutUs = () => {
   return (
-    <div>
+    <Page>
       <Head>
         <h1>A propos de nous</h1>
         <h3>L'équipe de VegeNantes Go !</h3>
-        <div />
       </Head>
-      <Member>
-        <Benoit />
-        <div>
-          <h3>Benoit Le Bourdonnec</h3>
-          <a href="https://github.com/Benoit2109">
-            <i className="fa fa-github-square" style={{ color: 'black' }} />
-          </a>
-          <a href="http://www.linkedin.com/in/benoit-le-bourdonnec">
-            <i className="fa fa-linkedin-square" style={{ color: 'blue' }} />
-          </a>
-        </div>
-      </Member>
-      <Member>
-        <Nicolas />
-        <div>
-          <h3>Nicolas Bonamy</h3>
-          <a href="https://github.com/NicolasBonamy">
-            <i className="fa fa-github-square" style={{ color: 'black' }} />
-          </a>
-          <a href="https://www.linkedin.com/in/nicolas-bonamy/">
-            <i className="fa fa-linkedin-square" style={{ color: 'blue' }} />
-          </a>
-        </div>
-      </Member>
-      <Member>
-        <Gwen />
-        <div>
-          <h3>Gwenvaël Laskar</h3>
-          <a href="https://github.com/rouxxi">
-            <i className="fa fa-github-square" style={{ color: 'black' }} />
-          </a>
-          <a href="https://www.linkedin.com/in/gwenvael-laskar-39096a1b8">
-            <i className="fa fa-linkedin-square" style={{ color: 'blue' }} />
-          </a>
-        </div>
-      </Member>
-      <Member>
-        <Fanny />
-        <div>
-          <h3>Fanny Debrabant</h3>
-          <a href="https://github.com/fdebrabant">
-            <i className="fa fa-github-square" style={{ color: 'black' }} />
-          </a>
-          <a href="http://www.linkedin.com/in/fanny-debrabant">
-            <i className="fa fa-linkedin-square" style={{ color: 'blue' }} />
-          </a>
-        </div>
-      </Member>
-      <Member>
-        <Aymeric />
-        <div>
-          <h3>Aymeric Lancien</h3>
-          <a href="https://github.com/Aymeric-Lancien">
-            <i className="fa fa-github-square" style={{ color: 'black' }} />
-          </a>
-          <a href="https://www.google.fr/">
-            <i className="fa fa-linkedin-square" style={{ color: 'blue' }} />
-          </a>
-        </div>
-      </Member>
-    </div>
+      <Wrapper>
+        <Member>
+          <Benoit>
+            <Laurier />
+          </Benoit>
+          <div>
+            <h3>Benoit LE BOURDONNEC</h3>
+            <a href="https://github.com/Benoit2109">
+              <i
+                className="fa fa-github-square"
+                style={{ color: ' #69C5B2' }}
+              />
+            </a>
+            <a href="http://www.linkedin.com/in/benoit-le-bourdonnec">
+              <i
+                className="fa fa-linkedin-square"
+                style={{ color: ' #E27A70' }}
+              />
+            </a>
+          </div>
+        </Member>
+        <Member>
+          <Nicolas>
+            <Laurier />
+          </Nicolas>
+          <div className="Nicolas">
+            <h3>Nicolas BONAMY</h3>
+            <a href="https://github.com/NicolasBonamy">
+              <i
+                className="fa fa-github-square"
+                style={{ color: ' #69C5B2' }}
+              />
+            </a>
+            <a href="https://www.linkedin.com/in/nicolas-bonamy/">
+              <i
+                className="fa fa-linkedin-square"
+                style={{ color: ' #E27A70' }}
+              />
+            </a>
+          </div>
+        </Member>
+        <Member>
+          <Gwen>
+            <Laurier />
+          </Gwen>
+          <div>
+            <h3>Gwenvaël LASKAR</h3>
+            <a href="https://github.com/rouxxi">
+              <i
+                className="fa fa-github-square"
+                style={{ color: ' #69C5B2' }}
+              />
+            </a>
+            <a href="https://www.linkedin.com/in/gwenvael-laskar-39096a1b8">
+              <i
+                className="fa fa-linkedin-square"
+                style={{ color: ' #E27A70' }}
+              />
+            </a>
+          </div>
+        </Member>
+        <Member>
+          <Fanny>
+            <Laurier />
+          </Fanny>
+          <div>
+            <h3>Fanny DEBRABANT</h3>
+            <a href="https://github.com/fdebrabant">
+              <i
+                className="fa fa-github-square"
+                style={{ color: ' #69C5B2' }}
+              />
+            </a>
+            <a href="http://www.linkedin.com/in/fanny-debrabant">
+              <i
+                className="fa fa-linkedin-square"
+                style={{ color: ' #E27A70' }}
+              />
+            </a>
+          </div>
+        </Member>
+        <Member>
+          <Aymeric>
+            <Laurier />
+          </Aymeric>
+          <div>
+            <h3>Aymeric LANCIEN</h3>
+            <a href="https://github.com/Aymeric-Lancien">
+              <i
+                className="fa fa-github-square"
+                style={{ color: ' #69C5B2' }}
+              />
+            </a>
+            <a href="https://www.google.fr/">
+              <i
+                className="fa fa-linkedin-square"
+                style={{ color: ' #E27A70' }}
+              />
+            </a>
+          </div>
+        </Member>
+      </Wrapper>
+      <SideBars />
+    </Page>
   );
 };
 
