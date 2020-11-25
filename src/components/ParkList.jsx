@@ -5,10 +5,24 @@ import MapPicker from './logos/map-picker.svg';
 const List = styled.div`
   display: flex;
   flex-direction: column;
-  order: ${({ distance }) => distance};
+  order: ${({ distance }) => Math.floor(distance)};
+  width: 100%;
+  margin: auto;
 
-  div {
-    display: ${({ showPark }) => (showPark ? 'block' : 'none')};
+  @media (min-width: 768px) {
+    width: 70%;
+  }
+`;
+
+const ParkElement = styled.div`
+  display: ${({ showPark }) => (showPark ? 'flex' : 'none')};
+  margin-bottom: 20px;
+  justify-content: space-between;
+  align-items: baseline;
+
+  .namePark {
+    font-weight: bold;
+    text-align: center;
   }
 `;
 
@@ -17,12 +31,12 @@ function ParkList(props) {
   const showPark = distance <= parseInt(rangeDistance);
 
   return (
-    <List distance={distance} showPark={ showNantes ? true : showPark }>
-      <div>
+    <List distance={distance}>
+      <ParkElement distance={distance} showPark={!showNantes ? showPark : true}>
         <img src={MapPicker} alt="map marker" />
-        {`${distance} km`}
-        {namePark}
-      </div>
+        <div className="namePark">{namePark}</div>
+        <div className="distancePark">{`${distance.toFixed(2)} km`}</div>
+      </ParkElement>
     </List>
   );
 }
