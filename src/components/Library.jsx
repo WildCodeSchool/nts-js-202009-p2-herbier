@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import SearchBar from './SearchBar';
 import DataBase from './DataBase';
 import DescriptionPanel from './DescriptionPanel';
+import {largeurLibrary ,hauteurDivImage} from './Variable';
+
 
 const size = {
   mobileS: '320px',
@@ -25,7 +27,7 @@ const device = {
   desktopL: `(min-width: ${size.desktop})`,
 };
 
-const Lybrary = styled.div`
+const LibraryWrap = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -116,7 +118,7 @@ const UlListe = styled.div`
   @media ${device.tablet} {
     width: 100%;
     display: ${({ filterChoice, pageWidth }) =>
-      pageWidth >768 ||
+      pageWidth > 768 ||
       filterChoice === 'famille' ||
       filterChoice === 'espece' ||
       filterChoice === 'genre' ||
@@ -236,7 +238,7 @@ const DivVisuel3 = styled.div`
 `;
 
 const DivVisuel4 = styled.div`
-  margin-left:1.5rem;
+  margin-left: 1.5rem;
   @media ${device.tablet} {
     display: flex;
     flex-direction: column;
@@ -278,8 +280,8 @@ const DivVisuel5 = styled.div`
   display: flex;
   align-items: flex-end;
   margin-bottom: 10px;
-    div {
-        padding-left: 50px;
+  div {
+    padding-left: 50px;
   }
 `;
 
@@ -309,6 +311,7 @@ class Library extends React.Component {
   }
 
   componentDidUpdate(pervP, prevS) {
+    console.log('update');
     const { choice } = this.state;
     const { tri } = this.props;
     if (prevS.choice !== choice) {
@@ -336,6 +339,8 @@ class Library extends React.Component {
     });
   }
 
+
+
   render() {
     const {
       filter,
@@ -354,20 +359,11 @@ class Library extends React.Component {
       tailleImageX,
       tailleImageY,
     } = this.state;
-    const { scannedLybrary, vegetals } = this.props;
+    const { scannedLibrary, vegetals } = this.props;
+
     return (
-      <Lybrary
-        ref={(el) => {
-          if (!el) return;
-          setTimeout(() => {
-            this.setState({ pageWidth: el.getBoundingClientRect().width + 96});
-            if (pageWidth > 768) {
-              this.setState({
-                filter: true,
-              });
-            }
-          }, 200);
-        }}
+      <LibraryWrap
+
       >
         <DivVisuel3>
           <SearchBar
@@ -426,7 +422,7 @@ class Library extends React.Component {
                   this.setState({
                     choice: 'famille',
                   })
-              }
+                }
               >
                 Famille
               </ButtonParameter>
@@ -462,20 +458,23 @@ class Library extends React.Component {
                 filterChoice={choice}
               >
                 {nochoice && pageWidth > 768
-                ? this.setState({
+                  ? this.setState({
                       nochoice: false,
                       choice: 'nom_du_site',
-                })
-                :list[0] &&
-                  list[0].facets.map((item) => {
-                    return (
-                      <Li
-                        onClick={() => this.setState({ choicePlus: item.name })}
-                      >
-                        {item.name}({item.count})
-                      </Li>
-                    );
-                  })}
+                    })
+                  : list[0] &&
+                    list[0].facets.map((item) => {
+                      return (
+                        <Li
+                          key={item.name}
+                          onClick={() =>
+                            this.setState({ choicePlus: item.name })
+                          }
+                        >
+                          {`${item.name}  (${item.count})`}
+                        </Li>
+                      );
+                    })}
               </UlListe>
               <Showmore
                 filter={filter}
@@ -485,9 +484,10 @@ class Library extends React.Component {
                 }}
               >
                 <i
-                  className={showmore
-                    ? 'fa fa-chevron-up' 
-                    :'fa fa-chevron-down'} />
+                  className={
+                    showmore ? 'fa fa-chevron-up' : 'fa fa-chevron-down'
+                  }
+                />
               </Showmore>
             </ListeFiltre>
           </WindowFilter>
@@ -499,42 +499,67 @@ class Library extends React.Component {
             showPanel={showPanel}
           />
         </DivVisuel4>
-        <DivVisuel
-          showmore={showmore}>
-            <DivVisuel5>
-          <Title>Votre collection : {scannedLybrary.length - 1} /
-        {([...new Set(vegetals.map(element => {
-            const unique = [element.fields.famille, element.fields.genre, element.fields.espece]
-            return unique.join('')
-          }))]).length}</Title>
-          {pageWidth >= 768
-              ? <div>
-              <label htmlFor="taille">Taille d'image :</label>
-              <select name='taille'>
-                <option value="100x100" onClick={()=> this.setState({
-                  tailleImageX: 100,
-                  tailleImageY: 100,
-                })}>100x100</option>
-                <option value="180x150"  onClick={()=> this.setState({
-                  tailleImageX: 180,
-                  tailleImageY: 150, 
-                })}>180x150 </option>
-                <option value="280x200"  onClick={()=> this.setState({
-                  tailleImageX: 280,
-                  tailleImageY: 200, 
-                })}> 280x200 </option>
-              </select>
+        <DivVisuel showmore={showmore}>
+          <DivVisuel5>
+            <Title>
+              Votre collection : {scannedLibrary.length} /
+              {
+                [
+                  ...new Set(
+                    vegetals.map((element) => {
+                      const unique = [
+                        element.fields.famille,
+                        element.fields.genre,
+                        element.fields.espece,
+                      ];
+                      return unique.join('');
+                    })
+                  ),
+                ].length
+              }
+            </Title>
+            {pageWidth >= 768 ? (
+              <div>
+                <label htmlFor="taille">Taille d'image :</label>
+                <select name="taille">
+                  <option
+                    value="100x100"
+                    onClick={() =>
+                      this.setState({
+                        tailleImageX: 100,
+                        tailleImageY: 100,
+                      })
+                    }
+                  >
+                    100x100
+                  </option>
+                  <option
+                    value="180x150"
+                    onClick={() =>
+                      this.setState({
+                        tailleImageX: 180,
+                        tailleImageY: 150,
+                      })
+                    }
+                  >
+                    180x150
+                  </option>
+                  <option
+                    value="280x200"
+                    onClick={() =>
+                      this.setState({
+                        tailleImageX: 280,
+                        tailleImageY: 200,
+                      })
+                    }
+                  >
+                    280x200
+                  </option>
+                </select>
               </div>
-              : null
-               }
+            ) : null}
           </DivVisuel5>
-          <Collection ref={el => {
-            if (!el) return;
-            setTimeout(() => {
-              this.setState({ divCollectionHeight: el.getBoundingClientRect().height });
-            }, 200);
-          }}
-          >
+          <Collection>
             {vegetals
               .filter((element) => element.fields.photo1)
               .map((item) => (
@@ -546,7 +571,9 @@ class Library extends React.Component {
                   filter={filter}
                   choicePlus={choicePlus}
                   all={all}
-                  scanned={scannedLybrary.includes(item.recordid)}
+                  scanned={JSON.parse(
+                    localStorage.getItem('myCollection')
+                  ).includes(item.recordid)}
                   key={item.recordid}
                   id={item.recordid}
                   famille={item.fields.famille}
@@ -558,10 +585,14 @@ class Library extends React.Component {
               ))}
           </Collection>
           <Message>
-            {choicePlus === null ? null : divCollectionHeight > 10 ? null : <p>Vous n'avez pas scanné de plantes dans la catégorie: {choicePlus}</p>}
+            
+            {choicePlus === null ? null : divCollectionHeight > 10 ? null : <p>
+                Vous n'avez pas scanné de plantes dans la catégorie: {choicePlus}
+              </p>
+            }
           </Message>
         </DivVisuel>
-      </Lybrary>
+      </LibraryWrap>
     );
   }
 }

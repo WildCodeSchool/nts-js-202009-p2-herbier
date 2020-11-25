@@ -41,11 +41,19 @@ class App extends React.Component {
   }
 
   getData() {
+
     axios
       .get(
-        'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_collection-vegetale-nantes&q=&rows=3923&facet=famille&facet=genre&facet=nom_du_site&facet=espece'
-      )
+        'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_collection-vegetale-nantes&q=&rows=3923&facet=famille&facet=genre&facet=nom_du_site&facet=espece',
+        {
+          headers:{
+            Accept: "application/json, text/plain, */*",
+            'content-type': "text/html",
+           }
+        }
+        )
       .then((res) => {
+        console.log(res);
         return this.setState({
           vegetals: res.data.records,
           tri: res.data.facet_groups,
@@ -106,7 +114,7 @@ class App extends React.Component {
                 <Library
                   vegetals={vegetals}
                   tri={tri}
-                  scannedLybrary={scannedLybrary}
+                  scannedLibrary={scannedLybrary}
                 />
               )}
             />

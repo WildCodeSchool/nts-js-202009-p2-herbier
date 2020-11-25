@@ -39,7 +39,7 @@ const Panel = styled.div`
     z-index: 95;
     padding: 0 0 2rem 0;
     transition: transform 1000ms;
-    transform: translateX(0);
+    transform: translateX(-30px);
   }
   div {
     background-color: #8fae44;
@@ -114,6 +114,7 @@ const Panel = styled.div`
     position: sticky;
     z-index: 0;
     padding: 0;
+    left:0;
     transform: translateX(0);
   } img:first-child {
     background-image: url(${({noClick})=>noClick?plant:''});
