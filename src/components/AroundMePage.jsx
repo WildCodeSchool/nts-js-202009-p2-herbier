@@ -146,6 +146,7 @@ class AroundMePage extends React.Component {
               />
               <span>{rangeDistance}</span>
             </Range>
+          </div>
         </Filter>
         <Map showNantes={showNantes} rangeDistance={rangeDistance} />
         <SideBars />

@@ -175,7 +175,6 @@ const MainButton = () => {
           >
             <p>{button.text}</p>
           </Slider>
-          
         </Main>
       ))}
     </ScrollWrap>
