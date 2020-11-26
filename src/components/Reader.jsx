@@ -49,11 +49,11 @@ class Reader extends Component {
   }
 
   openImageDialog() {
-    if (this.props.scan === true){
-    this.qrReaderRef.current.openImageDialog();
-    this.props.handleShowScan();
+    if (this.props.scan === true) {
+      this.qrReaderRef.current.openImageDialog();
+      this.props.handleShowScan();
+    }
   }
-}
 
   render() {
     const { scan, handleError, handleScan } = this.props;
@@ -70,7 +70,7 @@ class Reader extends Component {
             legacyMode
           />
         </QrStyle>
-        <p className='CliquerIci'>Cliquer Ici.</p>
+        <p className="CliquerIci">Cliquez ici.</p>
         <ScanImgStyle scan={scan} src={scanner} alt="QR code scanner" />
       </ScanContener>
     );
