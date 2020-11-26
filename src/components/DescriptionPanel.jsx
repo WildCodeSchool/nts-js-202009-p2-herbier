@@ -117,13 +117,13 @@ const Panel = styled.div`
     left:0;
     transform: translateX(-30px);
   } img:first-child {
-    background-image: url(${({noClick})=>noClick?plant:''});
+    background-image: url(${({ noClick }) => noClick ? plant : ''});
     background-repeat:no-repeat;
     background-position:center;
     background-size:contain;
     border-radius:0;
     border:0;
-    width: ${({noClick})=>(noClick?'200px':'100%')};
+    width: ${({ noClick }) => (noClick ? '200px' : '100%')};
     max-width:330px;
     height: 180px;
     object-fit: cover;
@@ -148,7 +148,7 @@ const Panel = styled.div`
     margin: 3px 0 3px 0;
     padding:0;
   }
-  }
+}
 `;
 
 class DescriptionPanel extends Component {
