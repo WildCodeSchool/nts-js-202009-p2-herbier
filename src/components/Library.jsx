@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
 import DataBase from './DataBase';
 import DescriptionPanel from './DescriptionPanel';
-import {largeurLibrary ,hauteurDivImage} from './Variable';
+import taille15 from './logos/imagetaille15.png'
+import taille25 from './logos/imagetaille25.png'
+import taille40 from './logos/imagetaille40.png'
 
 
 const size = {
@@ -271,6 +273,8 @@ const TailleImage = styled.div`
   display:none;
   @media ${device.tablet} {
     display: flex;
+    align-items: flex-end;
+
   }
 `;
 
@@ -294,7 +298,6 @@ const Message = styled.div`
   }
 `;
 
-
 class Library extends React.Component {
   constructor(props) {
     super(props);
@@ -312,8 +315,10 @@ class Library extends React.Component {
       pageWidth: 1,
       noClick: true,
       nochoice: true,
-      tailleImageX: 100,
-      tailleImageY: 100,
+      tailleImage: {
+        X: 100,
+        Y: 100,
+      }
     };
     this.handleChangeSearch = this.handleChangeSearch.bind(this);
     this.handleVegetalClick = this.handleVegetalClick.bind(this);
@@ -326,7 +331,7 @@ class Library extends React.Component {
 
   componentDidUpdate(pervP, prevS) {
     console.log('update');
-    const { choice, choicePlus, all} = this.stategit ;
+    const { choice, choicePlus, all } = this.state;
     const { tri } = this.props;
     console.log(document.getElementById('collect').clientHeight);
     const heigth = document.getElementById('collect').clientHeight;
@@ -358,7 +363,7 @@ class Library extends React.Component {
     });
   }
 
-  HeightDiv(element){
+  HeightDiv(element) {
 
   }
 
@@ -377,8 +382,7 @@ class Library extends React.Component {
       divCollectionHeight,
       noClick,
       nochoice,
-      tailleImageX,
-      tailleImageY,
+      tailleImage,
     } = this.state;
     const { scannedLibrary, vegetals } = this.props;
 
@@ -539,43 +543,35 @@ class Library extends React.Component {
               }
             </Title>
             <TailleImage>
-              <label htmlFor="taille">Taille d'image :</label>
-              <select name="taille">
-                <option
-                  value="100x100"
-                  onClick={() =>
+                
+                  <img src={taille15} alt="petit" onClick={() =>
                     this.setState({
-                      tailleImageX: 100,
-                      tailleImageY: 100,
+                      tailleImage: {
+                        X: 100,
+                        Y: 100,
+                      }
                     })
-                  }
-                >
-                  100x100
-                  </option>
-                <option
-                  value="180x150"
-                  onClick={() =>
+                  }/>
+
+                   <img src={taille25} alt="moyen" onClick={() =>
                     this.setState({
-                      tailleImageX: 180,
-                      tailleImageY: 150,
+                      tailleImage: {
+                        X: 180,
+                        Y: 150,
+                      }
                     })
-                  }
-                >
-                  180x150
-                  </option>
-                <option
-                  value="280x200"
-                  onClick={() =>
+                  }/>
+
+                   <img src={taille40} alt="grand" onClick={() =>
                     this.setState({
-                      tailleImageX: 280,
-                      tailleImageY: 200,
+                      tailleImage: {
+                        X: 280,
+                        Y: 200,
+                      }
                     })
-                  }
-                >
-                  280x200
-                  </option>
-              </select>
+                  }/>
             </TailleImage>
+     
           </DivVisuel5>
           <div id='collect'>
             <Collection>
@@ -583,8 +579,7 @@ class Library extends React.Component {
                 .filter((element) => element.fields.photo1)
                 .map((item) => (
                   <DataBase
-                    tailleImageX={tailleImageX}
-                    tailleImageY={tailleImageY}
+                    tailleImage={tailleImage}
                     search={search}
                     handleVegetalClick={this.handleVegetalClick}
                     filter={filter}
