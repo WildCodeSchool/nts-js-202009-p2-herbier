@@ -25,7 +25,7 @@ Ce projet est le deuxième de la formation. Il a commencé après un mois et dem
 
 Le site est réalisé avec __REACT__, __JAVASCRIPT__, le css est en __STYLED-COMPONENT__. 
 La carte utilise __LEAFLET__ et __REACT LEAFLET__, le QR code reader __QR-REACT-READER__.  
-Nous faisons appelle à l'__API__ de Nantes Métropoles pour accéder aux différents parcs et espèces de plantes présents dans la ville de Nantes.  
+Nous faisons appelle à l'__API__ de Nantes Métropole pour accéder aux différents parcs et espèces de plantes présents dans la ville de Nantes.  
 
 ## L'équipe.  
 
