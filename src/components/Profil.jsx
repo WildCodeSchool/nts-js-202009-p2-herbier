@@ -4,7 +4,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import SideBars from './SideBars';
-import avatar from './logos/profil-avatar.svg';
+import avatar from './logos/profil-avatar.png';
 import couronne from './logos/profil-cycle.svg';
 import modif from './logos/profil-mobile-pen.svg';
 import save from './logos/profil-save.svg';
@@ -74,7 +74,8 @@ const View = styled.div`
       padding: 8px 20px 20px 22px;
       border-radius: 50%;
       height: 120px;
-      width: auto;
+      width: 120px;
+      object-fit: cover;
       cursor: pointer;
     }
   }
@@ -208,6 +209,7 @@ const Infos = styled.div`
     ${media.desktop} {
       top: 0;
       right: 0;
+      cursor: pointer;
     }
     position: absolute;
     top: 1rem;
@@ -309,6 +311,7 @@ class Profil extends Component {
   handleClickAvatar() {
     const url = prompt("entrez l'url de votre nouvelle image de profil");
     localStorage.setItem('avatarSrc', url);
+    console.log(url);
     this.setState({
       avatarSrc: localStorage.getItem('avatarSrc'),
     });
@@ -385,7 +388,12 @@ class Profil extends Component {
             <div className="AvatarCouronne">
               <img
                 className="Avatar"
-                src={localStorage.getItem('avatarSrc') ? avatarSrc : avatar}
+                src={
+                  localStorage.getItem('avatarSrc') &&
+                  localStorage.getItem('avatarSrc').includes('http')
+                    ? avatarSrc
+                    : avatar
+                }
                 alt="avatar"
                 onClick={this.handleClickAvatar}
                 aria-hidden
