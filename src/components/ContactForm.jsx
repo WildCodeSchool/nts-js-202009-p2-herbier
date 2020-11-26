@@ -65,8 +65,13 @@ const Field = styled.div`
     width: 90vw;
     max-width: 380px;
     box-sizing: border-box;
-    font-size: 24px;
+    font-size: 20px;
     outline: none;
+    padding: 0 0 0 10px;
+  }
+
+  select {
+    cursor: pointer;
   }
 
   label {
@@ -75,6 +80,7 @@ const Field = styled.div`
 
   textarea {
     height: 200px;
+    font-family: inherit;
   }
 `;
 
@@ -99,6 +105,7 @@ const Button = styled.button`
   font-size: 24px;
   margin-top: 25px;
   outline: none;
+  cursor: pointer;
 
   :active {
     background-color: white;
@@ -115,16 +122,33 @@ class ContactForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      firstAndLastName: '',
+      email: '',
+      comment: '',
       open: false,
+      error: false,
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
 
-  handleClick() {
-    this.setState({
-      open: true,
-    });
+  handleClick(event) {
+    const { firstAndLastName, email, comment } = this.state;
+    if (firstAndLastName !== '' && email !== '' && comment !== '') {
+      this.setState({
+        error: false,
+        open: true,
+      });
+    } else {
+      this.setState({
+        error: true,
+        open: true,
+      });
+    }
+    event.preventDefault();
+    this.setState({ firstAndLastName: '' });
+    this.setState({ email: '' });
+    this.setState({ comment: '' });
   }
 
   handleClose() {
@@ -133,7 +157,14 @@ class ContactForm extends React.Component {
     });
   }
 
+  handleUserInput(e) {
+    const { name } = e.target;
+    const { value } = e.target;
+    this.setState({ [name]: value });
+  }
+
   render() {
+    const { firstAndLastName, email, comment, open, error } = this.state;
     return (
       <div>
         <Title>
@@ -142,21 +173,41 @@ class ContactForm extends React.Component {
         </Title>
         <Form>
           <Field>
-            <label>
-              <input type="text" placeholder="Nom / prenom" />
+            <label htmlFor="name">
+              <input
+                type="text"
+                placeholder="Nom / prénom"
+                value={firstAndLastName}
+                id="firstAndLastName"
+                name="firstAndLastName"
+                onChange={(event) => this.handleUserInput(event)}
+              />
             </label>
-            <label>
-              <input type="text" placeholder="JaneDoe@gmail.com" />
+            <label htmlFor="email">
+              <input
+                type="email"
+                placeholder="JaneDoe@gmail.com"
+                value={email}
+                id="email"
+                name="email"
+                onChange={(event) => this.handleUserInput(event)}
+              />
             </label>
             <StyledSelect>
               <select placeholder="Objet">
-                <option>Suggestions d'améliorations</option>
+                <option>Suggestions d&#39;améliorations</option>
                 <option>Signaler un bug</option>
-                <option>Nous Encourager</option>
+                <option>Nous encourager</option>
               </select>
             </StyledSelect>
-            <label>
-              <textarea placeholder="commentaire" />
+            <label htmlFor="comment">
+              <textarea
+                placeholder="Commentaire"
+                value={comment}
+                id="comment"
+                name="comment"
+                onChange={(event) => this.handleUserInput(event)}
+              />
             </label>
           </Field>
           <Button onClick={this.handleClick} type="button">
@@ -167,12 +218,17 @@ class ContactForm extends React.Component {
               vertical: 'bottom',
               horizontal: 'center',
             }}
-            open={this.state.open}
+            open={open}
             autoHideDuration={2500}
             onClose={this.handleClose}
           >
-            <Alert onClose={this.handleClose} severity="success">
-              Message Envoyé!
+            <Alert
+              onClose={this.handleClose}
+              severity={error ? 'warning' : 'success'}
+            >
+              {error
+                ? 'Veuillez compléter tous les champs!'
+                : 'Message Envoyé!'}
             </Alert>
           </Snackbar>
         </Form>
