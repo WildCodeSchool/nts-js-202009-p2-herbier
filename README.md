@@ -1,25 +1,25 @@
-#titre VegeNantes GO!  
+#titreVegeNantes GO!  
 
-##titre Description du projet.  
+##titreDescription du projet.  
 
 VegeNantes GO! est un single page application permettant à l'utilisateur de collecter les plantes des parcs de la ville de Nantes en scannant un QR code qui sera préalablement placé par les agents de la ville de Nantes dans les différents parcs devant chaque espèce.  
 
 Il peut se connecter à son compte, découvrir les parcs à proximité, scanner une plante, l'ajouter à son herbier, consulter sa collection ou avoir des informations sur les plantes qui lui manque. 
 
-![illustration VegeNantes GO](https://imgur.com/gQeUAwm). 
+![illustration VegeNantes GO](https://imgur.com/a/Y32sfKh). 
 
-##titre Contexte.  
+##titreContexte.  
 
 En formaton de développeur webb à la _WILD CODE SCHOOL_ de Nantes, notre groupe composé de Gwenvael Laskar, Fanny Debrabant, Nicolas Bonamy, Aymeric Lancien et Benoit Le Bourdonnec s'est vu confié la mission de réaliser une application permettant de collecter les plantes de la ville dans un herbier numérique. Ce projet s'est déroulé pendant 6 semaines, en parralèles des cours et en remote (dûe à la situation sanitaire).  
 Ce projet est le deuxième de la formation. Il a commencé après un mois et demi de formation au code.
 
-##titre Outils et langages.  
+##titreOutils et langages.  
 
-Le site est réalisé avec _REACT_, _JAVASCRIPT_, le css est en _STYLED-COMPONENT_. 
-La carte utilise _LEAFLET_, le QR code reader _QR-REACT-READER_.  
-Nous faisons appelle à l'_API_ de Nantes Métropoles pour accéder aux différents parcs et espèces de plantes présents dans la ville de Nantes.  
+Le site est réalisé avec __REACT__, __JAVASCRIPT__, le css est en __STYLED-COMPONENT__. 
+La carte utilise __LEAFLET__, le QR code reader __QR-REACT-READER__.  
+Nous faisons appelle à l'__API__ de Nantes Métropoles pour accéder aux différents parcs et espèces de plantes présents dans la ville de Nantes.  
 
-##Titre L'équipe.  
+##titreL'équipe.  
 
 * Fanny Debrabant. (*github* fdebrabant)  
 * Aymeric Lancien. (*github* Aymeric-Lancien)  
