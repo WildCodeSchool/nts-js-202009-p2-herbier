@@ -7,7 +7,7 @@ import DescriptionPanel from './DescriptionPanel';
 import taille15 from './logos/imagetaille15.png'
 import taille25 from './logos/imagetaille25.png'
 import taille40 from './logos/imagetaille40.png'
-
+import taillenew from './logos/trailleimagenew.png'
 
 const size = {
   mobileS: '320px',
@@ -274,6 +274,41 @@ const TailleImage = styled.div`
   @media ${device.tablet} {
     display: flex;
     align-items: flex-end;
+
+    div:nth-child(1){
+      cursor:pointer;
+      background-image:url(${taillenew});
+      background-position:center;
+      background-size:cover;
+      background-repeat:no-repeat;
+      height:15px;
+      width:5px;
+      padding: 0 10px;
+      margin:0;
+    }
+    div:nth-child(2){
+      cursor:pointer;
+      background-position:center;
+      background-size:cover;
+      background-repeat:no-repeat;
+      background-image:url(${taillenew});
+      height:22px;
+      width:10px;
+      padding:0 10px;
+      margin:0;
+    }
+    div:nth-child(3){
+      cursor:pointer;
+      background-position:center;
+      background-size:cover;
+      background-repeat:no-repeat;
+      background-image:url(${taillenew});
+      transform:translateY(1px);
+      padding:0 10px;
+      margin:0;
+      height:32px;
+      width:15px;
+    }
 
   }
 `;
@@ -543,8 +578,9 @@ class Library extends React.Component {
               }
             </Title>
             <TailleImage>
-                
-                  <img src={taille15} alt="petit" onClick={() =>
+                <div 
+
+                onClick={() =>
                     this.setState({
                       tailleImage: {
                         X: 100,
@@ -552,8 +588,9 @@ class Library extends React.Component {
                       }
                     })
                   }/>
-
-                   <img src={taille25} alt="moyen" onClick={() =>
+                <div 
+  
+                  onClick={() =>
                     this.setState({
                       tailleImage: {
                         X: 180,
@@ -561,8 +598,8 @@ class Library extends React.Component {
                       }
                     })
                   }/>
-
-                   <img src={taille40} alt="grand" onClick={() =>
+                <div   
+                onClick={() =>
                     this.setState({
                       tailleImage: {
                         X: 280,
