@@ -615,6 +615,7 @@ class Library extends React.Component {
 Library.propTypes = {
   vegetals: PropTypes.arrayOf(String).isRequired,
   scannedLibrary: PropTypes.arrayOf(String).isRequired,
+  tri: PropTypes.arrayOf(PropTypes.shape).isRequired,
 };
 
 export default Library;
