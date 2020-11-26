@@ -4,7 +4,7 @@
 
 VegeNantes GO! est un single page application permettant à l'utilisateur de collecter les plantes des parcs de la ville de Nantes en scannant un QR code qui sera préalablement placé par les agents de la ville de Nantes dans les différents parcs devant chaque espèce.  
 
-<div style="text-align:center"><img src="https://i.imgur.com/y5wYVI7.png" /></div>
+<div style="text-align:center"><img src="https://i.imgur.com/l3LRVKH.png" /></div>
 
 ## Contexte.  
 
