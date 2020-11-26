@@ -10,7 +10,7 @@ const Container = styled.div`
   width: 90%;
   display: flex;
   justify-content: center;
-  margin: 0 0 1rem 0;
+  margin: 0 0 3rem 0;
 `;
 
 const TitleScan = styled.h1`

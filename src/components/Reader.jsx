@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import QrReader from 'react-qr-reader';
@@ -14,6 +14,14 @@ const ScanContener = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  .CliquerIci {
+    display: ${({ scan }) => (scan ? 'block' : 'none')};
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    color: black;
+    margin: 1rem;
+  }
 `;
 
 const ScanImgStyle = styled.img`
@@ -30,18 +38,39 @@ const QrStyle = styled.div`
 `;
 
 class Reader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      delay: 500,
+      style: { width: '330px' },
+    };
+    this.qrReaderRef = createRef();
+    this.openImageDialog = this.openImageDialog.bind(this);
+  }
+
+  openImageDialog() {
+    if (this.props.scan === true){
+    this.qrReaderRef.current.openImageDialog();
+    this.props.handleShowScan();
+  }
+}
+
   render() {
-    const { scan, handleShowScan, handleError, handleScan } = this.props;
+    const { scan, handleError, handleScan } = this.props;
+    const { delay, style } = this.state;
     return (
-      <ScanContener scan={scan} onClick={handleShowScan}>
+      <ScanContener scan={scan} onClick={this.openImageDialog}>
         <QrStyle reverseScan={!scan}>
           <QrReader
-            delay={300}
+            ref={this.qrReaderRef}
+            delay={delay}
             onError={handleError}
             onScan={handleScan}
-            style={{ width: '330px' }}
+            style={style}
+            legacyMode
           />
         </QrStyle>
+        <p className='CliquerIci'>Cliquer Ici.</p>
         <ScanImgStyle scan={scan} src={scanner} alt="QR code scanner" />
       </ScanContener>
     );

@@ -120,7 +120,7 @@ const mainButtons = [
     background: mainBackground,
     textShadow: '1px 1px 1px #b1b1b1',
     url: '/around-me',
-    text: 'Ici vous trouverez tous les parcs proches de votre vous.',
+    text: 'Ici vous trouverez tous les parcs proches de chez vous.',
     backgroundColor: 'rgba(105,197,178,0.5)',
   },
   {
