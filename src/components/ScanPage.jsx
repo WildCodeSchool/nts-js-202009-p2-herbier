@@ -46,7 +46,6 @@ class ScanPage extends React.Component {
   }
 
   handleScan(data) {
-console.log('handlescan)')
     if (data && data.length !== 40) {
       this.handleScanError();
     } else if (data) {
@@ -65,7 +64,6 @@ console.log('handlescan)')
   }
 
   handleClick(data) {
-    console.log('handleclick)')
     const { espece, recordid } = this.state;
     const { scannedLibrary, addToLibrary, alreadyInLibrary } = this.props;
     if (data && espece !== '' && !scannedLibrary.includes(recordid)) {
@@ -98,7 +96,6 @@ console.log('handlescan)')
   }
 
   handleShowScan(status) {
-    console.log('handleshowscan')
     const { scan } = this.state;
     const toggle = scan;
 
@@ -112,13 +109,12 @@ console.log('handlescan)')
   }
 
   render() {
-    console.log('renderscanpage')
     const { scan, espece, famille, genre, photo1Id, error } = this.state;
     const { inLibrary, handleClose, open } = this.props;
     return (
       <PageStyle>
         <Scan />
-        
+
         <Reader
           error={error}
           scan={scan}

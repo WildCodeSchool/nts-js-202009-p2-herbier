@@ -50,14 +50,13 @@ class Reader extends Component {
 
   openImage() {
     const { scan, handleShowScan } = this.props;
-    //if (scan === true) {
+
     this.qrReaderRef.current.openImageDialog();
-    //}
+
     handleShowScan(false);
   }
 
   render() {
-    console.log('renderreader');
     const { scan, handleError, handleScan } = this.props;
     const { delay, style } = this.state;
     return (
