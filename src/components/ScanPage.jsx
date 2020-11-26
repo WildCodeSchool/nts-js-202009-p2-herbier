@@ -46,8 +46,8 @@ class ScanPage extends React.Component {
   }
 
   handleScan(data) {
+console.log('handlescan)')
     if (data && data.length !== 40) {
-      console.log(data);
       this.handleScanError();
     } else if (data) {
       Axios.get(
@@ -65,6 +65,7 @@ class ScanPage extends React.Component {
   }
 
   handleClick(data) {
+    console.log('handleclick)')
     const { espece, recordid } = this.state;
     const { scannedLibrary, addToLibrary, alreadyInLibrary } = this.props;
     if (data && espece !== '' && !scannedLibrary.includes(recordid)) {
@@ -96,12 +97,13 @@ class ScanPage extends React.Component {
     });
   }
 
-  handleShowScan() {
+  handleShowScan(status) {
+    console.log('handleshowscan')
     const { scan } = this.state;
     const toggle = scan;
 
     this.setState({
-      scan: !toggle,
+      scan: status,
     });
   }
 
@@ -110,6 +112,7 @@ class ScanPage extends React.Component {
   }
 
   render() {
+    console.log('renderscanpage')
     const { scan, espece, famille, genre, photo1Id, error } = this.state;
     const { inLibrary, handleClose, open } = this.props;
     return (
