@@ -6,7 +6,7 @@ VegeNantes GO! est un single page application permettant à l'utilisateur de col
 
 Il peut se connecter à son compte, découvrir les parcs à proximité, scanner une plante, l'ajouter à son herbier, consulter sa collection ou avoir des informations sur les plantes qui lui manque. 
 
-![illustration application](https://imgur.com/a/Y32sfKh) 
+<div style="text-align:center"><img src="https://imgur.com/gQeUAwm" /></div>
 
 ## Contexte.  
 
