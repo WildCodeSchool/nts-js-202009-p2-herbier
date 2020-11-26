@@ -324,11 +324,11 @@ class Library extends React.Component {
 
   componentDidUpdate(pervP, prevS) {
     console.log('update');
-    const { choice, choicePlus } = this.state;
+    const { choice, choicePlus, all} = this.state;
     const { tri } = this.props;
     console.log(document.getElementById('collect').clientHeight);
     const heigth = document.getElementById('collect').clientHeight;
-    if (choicePlus !== null && prevS.choicePlus !== choicePlus) {
+    if ((choicePlus !== null && prevS.choicePlus !== choicePlus) || (choicePlus !== null && prevS.all !== all)) {
       this.setState({ divCollectionHeight: heigth });
     }
     if (prevS.choice !== choice) {
