@@ -45,11 +45,19 @@ class App extends React.Component {
   }
 
   getData() {
+
     axios
       .get(
-        'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_collection-vegetale-nantes&q=&rows=3923&facet=famille&facet=genre&facet=nom_du_site&facet=espece'
-      )
+        'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_collection-vegetale-nantes&q=&rows=3923&facet=famille&facet=genre&facet=nom_du_site&facet=espece',
+        {
+          headers:{
+            Accept: "application/json, text/plain, */*",
+            'content-type': "text/html",
+           }
+        }
+        )
       .then((res) => {
+        console.log(res);
         return this.setState({
           vegetals: res.data.records,
           tri: res.data.facet_groups,
@@ -103,10 +111,11 @@ class App extends React.Component {
     return (
       <div className="App">
         <BrowserRouter>
+        <div className='appVisuel'>
           <HeaderMobile pseudo={pseudo} />
           <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route exact path="/around-me" component={() => <AroundMePage />} />
+            <Route exact path="/around-me" component={AroundMePage} />
             <Route
               exact
               path="/scan"
@@ -142,7 +151,8 @@ class App extends React.Component {
             <Route exact path="/contact" component={ContactForm} />
             <Route exact path="/about-us" component={AboutUs} />
           </Switch>
-          <Footer />
+          <Footer/>
+          </div>
         </BrowserRouter>
       </div>
     );
