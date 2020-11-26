@@ -11,6 +11,7 @@ import ContactForm from './components/ContactForm';
 import Profil from './components/Profil';
 import Footer from './components/Footer';
 import AboutUs from './components/AboutUs';
+import {dataApi} from './data';
 
 class App extends React.Component {
   constructor(props) {
@@ -45,24 +46,28 @@ class App extends React.Component {
   }
 
   getData() {
+    this.setState({
+      vegetals: dataApi.records,
+      tri: dataApi.facet_groups,
+    });
 
-    axios
-      .get(
-        'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_collection-vegetale-nantes&q=&rows=3923&facet=famille&facet=genre&facet=nom_du_site&facet=espece',
-        {
-          headers:{
-            Accept: "application/json, text/plain, */*",
-            'content-type': "text/html",
-           }
-        }
-        )
-      .then((res) => {
-        console.log(res);
-        return this.setState({
-          vegetals: res.data.records,
-          tri: res.data.facet_groups,
-        });
-      });
+    // axios
+    //   .get(
+    //     'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_collection-vegetale-nantes&q=&apikey=cdd41c9bc79cf23f1283de02415d5628ba77a0a8cc96b9e5dec3a47c&rows=3923&facet=famille&facet=genre&facet=nom_du_site&facet=espece',
+    //     {
+    //       headers:{
+    //         Accept: "application/json, text/plain, */*",
+    //         'content-type': "text/html",
+    //        }
+    //     }
+    //     )
+    //   .then((res) => {
+    //     console.log(res);
+    //     return this.setState({
+    //       vegetals: res.data.records,
+    //       tri: res.data.facet_groups,
+    //     });
+    //   });
   }
 
   addToLibrary(id) {

@@ -163,12 +163,12 @@ class DescriptionPanel extends Component {
         <div className={this.props.showPanel ? 'showDescriptionPanel' : ''}>
           <img
             src={`https://data.nantesmetropole.fr/explore/dataset/244400404_collection-vegetale-nantes/files/${this.props.description[0]}/300/`}
-            alt={this.props.description[3]}
+            alt=' '
           />
           <p>Famille : {this.props.description[1]}</p>
           <p>Genre : {this.props.description[2]}</p>
           <p>Espèce : {this.props.description[3]}</p>
-          <img src={cross} alt='close' onClick={this.props.hidePanel} />
+          <img src={cross} alt=' ' onClick={this.props.hidePanel} />
         </div>
       </Panel>
     );

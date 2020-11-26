@@ -45,21 +45,23 @@ class Reader extends Component {
       style: { width: '330px' },
     };
     this.qrReaderRef = createRef();
-    this.openImageDialog = this.openImageDialog.bind(this);
+    this.openImage = this.openImage.bind(this);
   }
 
-  openImageDialog() {
-    if (this.props.scan === true) {
-      this.qrReaderRef.current.openImageDialog();
-      this.props.handleShowScan();
-    }
+  openImage() {
+    const { scan, handleShowScan } = this.props;
+    //if (scan === true) {
+    this.qrReaderRef.current.openImageDialog();
+    //}
+    handleShowScan(false);
   }
 
   render() {
+    console.log('renderreader');
     const { scan, handleError, handleScan } = this.props;
     const { delay, style } = this.state;
     return (
-      <ScanContener scan={scan} onClick={this.openImageDialog}>
+      <ScanContener scan={scan}>
         <QrStyle reverseScan={!scan}>
           <QrReader
             ref={this.qrReaderRef}
@@ -71,7 +73,14 @@ class Reader extends Component {
           />
         </QrStyle>
         <p className="CliquerIci">Cliquez ici.</p>
-        <ScanImgStyle scan={scan} src={scanner} alt="QR code scanner" />
+        <ScanImgStyle
+          scan={scan}
+          src={scanner}
+          alt="QR code scanner"
+          onClick={() => {
+            this.openImage();
+          }}
+        />
       </ScanContener>
     );
   }
