@@ -22,13 +22,15 @@ const Card = styled.div`
     z-index: 95;
     border-radius: 5px;
     margin-bottom: 20px;
-    filter: grayscale(${({ position }) => (position === null ? '60%' : '0%')});
+    filter: grayscale(
+      ${({ myPosition }) => (myPosition === null ? '60%' : '0%')}
+    );
   }
 `;
 
 const ClickMessage = styled.div`
-  display: ${({ position }) => (position === null ? 'block' : 'none')};
-  font-size: 20px;
+  display: ${({ myPosition }) => (myPosition === null ? 'block' : 'none')};
+  font-size: 2em;
   text-align: center;
   margin-bottom: 20px;
 `;
@@ -48,36 +50,36 @@ const ParkNear = styled.div`
   flex-direction: column;
 `;
 
-function LocationMarker(props) {
-  const [position, setPosition] = React.useState(null);
-  const { getPosition } = props;
-  const map = useMapEvents({
-    click() {
-      map.locate();
-    },
-    locationfound(event) {
-      setPosition(event.latlng);
-      getPosition(event.latlng);
-      map.flyTo(event.latlng, map.getZoom());
-    },
-  });
+// function LocationMarker(props) {
+//   const [position, setPosition] = React.useState(null);
+//   const { getPosition } = props;
+//   const map = useMapEvents({
+//     click() {
+//       map.locate();
+//     },
+//     locationfound(event) {
+//       setPosition(event.latlng);
+//       getPosition(event.latlng);
+//       map.flyTo(event.latlng, map.getZoom());
+//     },
+//   });
 
-  return position === null ? null : (
-    <Marker position={position} icon={myIcon}>
-      <Popup>Votre position</Popup>
-    </Marker>
-  );
-}
+//   return position === null ? null : (
+//     <Marker position={position} icon={myIcon}>
+//       <Popup>Votre position</Popup>
+//     </Marker>
+//   );
+// }
 
 function Map(props) {
-  const { rangeDistance, showNantes } = props;
-  const [position, setPosition] = React.useState(null);
+  const { rangeDistance, showNantes, myPosition } = props;
+  // const [position, setPosition] = React.useState(null);
   const [parks, setParks] = React.useState([]);
   const [parksupp, setParksupp] = React.useState([
     {
       fields: {
         location: [47.2752, -1.580253],
-        nom_complet: 'Arboretum Cimetière Parc',
+        nom_complet: 'Arboretum Parc',
         idobj: '1016',
       },
     },
@@ -114,26 +116,34 @@ function Map(props) {
     });
   }, [parks]);
 
-  const getPosition = (pos) => {
-    setPosition(pos);
-  };
+  const myPositionNumber = myPosition.map((e) => parseFloat(e));
+  console.log(myPositionNumber);
+  console.log(myPosition);
+
+  // const getPosition = (pos) => {
+  //   setPosition(pos);
+  // };
 
   return (
-    <Card position={position}>
-      <ClickMessage position={position}>
+    <Card myPosition={myPosition}>
+      <ClickMessage myPosition={myPosition}>
         Pour commencer, cliquez sur la carte
       </ClickMessage>
       <MapContainer
         className="cardmap"
         center={{ lat: 47.214975, lng: -1.557501 }}
         zoom={11}
-        scrollWheelZoom={false}
       >
+        {myPosition === null ? null : (
+          <Marker position={myPosition} icon={myIcon}>
+            <Popup>Votre position</Popup>
+          </Marker>
+        )}
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <LocationMarker getPosition={getPosition} />
+        {/* <LocationMarker getPosition={getPosition} /> */}
         {[...parks, ...parksupp]
           .filter(
             (element) =>
@@ -146,8 +156,8 @@ function Map(props) {
           .filter((item) =>
             showNantes
               ? true
-              : position &&
-                calcDistance(position, item.fields.location) <=
+              : myPosition &&
+                calcDistance(myPositionNumber, item.fields.location) <=
                   parseInt(rangeDistance)
           )
           .map((item) => (
@@ -161,8 +171,8 @@ function Map(props) {
           ))}
       </MapContainer>
       <ParkNear>
-        {position === null
-          ? ''
+        {myPosition === null
+          ? null
           : [...parks, ...parksupp]
               .filter(
                 (element) =>
@@ -178,7 +188,10 @@ function Map(props) {
                   showNantes={showNantes}
                   key={item.fields.nom_complet}
                   rangeDistance={rangeDistance}
-                  distance={calcDistance(position, item.fields.location)}
+                  distance={calcDistance(
+                    myPositionNumber,
+                    item.fields.location
+                  )}
                 />
               ))}
       </ParkNear>
@@ -190,8 +203,8 @@ Map.propTypes = {
   showNantes: PropTypes.bool.isRequired,
 };
 
-LocationMarker.propTypes = {
-  getPosition: PropTypes.func.isRequired,
-};
+// LocationMarker.propTypes = {
+//   getPosition: PropTypes.func.isRequired,
+// };
 
 export default Map;

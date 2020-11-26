@@ -105,7 +105,7 @@ const Button = styled.div`
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   border: none;
   border-radius: 5px;
-  font-size: inherit;
+  font-size: 24px;
   margin-top: 25px;
   outline: none;
   width: fit-content;
@@ -130,7 +130,16 @@ class AroundMePage extends React.Component {
   }
 
   render() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      localStorage.setItem('latitude', position.coords.latitude);
+      localStorage.setItem('longitude', position.coords.longitude);
+    });
     const { rangeDistance, showNantes } = this.state;
+    const myPosition = [
+      localStorage.getItem('latitude'),
+      localStorage.getItem('longitude'),
+    ];
+
     return (
       <AroundMe>
         <H1>Autour de Moi</H1>
@@ -157,7 +166,11 @@ class AroundMePage extends React.Component {
             </Range>
           </div>
         </Filter>
-        <Map showNantes={showNantes} rangeDistance={rangeDistance} />
+        <Map
+          showNantes={showNantes}
+          rangeDistance={rangeDistance}
+          myPosition={myPosition}
+        />
         <SideBars />
       </AroundMe>
     );
