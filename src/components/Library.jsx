@@ -338,6 +338,7 @@ class Library extends React.Component {
   }
 
   render() {
+    console.log(this.props.tri);
     const {
       filter,
       search,
@@ -615,6 +616,7 @@ class Library extends React.Component {
 Library.propTypes = {
   vegetals: PropTypes.arrayOf(String).isRequired,
   scannedLibrary: PropTypes.arrayOf(String).isRequired,
+  tri: PropTypes.arrayOf(String).isRequired,
 };
 
 export default Library;
