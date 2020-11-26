@@ -314,6 +314,7 @@ class Library extends React.Component {
       nochoice: true,
       tailleImageX: 100,
       tailleImageY: 100,
+      hidden: 0,
     };
     this.handleChangeSearch = this.handleChangeSearch.bind(this);
     this.handleVegetalClick = this.handleVegetalClick.bind(this);
@@ -372,6 +373,7 @@ class Library extends React.Component {
       nochoice,
       tailleImageX,
       tailleImageY,
+      hidden,
     } = this.state;
     const { scannedLibrary, vegetals } = this.props;
 
@@ -570,17 +572,11 @@ class Library extends React.Component {
               </select>
             </TailleImage>
           </DivVisuel5>
-          <Collection ref={el => {
-            if (!el) return;
-            setTimeout(() => {
-              // usually prints a value that is larger than the second console.log
-              this.setState({ divCollectionHeight: el.getBoundingClientRect().height });
-            }, 200);
-          }}>
+          <Collection>
             {vegetals
               .filter((element) => element.fields.photo1)
               .map((item) => (
-                <DataBase
+                  <DataBase
                   tailleImageX={tailleImageX}
                   tailleImageY={tailleImageY}
                   search={search}
@@ -616,13 +612,13 @@ class Library extends React.Component {
               this.setState({ divCollectionHeight: el.getBoundingClientRect().height });
             }, 200);
           }}  */}
-                   
 
-          {choicePlus === null ? null : divCollectionHeight>10 ? null : <p>
-            Vous n'avez pas scanné de plantes dans la catégorie: {choicePlus}
-          </p>
-          }
-        </Message>
+
+            {choicePlus === null ? null : divCollectionHeight > 10 ? null : <p>
+              Vous n'avez pas scanné de plantes dans la catégorie: {choicePlus}
+            </p>
+            }
+          </Message>
         </DivVisuel>
       </LibraryWrap>
     );
