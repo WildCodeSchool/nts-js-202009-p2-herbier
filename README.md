@@ -1,4 +1,4 @@
-#titreVegeNantes GO!  
+#VegeNantes GO!  
 
 ##titreDescription du projet.  
 
