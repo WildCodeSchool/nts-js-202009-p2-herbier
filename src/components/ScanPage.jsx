@@ -38,12 +38,6 @@ class ScanPage extends React.Component {
     this.handleShowScan = this.handleShowScan.bind(this);
   }
 
-  componentDidUpdate(pP, pS) {
-    if (pS.error !== this.state.error) {
-      console.log('update');
-    }
-  }
-
   handleScanError() {
     this.setState({
       error: true,
@@ -53,6 +47,7 @@ class ScanPage extends React.Component {
 
   handleScan(data) {
     if (data && data.length !== 40) {
+      console.log(data);
       this.handleScanError();
     } else if (data) {
       Axios.get(
@@ -120,6 +115,7 @@ class ScanPage extends React.Component {
     return (
       <PageStyle>
         <Scan />
+        
         <Reader
           error={error}
           scan={scan}
@@ -148,13 +144,11 @@ class ScanPage extends React.Component {
             vertical: 'bottom',
             horizontal: 'center',
           }}
-          open={open}
-          error={error}
+          open={open || error}
           autoHideDuration={2500}
           onClose={handleClose}
         >
           <Alert
-            handleClick={this.handleClick}
             onChange={this.handleScanError}
             onClose={handleClose}
             severity={error ? 'warning' : inLibrary ? 'error' : 'success'}

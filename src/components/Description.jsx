@@ -47,7 +47,7 @@ class Description extends React.Component {
   render() {
     const { famille, genre, espece, photo1Id, handleScan } = this.props;
     return (
-      <PlantCard onScan={handleScan}>
+      <PlantCard >
         <DescriptName>
           Famille: <span>{famille}</span>
         </DescriptName>
@@ -77,7 +77,7 @@ class Card extends React.Component {
           famille={famille}
           genre={genre}
           photo1Id={photo1Id}
-          onScan={handleScan}
+          
         />
       </CardCss>
     );
