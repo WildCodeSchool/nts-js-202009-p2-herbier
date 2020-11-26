@@ -1,6 +1,8 @@
-.app {
-  display: flex;
-  flex-direction: column;
-  justify-items: center;
-}
+.app {}
 
+.appVisuel {
+    display: flex;
+    flex-direction: column;
+    justify-items: space-between;
+    min-height: 90.5vh;
+}
