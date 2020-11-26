@@ -311,7 +311,6 @@ class Profil extends Component {
   handleClickAvatar() {
     const url = prompt("entrez l'url de votre nouvelle image de profil");
     localStorage.setItem('avatarSrc', url);
-    console.log(url);
     this.setState({
       avatarSrc: localStorage.getItem('avatarSrc'),
     });
