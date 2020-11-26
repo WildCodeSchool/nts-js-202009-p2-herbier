@@ -1,10 +1,10 @@
-/* eslint-disable no-nested-ternary */
 import React, { Component } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import SideBars from './SideBars';
+import avatar from './logos/profil-avatar.png';
 import couronne from './logos/profil-cycle.svg';
 import modif from './logos/profil-mobile-pen.svg';
 import save from './logos/profil-save.svg';
@@ -74,7 +74,9 @@ const View = styled.div`
       padding: 8px 20px 20px 22px;
       border-radius: 50%;
       height: 120px;
-      width: auto;
+      width: 120px;
+      object-fit: cover;
+      cursor: pointer;
     }
   }
 `;
@@ -207,10 +209,17 @@ const Infos = styled.div`
     ${media.desktop} {
       top: 0;
       right: 0;
+      cursor: pointer;
     }
     position: absolute;
     top: 1rem;
     right: 1rem;
+  }
+  #pseudo::placeholder {
+    color: #474747;
+  }
+  #email::placeholder {
+    color: #474747;
   }
 `;
 
@@ -227,15 +236,16 @@ class Profil extends Component {
     const firstName = localStorage.getItem('firstName');
     const lastName = localStorage.getItem('lastName');
     this.state = {
-      pseudo: pseudo || 'Pseudo',
-      adresse: adresse || 'Adresse',
-      email: email || 'Email',
-      firstName: firstName || 'Prénom',
-      lastName: lastName || 'Nom',
+      pseudo,
+      adresse,
+      email,
+      firstName,
+      lastName,
       formEnabled: false,
       open: false,
       level: JSON.parse(localStorage.getItem('myCollection')).length,
       rank: '',
+      avatarSrc: localStorage.getItem('avatarSrc'),
     };
     this.handleChangePseudo = this.handleChangePseudo.bind(this);
     this.handleChangeAdresse = this.handleChangeAdresse.bind(this);
@@ -245,6 +255,7 @@ class Profil extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleChangeLevel = this.handleChangeLevel.bind(this);
+    this.handleClickAvatar = this.handleClickAvatar.bind(this);
   }
 
   componentDidMount() {
@@ -295,6 +306,14 @@ class Profil extends Component {
       formEnabled: false,
     });
     changePseudoHeader(pseudo);
+  }
+
+  handleClickAvatar() {
+    const url = prompt("entrez l'url de votre nouvelle image de profil");
+    localStorage.setItem('avatarSrc', url);
+    this.setState({
+      avatarSrc: localStorage.getItem('avatarSrc'),
+    });
   }
 
   handleClose() {
@@ -358,6 +377,7 @@ class Profil extends Component {
       open,
       level,
       rank,
+      avatarSrc,
     } = this.state;
     return (
       <Profile className="Profil">
@@ -367,8 +387,15 @@ class Profil extends Component {
             <div className="AvatarCouronne">
               <img
                 className="Avatar"
-                src="https://randomuser.me/api/portraits/men/86.jpg"
+                src={
+                  localStorage.getItem('avatarSrc') &&
+                  localStorage.getItem('avatarSrc').includes('http')
+                    ? avatarSrc
+                    : avatar
+                }
                 alt="avatar"
+                onClick={this.handleClickAvatar}
+                aria-hidden
               />
             </div>
           </div>
@@ -423,7 +450,7 @@ class Profil extends Component {
                 <input
                   disabled={!formEnabled}
                   value={formEnabled ? pseudo : localStorage.getItem('pseudo')}
-                  placeholder={localStorage.getItem('pseudo')}
+                  placeholder="pseudo"
                   type="text"
                   onChange={this.handleChangePseudo}
                   id="pseudo"
@@ -435,8 +462,8 @@ class Profil extends Component {
                 <input
                   disabled={!formEnabled}
                   value={formEnabled ? email : localStorage.getItem('email')}
-                  placeholder={localStorage.getItem('email')}
-                  type="text"
+                  placeholder="email"
+                  type="email"
                   onChange={this.handleChangeEmail}
                   id="email"
                   name="email"
@@ -456,7 +483,7 @@ class Profil extends Component {
                   value={
                     formEnabled ? firstName : localStorage.getItem('firstName')
                   }
-                  placeholder={localStorage.getItem('firstName')}
+                  placeholder="prénom"
                   type="text"
                   onChange={this.handleChangeFirstName}
                   id="firstName"
@@ -472,7 +499,7 @@ class Profil extends Component {
                   value={
                     formEnabled ? lastName : localStorage.getItem('lastName')
                   }
-                  placeholder={localStorage.getItem('lastName')}
+                  placeholder="nom"
                   type="text"
                   onChange={this.handleChangeLastName}
                   id="lastName"
@@ -489,7 +516,7 @@ class Profil extends Component {
                   value={
                     formEnabled ? adresse : localStorage.getItem('adresse')
                   }
-                  placeholder={localStorage.getItem('adresse')}
+                  placeholder="adresse"
                   type="text"
                   onChange={this.handleChangeAdresse}
                   id="adresse"
