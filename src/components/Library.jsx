@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
 import DataBase from './DataBase';
 import DescriptionPanel from './DescriptionPanel';
-import { largeurLibrary, hauteurDivImage } from './Variable';
-
 
 const size = {
   mobileS: '320px',
@@ -314,7 +312,6 @@ class Library extends React.Component {
       nochoice: true,
       tailleImageX: 100,
       tailleImageY: 100,
-      hidden: 0,
     };
     this.handleChangeSearch = this.handleChangeSearch.bind(this);
     this.handleVegetalClick = this.handleVegetalClick.bind(this);
@@ -327,8 +324,13 @@ class Library extends React.Component {
 
   componentDidUpdate(pervP, prevS) {
     console.log('update');
-    const { choice } = this.state;
+    const { choice, choicePlus } = this.state;
     const { tri } = this.props;
+    console.log(document.getElementById('collect').clientHeight);
+    const heigth = document.getElementById('collect').clientHeight;
+    if (choicePlus !== null && prevS.choicePlus !== choicePlus) {
+      this.setState({ divCollectionHeight: heigth });
+    }
     if (prevS.choice !== choice) {
       this.setState({
         list: tri.filter((element) => element.name === choice),
@@ -354,8 +356,6 @@ class Library extends React.Component {
     });
   }
 
-
-
   render() {
     const {
       filter,
@@ -373,7 +373,6 @@ class Library extends React.Component {
       nochoice,
       tailleImageX,
       tailleImageY,
-      hidden,
     } = this.state;
     const { scannedLibrary, vegetals } = this.props;
 
@@ -572,51 +571,39 @@ class Library extends React.Component {
               </select>
             </TailleImage>
           </DivVisuel5>
-          <Collection>
-            {vegetals
-              .filter((element) => element.fields.photo1)
-              .map((item) => (
+          <div id='collect'>
+            <Collection>
+              {vegetals
+                .filter((element) => element.fields.photo1)
+                .map((item) => (
                   <DataBase
-                  tailleImageX={tailleImageX}
-                  tailleImageY={tailleImageY}
-                  search={search}
-                  handleVegetalClick={this.handleVegetalClick}
-                  filter={filter}
-                  choicePlus={choicePlus}
-                  all={all}
-                  scanned={JSON.parse(
-                    localStorage.getItem('myCollection')
-                  ).includes(item.recordid)}
-                  key={item.recordid}
-                  id={item.recordid}
-                  famille={item.fields.famille}
-                  espece={item.fields.espece}
-                  genre={item.fields.genre}
-                  parc={item.fields.nom_du_site}
-                  image={item.fields.photo1 && item.fields.photo1.id}
-                />
-              ))}
-          </Collection>
+                    tailleImageX={tailleImageX}
+                    tailleImageY={tailleImageY}
+                    search={search}
+                    handleVegetalClick={this.handleVegetalClick}
+                    filter={filter}
+                    choicePlus={choicePlus}
+                    all={all}
+                    scanned={JSON.parse(
+                      localStorage.getItem('myCollection')
+                    ).includes(item.recordid)}
+                    key={item.recordid}
+                    id={item.recordid}
+                    famille={item.fields.famille}
+                    espece={item.fields.espece}
+                    genre={item.fields.genre}
+                    parc={item.fields.nom_du_site}
+                    image={item.fields.photo1 && item.fields.photo1.id}
+                  />
+                ))}
+            </Collection>
+          </div>
           <Message>
-
-            {/* 
-            
-            {console.log(document.getElementById('collect'))}
-
-            en dernier recourt a mettre en attribut du composant Collection
-
-            ref={el => {
-            if (!el) return;
-            setTimeout(() => {
-              // usually prints a value that is larger than the second console.log
-              this.setState({ divCollectionHeight: el.getBoundingClientRect().height });
-            }, 200);
-          }}  */}
-
-
-            {choicePlus === null ? null : divCollectionHeight > 10 ? null : <p>
-              Vous n'avez pas scanné de plantes dans la catégorie: {choicePlus}
-            </p>
+            {choicePlus === null
+              ? null
+              : !all && divCollectionHeight < 10 ?
+                <p> Vous n'avez pas scanné de plantes dans la catégorie: {choicePlus}  </p>
+                : null
             }
           </Message>
         </DivVisuel>
