@@ -28,16 +28,27 @@ class ScanPage extends React.Component {
       genre: '',
       photo1Id: '',
       scan: true,
+      error: false,
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleScan = this.handleScan.bind(this);
     this.handleError = this.handleError.bind(this);
+    this.handleScanError = this.handleScanError.bind(this);
     this.deleteQrInfos = this.deleteQrInfos.bind(this);
     this.handleShowScan = this.handleShowScan.bind(this);
   }
 
+  handleScanError() {
+    this.setState({
+      error: true,
+    });
+    this.deleteQrInfos();
+  }
+
   handleScan(data) {
-    if (data) {
+    if (data && data.length !== 40) {
+      this.handleScanError();
+    } else if (data) {
       Axios.get(
         `https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_collection-vegetale-nantes&q=&refine.recordid=${data}`
       ).then((res) => {
@@ -84,12 +95,12 @@ class ScanPage extends React.Component {
     });
   }
 
-  handleShowScan() {
+  handleShowScan(status) {
     const { scan } = this.state;
     const toggle = scan;
 
     this.setState({
-      scan: !toggle,
+      scan: status,
     });
   }
 
@@ -98,16 +109,19 @@ class ScanPage extends React.Component {
   }
 
   render() {
-    const { scan, espece, famille, genre, photo1Id } = this.state;
+    const { scan, espece, famille, genre, photo1Id, error } = this.state;
     const { inLibrary, handleClose, open } = this.props;
     return (
       <PageStyle>
         <Scan />
+
         <Reader
+          error={error}
           scan={scan}
           handleShowScan={this.handleShowScan}
           handleScan={this.handleScan}
           handleError={this.handleError}
+          handleScanError={this.handleScanError}
         />
         <Card
           scan={scan}
@@ -129,16 +143,18 @@ class ScanPage extends React.Component {
             vertical: 'bottom',
             horizontal: 'center',
           }}
-          open={open}
+          open={open || error}
           autoHideDuration={2500}
           onClose={handleClose}
         >
           <Alert
-            handleClick={this.handleClick}
+            onChange={this.handleScanError}
             onClose={handleClose}
-            severity={inLibrary ? 'error' : 'success'}
+            severity={error ? 'warning' : inLibrary ? 'error' : 'success'}
           >
-            {inLibrary
+            {error
+              ? 'QR code inconnu'
+              : inLibrary
               ? 'Plante déjà capturée !'
               : 'Plante ajoutée à votre Vegedex !'}
           </Alert>

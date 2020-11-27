@@ -127,7 +127,6 @@ function Map(props) {
         className="cardmap"
         center={{ lat: 47.214975, lng: -1.557501 }}
         zoom={11}
-        scrollWheelZoom={false}
       >
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
