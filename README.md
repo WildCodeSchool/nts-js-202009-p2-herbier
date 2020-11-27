@@ -32,5 +32,5 @@ Nous faisons appelle à l'__API__ de Nantes Métropole pour accéder aux différ
 * Fanny Debrabant. [Github](https://github.com/fdebrabant) [Linkedin](https://www.linkedin.com/in/fanny-debrabant/)
 * Aymeric Lancien. [Github](https://github.com/Aymeric-Lancien)
 * Nicolas Bonamy. [Github](https://github.com/NicolasBonamy) [Linkedin](https://www.linkedin.com/in/nicolas-bonamy/) 
-* Gwenvael Larnak. [Github](https://github.com/rouxxi) [Linkedin](https://www.linkedin.com/in/gwenvael-laskar-39096a1b8/) 
+* Gwenvael Laskar. [Github](https://github.com/rouxxi) [Linkedin](https://www.linkedin.com/in/gwenvael-laskar-39096a1b8/) 
 * Benoit Le Bourdonnec [Github](https://github.com/Benoit2109) [Linkedin](https://www.linkedin.com/in/benoit-le-bourdonnec/)
