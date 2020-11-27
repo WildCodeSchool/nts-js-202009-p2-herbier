@@ -85,6 +85,7 @@ const Head = styled.div`
   margin-left: 1.8rem;
   width: 85%;
   background-color: #69c5b2;
+  color: white;
   border-radius: 5px;
   @media (min-width: 768px) {
     width: 50%;
