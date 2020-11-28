@@ -166,14 +166,11 @@ class DataBase extends React.Component {
       choicePlus,
       scanned,
       all,
-      tailleImageX,
-      tailleImageY,
+      tailleImage,
       id,
     } = this.props;
     return (
       <DataBasediv
-        tailleImageX={tailleImageX}
-        tailleImageY={tailleImageY}
         search={search}
         famille={famille}
         espece={espece}
@@ -185,8 +182,8 @@ class DataBase extends React.Component {
         all={all}
       >
         <Thumbnail
-          tailleImageX={tailleImageX}
-          tailleImageY={tailleImageY}
+        tailleImageX={tailleImage.X}
+        tailleImageY={tailleImage.Y}
           onClick={this.handleClick}
           famille={famille}
           espece={espece}

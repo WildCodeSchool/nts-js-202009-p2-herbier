@@ -38,8 +38,8 @@ const H1 = styled.h1`
 
 const Filter = styled.div`
   border-radius: 5px;
-  margin-bottom: 20px;
-  padding: 10px;
+  margin-bottom: 5px;
+  padding: 5px;
   height: fit-content;
 
   .rangeBlock {

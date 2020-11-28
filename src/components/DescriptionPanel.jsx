@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import cross from './logos/close-line-blank.png';
-import plant from './pictures/imagedefault.png';
+import plant from './pictures/arbreFond.png';
 
 const size = {
   mobileS: '320px',
@@ -39,7 +39,7 @@ const Panel = styled.div`
     z-index: 95;
     padding: 0 0 2rem 0;
     transition: transform 1000ms;
-    transform: translateX(0);
+    transform: translateX(-30px);
   }
   div {
     background-color: #8fae44;
@@ -114,15 +114,16 @@ const Panel = styled.div`
     position: sticky;
     z-index: 0;
     padding: 0;
-    transform: translateX(0);
+    left:0;
+    transform: translateX(-30px);
   } img:first-child {
-    background-image: url(${({noClick})=>noClick?plant:''});
+    background-image: url(${({ noClick }) => noClick ? plant : ''});
     background-repeat:no-repeat;
     background-position:center;
-    background-size:cover;
+    background-size:contain;
     border-radius:0;
-    width: ${({noClick})=>(noClick?'80%':'100%')};
-    width:100%;
+    border:0;
+    width: ${({ noClick }) => (noClick ? '200px' : '100%')};
     max-width:330px;
     height: 180px;
     object-fit: cover;
@@ -137,6 +138,7 @@ const Panel = styled.div`
     position: sticky;
     margin:0;
     padding: 0;
+    border:0;
 
 
   }
@@ -145,7 +147,8 @@ const Panel = styled.div`
     font-size: 17px;
     margin: 3px 0 3px 0;
     padding:0;
-  }}
+  }
+}
 `;
 
 class DescriptionPanel extends Component {
@@ -160,12 +163,12 @@ class DescriptionPanel extends Component {
         <div className={this.props.showPanel ? 'showDescriptionPanel' : ''}>
           <img
             src={`https://data.nantesmetropole.fr/explore/dataset/244400404_collection-vegetale-nantes/files/${this.props.description[0]}/300/`}
-            alt={this.props.description[3]}
+            alt=' '
           />
           <p>Famille : {this.props.description[1]}</p>
           <p>Genre : {this.props.description[2]}</p>
           <p>Espèce : {this.props.description[3]}</p>
-          <img src={cross} alt='close' onClick={this.props.hidePanel} />
+          <img src={cross} alt=' ' onClick={this.props.hidePanel} />
         </div>
       </Panel>
     );
