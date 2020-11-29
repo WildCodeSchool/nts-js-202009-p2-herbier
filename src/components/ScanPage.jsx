@@ -10,6 +10,7 @@ import Reader from './Reader';
 import Card from './Description';
 
 const PageStyle = styled.div`
+   margin-bottom:15vh;
   display: flex;
   flex-direction: column;
   align-items: center;

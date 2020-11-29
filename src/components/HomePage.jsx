@@ -12,11 +12,13 @@ const media = {
 };
 
 const HomePageWrap = styled.div`
+   margin-bottom:15vh;
   ${media.desktop} {
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 80vh;
+    margin-bottom:0;
   }
 `;
 

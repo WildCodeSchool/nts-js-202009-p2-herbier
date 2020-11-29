@@ -16,10 +16,13 @@ const media = {
 };
 
 const Profile = styled.div`
+    margin-bottom:15vh;
+
   ${media.desktop} {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom:3vh;
   }
 `;
 

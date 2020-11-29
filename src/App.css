@@ -4,5 +4,5 @@
     display: flex;
     flex-direction: column;
     justify-items: space-between;
-    min-height: 90.5vh;
+    min-height: 100vh;
 }
