@@ -4,9 +4,6 @@ import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
 import DataBase from './DataBase';
 import DescriptionPanel from './DescriptionPanel';
-import taille15 from './logos/imagetaille15.png'
-import taille25 from './logos/imagetaille25.png'
-import taille40 from './logos/imagetaille40.png'
 import taillenew from './logos/trailleimagenew.png'
 
 const size = {
@@ -366,10 +363,8 @@ class Library extends React.Component {
   }
 
   componentDidUpdate(pervP, prevS) {
-    console.log('update');
     const { choice, choicePlus, all } = this.state;
     const { tri } = this.props;
-    console.log(document.getElementById('collect').clientHeight);
     const heigth = document.getElementById('collect').clientHeight;
     if ((choicePlus !== null && prevS.choicePlus !== choicePlus) || (choicePlus !== null && prevS.all !== all)) {
       this.setState({ divCollectionHeight: heigth });
