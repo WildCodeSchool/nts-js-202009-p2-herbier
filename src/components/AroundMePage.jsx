@@ -5,11 +5,13 @@ import SideBars from './SideBars';
 
 const AroundMe = styled.div`
   margin: 0 15px;
+  margin-bottom:15vh;
   @media (min-width: 768px) {
     width: 60%;
     display: flex;
     flex-direction: column;
     margin: auto;
+    margin-bottom: 5vh;
   }
 `;
 
@@ -37,6 +39,7 @@ const H1 = styled.h1`
 `;
 
 const Filter = styled.div`
+  display: ${({ myPosition }) => (myPosition === undefined ? 'none' : 'block')};
   border-radius: 5px;
   margin-bottom: 5px;
   padding: 5px;
@@ -105,7 +108,7 @@ const Button = styled.div`
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   border: none;
   border-radius: 5px;
-  font-size: inherit;
+  font-size: 24px;
   margin-top: 25px;
   outline: none;
   width: fit-content;
@@ -130,11 +133,23 @@ class AroundMePage extends React.Component {
   }
 
   render() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      localStorage.setItem('latitude', position.coords.latitude);
+      localStorage.setItem('longitude', position.coords.longitude);
+    });
     const { rangeDistance, showNantes } = this.state;
+    let myPosition;
+    if (localStorage.getItem('latitude') && localStorage.getItem('longitude')) {
+      myPosition = [
+        localStorage.getItem('latitude'),
+        localStorage.getItem('longitude'),
+      ];
+    }
+
     return (
       <AroundMe>
         <H1>Autour de Moi</H1>
-        <Filter showNantes={showNantes}>
+        <Filter showNantes={showNantes} myPosition={myPosition}>
           <Button onClick={() => this.setState({ showNantes: !showNantes })}>
             {' '}
             {showNantes ? 'Les parcs proches' : 'Tous les parcs'}
@@ -157,7 +172,11 @@ class AroundMePage extends React.Component {
             </Range>
           </div>
         </Filter>
-        <Map showNantes={showNantes} rangeDistance={rangeDistance} />
+        <Map
+          showNantes={showNantes}
+          rangeDistance={rangeDistance}
+          myPosition={myPosition}
+        />
         <SideBars />
       </AroundMe>
     );

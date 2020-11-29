@@ -117,10 +117,6 @@ const Panel = styled.div`
     left:0;
     transform: translateX(-30px);
   } img:first-child {
-    background-image: url(${({ noClick }) => noClick ? plant : ''});
-    background-repeat:no-repeat;
-    background-position:center;
-    background-size:contain;
     border-radius:0;
     border:0;
     width: ${({ noClick }) => (noClick ? '200px' : '100%')};
@@ -162,7 +158,7 @@ class DescriptionPanel extends Component {
       <Panel className="DescriptionPanel" noClick={this.props.noClick}>
         <div className={this.props.showPanel ? 'showDescriptionPanel' : ''}>
           <img
-            src={`https://data.nantesmetropole.fr/explore/dataset/244400404_collection-vegetale-nantes/files/${this.props.description[0]}/300/`}
+            src={this.props.noClick? plant : `https://data.nantesmetropole.fr/explore/dataset/244400404_collection-vegetale-nantes/files/${this.props.description[0]}/300/`}
             alt=' '
           />
           <p>Famille : {this.props.description[1]}</p>

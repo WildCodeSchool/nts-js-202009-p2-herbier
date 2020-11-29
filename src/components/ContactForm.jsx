@@ -114,6 +114,10 @@ const Button = styled.button`
   }
 `;
 
+const Visuel = styled.div`
+  margin-bottom:15vh;
+`;
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -166,7 +170,7 @@ class ContactForm extends React.Component {
   render() {
     const { firstAndLastName, email, comment, open, error } = this.state;
     return (
-      <div>
+      <Visuel>
         <Title>
           <h1>Nous contacter</h1>
           <Logo src={mainContact} alt="nous contacter" />
@@ -233,7 +237,7 @@ class ContactForm extends React.Component {
           </Snackbar>
         </Form>
         <SideBars />
-      </div>
+      </Visuel>
     );
   }
 }

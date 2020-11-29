@@ -112,10 +112,12 @@ const Wrapper = styled.div`
 `;
 
 const Page = styled.div`
+   margin-bottom:15vh;
   @media (min-width: 768px) {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom:0;
   }
 `;
 

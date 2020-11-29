@@ -4,13 +4,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import {
-  MapContainer,
-  TileLayer,
-  Popup,
-  Marker,
-  useMapEvents,
-} from 'react-leaflet';
+import { MapContainer, TileLayer, Popup, Marker } from 'react-leaflet';
 import MapPicker from './logos/map-picker.svg';
 import MapPickerBlue from './logos/map-picker-blue.svg';
 import ParkList from './ParkList';
@@ -22,13 +16,12 @@ const Card = styled.div`
     z-index: 95;
     border-radius: 5px;
     margin-bottom: 20px;
-    filter: grayscale(${({ position }) => (position === null ? '60%' : '0%')});
   }
 `;
 
-const ClickMessage = styled.div`
-  display: ${({ position }) => (position === null ? 'block' : 'none')};
-  font-size: 20px;
+const GeoInformMessage = styled.div`
+  display: ${({ myPosition }) => (myPosition === undefined ? 'block' : 'none')};
+  font-size: 1em;
   text-align: center;
   margin-bottom: 20px;
 `;
@@ -48,36 +41,14 @@ const ParkNear = styled.div`
   flex-direction: column;
 `;
 
-function LocationMarker(props) {
-  const [position, setPosition] = React.useState(null);
-  const { getPosition } = props;
-  const map = useMapEvents({
-    click() {
-      map.locate();
-    },
-    locationfound(event) {
-      setPosition(event.latlng);
-      getPosition(event.latlng);
-      map.flyTo(event.latlng, map.getZoom());
-    },
-  });
-
-  return position === null ? null : (
-    <Marker position={position} icon={myIcon}>
-      <Popup>Votre position</Popup>
-    </Marker>
-  );
-}
-
 function Map(props) {
-  const { rangeDistance, showNantes } = props;
-  const [position, setPosition] = React.useState(null);
+  const { rangeDistance, showNantes, myPosition } = props;
   const [parks, setParks] = React.useState([]);
   const [parksupp, setParksupp] = React.useState([
     {
       fields: {
         location: [47.2752, -1.580253],
-        nom_complet: 'Arboretum Cimetière Parc',
+        nom_complet: 'Arboretum Parc',
         idobj: '1016',
       },
     },
@@ -114,25 +85,27 @@ function Map(props) {
     });
   }, [parks]);
 
-  const getPosition = (pos) => {
-    setPosition(pos);
-  };
+  const myPositionNumber = myPosition && myPosition.map((e) => parseFloat(e));
 
   return (
-    <Card position={position}>
-      <ClickMessage position={position}>
-        Pour commencer, cliquez sur la carte
-      </ClickMessage>
+    <Card myPosition={myPosition}>
+      <GeoInformMessage myPosition={myPosition}>
+        La geolocalisation n&apos;est pas activée
+      </GeoInformMessage>
       <MapContainer
         className="cardmap"
         center={{ lat: 47.214975, lng: -1.557501 }}
         zoom={11}
       >
+        {myPosition && (
+          <Marker position={myPosition} icon={myIcon}>
+            <Popup>Votre position</Popup>
+          </Marker>
+        )}
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <LocationMarker getPosition={getPosition} />
         {[...parks, ...parksupp]
           .filter(
             (element) =>
@@ -145,9 +118,9 @@ function Map(props) {
           .filter((item) =>
             showNantes
               ? true
-              : position &&
-                calcDistance(position, item.fields.location) <=
-                  parseInt(rangeDistance)
+              : myPosition &&
+                calcDistance(myPositionNumber, item.fields.location) <=
+                  parseInt(rangeDistance, 10)
           )
           .map((item) => (
             <Marker
@@ -160,8 +133,8 @@ function Map(props) {
           ))}
       </MapContainer>
       <ParkNear>
-        {position === null
-          ? ''
+        {myPosition === null
+          ? null
           : [...parks, ...parksupp]
               .filter(
                 (element) =>
@@ -173,11 +146,15 @@ function Map(props) {
               )
               .map((item) => (
                 <ParkList
+                  myPosition={myPosition}
                   namePark={item.fields.nom_complet}
                   showNantes={showNantes}
                   key={item.fields.nom_complet}
                   rangeDistance={rangeDistance}
-                  distance={calcDistance(position, item.fields.location)}
+                  distance={calcDistance(
+                    myPositionNumber,
+                    item.fields.location
+                  )}
                 />
               ))}
       </ParkNear>
@@ -187,10 +164,9 @@ function Map(props) {
 
 Map.propTypes = {
   showNantes: PropTypes.bool.isRequired,
-};
-
-LocationMarker.propTypes = {
-  getPosition: PropTypes.func.isRequired,
+  rangeDistance: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
+  myPosition: PropTypes.array.isRequired,
 };
 
 export default Map;
