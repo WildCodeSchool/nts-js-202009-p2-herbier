@@ -37,6 +37,7 @@ const H1 = styled.h1`
 `;
 
 const Filter = styled.div`
+  display: ${({ myPosition }) => (myPosition === undefined ? 'none' : 'block')};
   border-radius: 5px;
   margin-bottom: 5px;
   padding: 5px;
@@ -135,15 +136,18 @@ class AroundMePage extends React.Component {
       localStorage.setItem('longitude', position.coords.longitude);
     });
     const { rangeDistance, showNantes } = this.state;
-    const myPosition = [
-      localStorage.getItem('latitude'),
-      localStorage.getItem('longitude'),
-    ];
+    let myPosition;
+    if (localStorage.getItem('latitude') && localStorage.getItem('longitude')) {
+      myPosition = [
+        localStorage.getItem('latitude'),
+        localStorage.getItem('longitude'),
+      ];
+    }
 
     return (
       <AroundMe>
         <H1>Autour de Moi</H1>
-        <Filter showNantes={showNantes}>
+        <Filter showNantes={showNantes} myPosition={myPosition}>
           <Button onClick={() => this.setState({ showNantes: !showNantes })}>
             {' '}
             {showNantes ? 'Les parcs proches' : 'Tous les parcs'}

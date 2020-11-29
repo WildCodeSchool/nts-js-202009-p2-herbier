@@ -28,7 +28,7 @@ const ParkElement = styled.div`
 `;
 
 function ParkList(props) {
-  const { distance, namePark, rangeDistance, showNantes } = props;
+  const { distance, namePark, rangeDistance, showNantes, myPosition } = props;
   const showPark = distance <= parseInt(rangeDistance);
 
   return (
@@ -36,14 +36,16 @@ function ParkList(props) {
       <ParkElement distance={distance} showPark={!showNantes ? showPark : true}>
         <img src={MapPicker} alt="map marker" />
         <div className="namePark">{namePark}</div>
-        <div className="distancePark">{`${distance.toFixed(2)} km`}</div>
+        <div className="distancePark">
+          {myPosition ? `${distance.toFixed(2)} km` : ''}
+        </div>
       </ParkElement>
     </List>
   );
 }
 
 ParkList.propTypes = {
-  distance: PropTypes.number.isRequired,
+  distance: PropTypes.number,
   namePark: PropTypes.string.isRequired,
   showNantes: PropTypes.bool.isRequired,
 };

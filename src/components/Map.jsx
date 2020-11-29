@@ -4,13 +4,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import {
-  MapContainer,
-  TileLayer,
-  Popup,
-  Marker,
-  useMapEvents,
-} from 'react-leaflet';
+import { MapContainer, TileLayer, Popup, Marker } from 'react-leaflet';
 import MapPicker from './logos/map-picker.svg';
 import MapPickerBlue from './logos/map-picker-blue.svg';
 import ParkList from './ParkList';
@@ -29,8 +23,8 @@ const Card = styled.div`
 `;
 
 const ClickMessage = styled.div`
-  display: ${({ myPosition }) => (myPosition === null ? 'block' : 'none')};
-  font-size: 2em;
+  display: ${({ myPosition }) => (myPosition === undefined ? 'block' : 'none')};
+  font-size: 1em;
   text-align: center;
   margin-bottom: 20px;
 `;
@@ -50,30 +44,8 @@ const ParkNear = styled.div`
   flex-direction: column;
 `;
 
-// function LocationMarker(props) {
-//   const [position, setPosition] = React.useState(null);
-//   const { getPosition } = props;
-//   const map = useMapEvents({
-//     click() {
-//       map.locate();
-//     },
-//     locationfound(event) {
-//       setPosition(event.latlng);
-//       getPosition(event.latlng);
-//       map.flyTo(event.latlng, map.getZoom());
-//     },
-//   });
-
-//   return position === null ? null : (
-//     <Marker position={position} icon={myIcon}>
-//       <Popup>Votre position</Popup>
-//     </Marker>
-//   );
-// }
-
 function Map(props) {
   const { rangeDistance, showNantes, myPosition } = props;
-  // const [position, setPosition] = React.useState(null);
   const [parks, setParks] = React.useState([]);
   const [parksupp, setParksupp] = React.useState([
     {
@@ -116,25 +88,19 @@ function Map(props) {
     });
   }, [parks]);
 
-  const myPositionNumber = myPosition.map((e) => parseFloat(e));
-  console.log(myPositionNumber);
-  console.log(myPosition);
-
-  // const getPosition = (pos) => {
-  //   setPosition(pos);
-  // };
+  const myPositionNumber = myPosition && myPosition.map((e) => parseFloat(e));
 
   return (
     <Card myPosition={myPosition}>
       <ClickMessage myPosition={myPosition}>
-        Pour commencer, cliquez sur la carte
+        La geolocalisation n'est pas activée
       </ClickMessage>
       <MapContainer
         className="cardmap"
         center={{ lat: 47.214975, lng: -1.557501 }}
         zoom={11}
       >
-        {myPosition === null ? null : (
+        {myPosition && (
           <Marker position={myPosition} icon={myIcon}>
             <Popup>Votre position</Popup>
           </Marker>
@@ -143,7 +109,6 @@ function Map(props) {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {/* <LocationMarker getPosition={getPosition} /> */}
         {[...parks, ...parksupp]
           .filter(
             (element) =>
@@ -184,6 +149,7 @@ function Map(props) {
               )
               .map((item) => (
                 <ParkList
+                  myPosition={myPosition}
                   namePark={item.fields.nom_complet}
                   showNantes={showNantes}
                   key={item.fields.nom_complet}
@@ -202,9 +168,5 @@ function Map(props) {
 Map.propTypes = {
   showNantes: PropTypes.bool.isRequired,
 };
-
-// LocationMarker.propTypes = {
-//   getPosition: PropTypes.func.isRequired,
-// };
 
 export default Map;
