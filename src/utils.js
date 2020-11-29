@@ -6,8 +6,8 @@ const calcDistance = function (position, coord) {
   if (!position || !coord) {
     return null;
   }
-  const lng1 = toRadian(position.lng);
-  const lat1 = toRadian(position.lat);
+  const lng1 = toRadian(position[1]);
+  const lat1 = toRadian(position[0]);
   const lng2 = toRadian(coord[1]);
   const lat2 = toRadian(coord[0]);
 
