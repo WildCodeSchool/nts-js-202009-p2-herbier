@@ -29,7 +29,7 @@ const ParkElement = styled.div`
 
 function ParkList(props) {
   const { distance, namePark, rangeDistance, showNantes, myPosition } = props;
-  const showPark = distance <= parseInt(rangeDistance);
+  const showPark = distance <= parseInt(rangeDistance, 10);
 
   return (
     <List distance={distance}>
@@ -45,9 +45,12 @@ function ParkList(props) {
 }
 
 ParkList.propTypes = {
+  rangeDistance: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
   distance: PropTypes.number,
   namePark: PropTypes.string.isRequired,
   showNantes: PropTypes.bool.isRequired,
+  myPosition: PropTypes.array.isRequired,
 };
 
 export default ParkList;

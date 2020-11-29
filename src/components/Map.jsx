@@ -16,13 +16,10 @@ const Card = styled.div`
     z-index: 95;
     border-radius: 5px;
     margin-bottom: 20px;
-    filter: grayscale(
-      ${({ myPosition }) => (myPosition === null ? '60%' : '0%')}
-    );
   }
 `;
 
-const ClickMessage = styled.div`
+const GeoInformMessage = styled.div`
   display: ${({ myPosition }) => (myPosition === undefined ? 'block' : 'none')};
   font-size: 1em;
   text-align: center;
@@ -92,9 +89,9 @@ function Map(props) {
 
   return (
     <Card myPosition={myPosition}>
-      <ClickMessage myPosition={myPosition}>
-        La geolocalisation n'est pas activée
-      </ClickMessage>
+      <GeoInformMessage myPosition={myPosition}>
+        La geolocalisation n&apos;est pas activée
+      </GeoInformMessage>
       <MapContainer
         className="cardmap"
         center={{ lat: 47.214975, lng: -1.557501 }}
@@ -123,7 +120,7 @@ function Map(props) {
               ? true
               : myPosition &&
                 calcDistance(myPositionNumber, item.fields.location) <=
-                  parseInt(rangeDistance)
+                  parseInt(rangeDistance, 10)
           )
           .map((item) => (
             <Marker
@@ -167,6 +164,9 @@ function Map(props) {
 
 Map.propTypes = {
   showNantes: PropTypes.bool.isRequired,
+  rangeDistance: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
+  myPosition: PropTypes.array.isRequired,
 };
 
 export default Map;
