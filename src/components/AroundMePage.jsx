@@ -5,11 +5,13 @@ import SideBars from './SideBars';
 
 const AroundMe = styled.div`
   margin: 0 15px;
+  margin-bottom:15vh;
   @media (min-width: 768px) {
     width: 60%;
     display: flex;
     flex-direction: column;
     margin: auto;
+    margin-bottom: 5vh;
   }
 `;
 

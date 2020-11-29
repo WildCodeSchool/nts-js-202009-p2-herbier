@@ -31,6 +31,7 @@ const device = {
 };
 
 const LibraryWrap = styled.div`
+   margin-bottom:15vh;
   display: flex;
   flex-direction: column;
 

@@ -11,7 +11,6 @@ const Global = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    padding-bottom: 5rem;
     position: relative;
   }
 `;
@@ -24,9 +23,7 @@ const Wrapper = styled.footer`
   display: flex;
   justify-content: space-between;
   bottom: 0;
-  margin-top: 1rem;
   z-index: 100;
-  transform:translateY(9px);
   @media (min-width: 768px) {
     height: 2.5rem;
   }
